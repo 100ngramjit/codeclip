@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ChevronsRight } from "lucide-react";
 import Header from "./_components/header";
 import FooterLanding from "./_components/footer-landing";
+import { FlipWords } from "./_components/flip-words";
 
 export default function Home() {
   return (
@@ -11,7 +12,8 @@ export default function Home() {
       <main className="text-center p-10">
         <section className="space-y-6">
           <h1 className="text-4xl md:text-5xl font-bold">
-            Share and Save Code
+            Create and
+            <FlipWords words={["Save Code", "Copy Code", "Share Code"]} />
           </h1>
           <p className="text-muted-foreground text-lg md:text-xl">
             Join our community of developers to share, collaborate, and learn

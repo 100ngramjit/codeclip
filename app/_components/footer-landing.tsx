@@ -1,5 +1,4 @@
 import { Mail, MapPinned, PhoneCall } from "lucide-react";
-import React from "react";
 
 const FooterLanding = () => {
   return (
