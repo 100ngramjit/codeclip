@@ -6,7 +6,7 @@ const Page: React.FC = () => {
   const { user } = useUser();
 
   return (
-    <div className="flex flex-col items-center mt-10">
+    <div className="flex flex-col items-center mt-10 m-2">
       <h1 className="text-4xl font-bold mb-6">Create a new clip</h1>
       <CreateClipForm />
     </div>

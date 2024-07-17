@@ -1,13 +1,7 @@
 "use client";
 import React from "react";
 import { Button } from "@/components/ui/button";
-import {
-  useUser,
-  UserButton,
-  SignedIn,
-  SignedOut,
-  SignInButton,
-} from "@clerk/nextjs";
+import { UserButton, SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
 import Link from "next/link";
 import {
   Sheet,
@@ -30,7 +24,7 @@ function Header() {
         </div>
         <div className="hidden md:flex space-x-6">
           <Link href="/dashboard">Home</Link>
-          <Link href="#">Explore</Link>
+          <Link href="/dashboard/explore">Explore</Link>
           <Link href="/dashboard/create">Create</Link>
         </div>
 
@@ -51,7 +45,7 @@ function Header() {
                   <Link href="/dashboard">Home</Link>
                 </SheetClose>
                 <SheetClose asChild>
-                  <Link href="#">Explore</Link>
+                  <Link href="/dashboard/explore">Explore</Link>
                 </SheetClose>
                 <SheetClose asChild>
                   <Link href="/dashboard/create">Create</Link>
