@@ -4,11 +4,14 @@ import { ChevronsRight } from "lucide-react";
 import Header from "./_components/header";
 import FooterLanding from "./_components/footer-landing";
 import { FlipWords } from "./_components/flip-words";
+import Link from "next/link";
+import { currentUser } from "@clerk/nextjs/server";
 
-export default function Home() {
+export default async function Home() {
+  const user = await currentUser();
+  console.log("user", user);
   return (
     <div>
-      <Header />
       <main className="text-center p-10">
         <section className="space-y-6">
           <h1 className="text-4xl md:text-5xl font-bold">
@@ -24,9 +27,11 @@ export default function Home() {
             <CarouselPlugin />
           </div>
           <div className="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4">
-            <Button>
-              Get Started <ChevronsRight />
-            </Button>
+            <Link href="/dashboard">
+              <Button>
+                Get Started <ChevronsRight />
+              </Button>
+            </Link>
           </div>
         </section>
       </main>
