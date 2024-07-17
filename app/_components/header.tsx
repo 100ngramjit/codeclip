@@ -15,11 +15,12 @@ import {
   SheetContent,
   SheetHeader,
   SheetTitle,
+  SheetClose,
+  SheetDescription,
 } from "@/components/ui/sheet";
 import { FileCode2, PanelRightOpen } from "lucide-react";
 import { ModeToggle } from "./theme-toggle";
 function Header() {
-  //   const { user, isSignedIn } = useUser();
   return (
     <header>
       <nav className="flex justify-between items-center p-6">
@@ -28,9 +29,9 @@ function Header() {
           <span>codeclip</span>
         </div>
         <div className="hidden md:flex space-x-6">
-          <Link href="#">Home</Link>
+          <Link href="/dashboard">Home</Link>
           <Link href="#">Explore</Link>
-          <Link href="#">Create</Link>
+          <Link href="/dashboard/create">Create</Link>
         </div>
 
         <div className="md:hidden">
@@ -43,11 +44,18 @@ function Header() {
             <SheetContent>
               <SheetHeader>
                 <SheetTitle></SheetTitle>
+                <SheetDescription></SheetDescription>
               </SheetHeader>
               <div className="grid gap-6 p-2">
-                <Link href="#">Home</Link>
-                <Link href="#">Explore</Link>
-                <Link href="#">Create</Link>
+                <SheetClose asChild>
+                  <Link href="/dashboard">Home</Link>
+                </SheetClose>
+                <SheetClose asChild>
+                  <Link href="#">Explore</Link>
+                </SheetClose>
+                <SheetClose asChild>
+                  <Link href="/dashboard/create">Create</Link>
+                </SheetClose>
                 <Link href="#">
                   <SignedOut>
                     <SignInButton />
@@ -61,13 +69,7 @@ function Header() {
             </SheetContent>
           </Sheet>
         </div>
-        {/* {isSignedIn ? (
-            <UserButton />
-          ) : (
-            <div className="hidden md:flex space-x-4">
-              <Button>Login / Signup</Button>
-            </div>
-          )} */}
+
         <div className="hidden md:flex space-x-4">
           <ModeToggle />
           <SignedOut>

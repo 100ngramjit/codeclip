@@ -1,12 +1,25 @@
-import { currentUser } from "@clerk/nextjs/server";
+"use client";
+import { useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 
-const Page = async () => {
-  const user = await currentUser();
-  console.log("user", user);
+const Page: React.FC = () => {
+  const { user } = useUser();
+  const router = useRouter();
+
   return (
-    <div className="flex justify-center align-center text-6xl">
-      Hi {user?.firstName} !
+    <div className="flex flex-col items-center mt-10">
+      <h1 className="text-4xl font-bold mb-6">Hi {user?.firstName}!</h1>
+      <p>
+        you dont have any clips yet! create a clip
+        <span
+          className="cursor-pointer font-bold border-b border-gray-800 dark:border-gray-500"
+          onClick={() => router.push("/dashboard/create")}
+        >
+          &nbsp;here
+        </span>
+      </p>
     </div>
   );
 };
+
 export default Page;
