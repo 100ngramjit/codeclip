@@ -3,7 +3,6 @@ import { Lato } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ClerkProvider } from "@clerk/nextjs";
-import Header from "./_components/header";
 
 const lato = Lato({ subsets: ["latin"], weight: "700" });
 
@@ -29,7 +28,6 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <Header />
             {children}
           </ThemeProvider>
         </body>
