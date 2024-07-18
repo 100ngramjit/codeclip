@@ -24,3 +24,21 @@ export async function publishCode(
     throw error;
   }
 }
+
+export async function userClips(clerkUserId: string) {
+  try {
+    const clips = await prisma.clips.findMany({
+      where: {
+        clerkUserId: clerkUserId,
+      },
+    });
+    if (!clips) {
+      throw new Error(`User with ID ${clerkUserId} not found.`);
+    }
+
+    return clips;
+  } catch (error) {
+    console.error("Error posting clip:", error);
+    throw error;
+  }
+}
