@@ -16,7 +16,7 @@ export function CopyButton({ text }: any) {
         toast({ title: "code copied to clipboard !" });
       }}
     >
-      <Copy className="w-4 h-4" />
+      <Copy className="w-4 h-4 text-white" />
     </Button>
   );
 }
