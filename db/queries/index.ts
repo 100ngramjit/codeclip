@@ -44,3 +44,21 @@ export async function userClips(clerkUserId: string) {
     throw error;
   }
 }
+
+export async function ramdomClips(clerkUserId: string) {
+  try {
+    const clips = await prisma.$queryRaw`
+  SELECT * FROM "Clips"
+  ORDER BY RANDOM()
+  LIMIT 10
+`;
+    if (!clips) {
+      throw new Error(`User with ID ${clerkUserId} not found.`);
+    }
+
+    return clips;
+  } catch (error) {
+    console.error("Error posting clip:", error);
+    throw error;
+  }
+}
