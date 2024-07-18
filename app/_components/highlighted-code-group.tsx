@@ -21,7 +21,7 @@ const HighlightedCode = ({ response }: any) => {
           <SyntaxHighlighter
             style={nightOwl}
             showLineNumbers
-            wrapLongLines
+            wrapLines
             customStyle={{
               fontSize: "0.8rem",
             }}
