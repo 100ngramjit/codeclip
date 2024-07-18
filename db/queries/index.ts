@@ -4,7 +4,8 @@ const prisma = new PrismaClient();
 export async function publishCode(
   title: string,
   body: string,
-  clerkUserId: string
+  clerkUserId: string,
+  userEmail: string
 ) {
   try {
     const clip = await prisma.clips.create({
@@ -12,6 +13,7 @@ export async function publishCode(
         fileName: title,
         code: body,
         clerkUserId: clerkUserId,
+        userEmail: userEmail,
       },
     });
     if (!clip) {

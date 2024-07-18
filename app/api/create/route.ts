@@ -1,8 +1,8 @@
 import { publishCode } from "@/db/queries";
 
 export async function POST(req: Request) {
-  const { title, content, userId } = await req.json();
-  const response = await publishCode(title, content, userId);
+  const { title, content, userId, userEmail } = await req.json();
+  const response = await publishCode(title, content, userId, userEmail);
 
   return Response.json(response);
 }

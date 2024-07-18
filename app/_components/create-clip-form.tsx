@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
-import { useAuth } from "@clerk/nextjs";
+import { useAuth, useUser } from "@clerk/nextjs";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 import axiosInstance from "@/lib/axiosInstance";
@@ -28,7 +28,7 @@ export const CreateClipForm: React.FC = () => {
 
   const { toast } = useToast();
   const router = useRouter();
-  const { userId } = useAuth();
+  const { user } = useUser();
 
   const {
     register,
@@ -45,7 +45,8 @@ export const CreateClipForm: React.FC = () => {
       let bodyContent = JSON.stringify({
         title: data.title,
         content: data.content,
-        userId: userId,
+        userId: user?.id,
+        userEmail: user?.primaryEmailAddress?.emailAddress,
       });
 
       let reqOptions = {
@@ -59,7 +60,7 @@ export const CreateClipForm: React.FC = () => {
         title: "Clip Published !",
       });
       setIsLoading(false);
-
+      router.refresh();
       router.push("/dashboard");
     } catch (e: any) {
       console.log("error", e);
