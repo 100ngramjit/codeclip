@@ -2,6 +2,8 @@ import { currentUser } from "@clerk/nextjs/server";
 import Link from "next/link";
 import axiosInstance from "@/lib/axiosInstance";
 import HighlightedCode from "@/app/_components/highlighted-code-group";
+import { Suspense } from "react";
+import SkeletonHighlightedCode from "@/app/_components/clips-skeleton";
 
 const Page: React.FC = async () => {
   const user = await currentUser();
@@ -34,12 +36,14 @@ const Page: React.FC = async () => {
     );
   }
   return (
-    <div className="flex flex-col items-center mt-10 px-4">
-      <h1 className="text-2xl md:text-4xl font-bold mb-6 text-center">
-        Hi {user?.firstName}! Here are your published clips below
-      </h1>
-      <HighlightedCode response={response} />
-    </div>
+    <Suspense fallback={<SkeletonHighlightedCode />}>
+      <div className="flex flex-col items-center mt-10 px-4">
+        <h1 className="text-2xl md:text-4xl font-bold mb-6 text-center">
+          Hi {user?.firstName}! Here are your published clips below
+        </h1>
+        <HighlightedCode response={response} />
+      </div>
+    </Suspense>
   );
 };
 
