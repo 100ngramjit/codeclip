@@ -5,6 +5,7 @@ import axiosInstance from "@/lib/axiosInstance";
 import HighlightedCode from "@/app/_components/highlighted-code-group";
 import { useEffect, useState } from "react";
 import SkeletonHighlightedCode from "@/app/_components/clips-skeleton";
+import Link from "next/link";
 
 const Page: React.FC = () => {
   const { user } = useUser();
@@ -48,7 +49,16 @@ const Page: React.FC = () => {
   if (!response || !response.data.length) {
     return (
       <div className="flex flex-col items-center mt-10">
-        Invalid session! login again or try to create a clip
+        <p>
+          Hi {user?.firstName}! you don't have any published clips yet. Start
+          creating
+          <Link
+            href="/dashboard/create"
+            className="px-1 text-primary hover:underline"
+          >
+            here
+          </Link>
+        </p>
       </div>
     );
   }
