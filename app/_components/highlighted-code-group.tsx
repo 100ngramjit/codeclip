@@ -6,6 +6,7 @@ import {
 } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { CopyButton } from "./copy-button";
 import { useTheme } from "next-themes";
+import MacWindow from "./mac-window";
 
 const HighlightedCode = ({ response }: any) => {
   const { theme } = useTheme();
@@ -19,6 +20,7 @@ const HighlightedCode = ({ response }: any) => {
                 {clip.fileName}
               </p>
               <CopyButton text={clip.code} />
+              <MacWindow title={clip.fileName} code={clip.code} />
             </div>
             <p className="text-muted-foreground text-xs sm:text-sm">
               by {clip?.userEmail}
