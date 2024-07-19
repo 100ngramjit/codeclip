@@ -28,7 +28,21 @@ function Header() {
           <Link href="/dashboard/create">Create</Link>
         </div>
 
-        <div className="md:hidden">
+        <div className="md:hidden flex gap-2">
+          <div>
+            <SignedOut>
+              <SignInButton />
+            </SignedOut>
+            <SignedIn>
+              <UserButton
+                appearance={{
+                  elements: {
+                    userButtonAvatarBox: "w-9 h-9",
+                  },
+                }}
+              />
+            </SignedIn>
+          </div>
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="outline" size="icon">
@@ -50,14 +64,6 @@ function Header() {
                 <SheetClose asChild>
                   <Link href="/dashboard/create">Create</Link>
                 </SheetClose>
-                <Link href="#">
-                  <SignedOut>
-                    <SignInButton />
-                  </SignedOut>
-                  <SignedIn>
-                    <UserButton />
-                  </SignedIn>
-                </Link>
                 <ModeToggle />
               </div>
             </SheetContent>
@@ -70,7 +76,13 @@ function Header() {
             <SignInButton />
           </SignedOut>
           <SignedIn>
-            <UserButton />
+            <UserButton
+              appearance={{
+                elements: {
+                  userButtonAvatarBox: "w-7 h-7",
+                },
+              }}
+            />
           </SignedIn>
         </div>
       </nav>

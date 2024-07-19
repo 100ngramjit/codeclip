@@ -1,42 +1,65 @@
-import { currentUser } from "@clerk/nextjs/server";
+"use client";
+
+import { useUser } from "@clerk/nextjs";
 import axiosInstance from "@/lib/axiosInstance";
 import HighlightedCode from "@/app/_components/highlighted-code-group";
-import { Suspense } from "react";
+import { useEffect, useState } from "react";
 import SkeletonHighlightedCode from "@/app/_components/clips-skeleton";
 
-const Page: React.FC = async () => {
-  const user = await currentUser();
-  console.log(user);
+const Page: React.FC = () => {
+  const { user } = useUser();
+  const [response, setResponse] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
-  let bodyContent = JSON.stringify({
-    userId: user?.id,
-  });
+  useEffect(() => {
+    const fetchData = async () => {
+      if (user) {
+        console.log(user);
 
-  let reqOptions = {
-    url: "/api/randomclips",
-    method: "POST",
-    data: bodyContent,
-  };
+        let bodyContent = JSON.stringify({
+          userId: user.id,
+        });
 
-  let response = await axiosInstance.request(reqOptions);
-  console.log(response.data);
+        let reqOptions = {
+          url: "/api/randomclips",
+          method: "POST",
+          data: bodyContent,
+        };
 
-  if (!response.data.length) {
+        try {
+          const result = await axiosInstance.request(reqOptions);
+          console.log(result.data);
+          setResponse(result);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        } finally {
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchData();
+  }, [user]);
+
+  if (loading) {
+    return <SkeletonHighlightedCode />;
+  }
+
+  if (!response || !response.data.length) {
     return (
       <div className="flex flex-col items-center mt-10">
         Invalid session! login again or try to create a clip
       </div>
     );
   }
+
   return (
-    <Suspense fallback={<SkeletonHighlightedCode />}>
-      <div className="flex flex-col items-center mt-10 px-4">
-        <h1 className="text-2xl md:text-4xl font-bold mb-6 text-center">
-          Here are some clips from the community below
-        </h1>
-        <HighlightedCode response={response} />
-      </div>
-    </Suspense>
+    <div className="flex flex-col items-center mt-10 px-4">
+      <h1 className="text-2xl md:text-4xl font-bold mb-6 text-center">
+        Here are some clips from the community below
+      </h1>
+      <HighlightedCode response={response} />
+    </div>
   );
 };
 
