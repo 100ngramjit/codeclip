@@ -1,22 +1,16 @@
-import { CarouselPlugin } from "@/components/card-carousal";
 import { Button } from "@/components/ui/button";
-import { ChevronsRight, FileCode2, PanelRightOpen, Sheet } from "lucide-react";
+import { ChevronsRight, FileCode2 } from "lucide-react";
 import FooterLanding from "./_components/footer-landing";
 import { FlipWords } from "./_components/flip-words";
 import Link from "next/link";
 import { currentUser } from "@clerk/nextjs/server";
-import {
-  SheetTrigger,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet";
 import { SignedOut, SignInButton, SignedIn, UserButton } from "@clerk/nextjs";
-import { ModeToggle } from "./_components/theme-toggle";
+import CarousalLanding from "./_components/carousal-landing";
 
 export default async function Home() {
   const user = await currentUser();
   console.log("user", user);
+
   return (
     <div>
       <header>
@@ -44,9 +38,6 @@ export default async function Home() {
             from each other's code snippets. Whether you're a beginner or an
             experienced coder, there's something for everyone.
           </p>
-          {/* <div className="flex justify-center align-center">
-            <CarouselPlugin />
-          </div> */}
           <div className="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4">
             <Link href="/dashboard">
               <Button>
@@ -56,6 +47,9 @@ export default async function Home() {
           </div>
         </section>
       </main>
+      <div className="w-full max-w-4xl mx-auto">
+        <CarousalLanding />
+      </div>
       <FooterLanding />
     </div>
   );
