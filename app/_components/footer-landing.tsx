@@ -11,7 +11,7 @@ const FooterLanding = () => {
           <Mail className="h-12 w-12  mb-4" />
           <h3 className="text-xl font-semibold mb-2">Email</h3>
           <p className="text-center mb-4">Drop us an email</p>
-          <p className="">support@codeshare.com</p>
+          <p className="">support@codeclip.com</p>
         </div>
         <div className="flex flex-col items-center p-6 rounded-lg">
           <PhoneCall className="h-12 w-12  mb-4" />
@@ -23,7 +23,7 @@ const FooterLanding = () => {
           <MapPinned className="h-12 w-12  mb-4" />
           <h3 className="text-xl font-semibold mb-2">Office</h3>
           <p className="text-center mb-4">Stay connected with us!</p>
-          <p className="">123 Code Street, Cityville, USA</p>
+          <p className="">Coming Soon!</p>
         </div>
       </div>
     </div>
