@@ -1,13 +1,18 @@
-import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
-
-const isProtectedRoute = createRouteMatcher(["/dashboard(.*)"]);
+import { clerkMiddleware } from "@clerk/nextjs/server";
+import { NextResponse } from "next/server";
 
 export default clerkMiddleware((auth, req) => {
   console.log("auth", auth());
-  if (!auth().userId && isProtectedRoute(req)) {
-    // Add custom logic to run before redirecting
+
+  const url = new URL(req.url);
+  const isClipRoute = url.pathname.startsWith("/dashboard/clip/");
+  const isDashboardRoute = url.pathname.startsWith("/dashboard");
+
+  if (!auth().userId && isDashboardRoute && !isClipRoute) {
     return auth().redirectToSignIn();
   }
+
+  return NextResponse.next();
 });
 
 export const config = {
