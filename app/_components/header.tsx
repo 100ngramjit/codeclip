@@ -3,26 +3,16 @@ import { useEffect, useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { UserButton, SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
 import Link from "next/link";
-import {
-  Sheet,
-  SheetTrigger,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetClose,
-  SheetDescription,
-} from "@/components/ui/sheet";
-import { FileCode2, PanelRightOpen, Search } from "lucide-react";
+import { FileCode2, Search } from "lucide-react";
 import { ModeToggle } from "./theme-toggle";
 import {
   CommandDialog,
   CommandEmpty,
-  CommandGroup,
   CommandInput,
-  CommandItem,
   CommandList,
 } from "@/components/ui/command";
 import debounce from "lodash/debounce";
+import MobileNav from "./mobile-nav";
 
 function Header() {
   const [open, setOpen] = useState(false);
@@ -129,58 +119,7 @@ function Header() {
               />
             </SignedIn>
           </div>
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button
-                variant="outline"
-                size="icon"
-                className="h-7 w-7 sm:h-9 sm:w-9"
-              >
-                <PanelRightOpen className="w-3 h-3 sm:w-4 sm:h-4" />
-              </Button>
-            </SheetTrigger>
-            <SheetContent>
-              <SheetHeader>
-                <SheetTitle></SheetTitle>
-                <SheetDescription></SheetDescription>
-              </SheetHeader>
-              <div className="grid gap-3 sm:gap-6 p-2">
-                <SheetClose asChild>
-                  <Link href="/dashboard" className="text-sm sm:text-base">
-                    Home
-                  </Link>
-                </SheetClose>
-                <SheetClose asChild>
-                  <Link
-                    href="/dashboard/explore"
-                    className="text-sm sm:text-base"
-                  >
-                    Explore
-                  </Link>
-                </SheetClose>
-                <SheetClose asChild>
-                  <Link
-                    href="/dashboard/create"
-                    className="text-sm sm:text-base"
-                  >
-                    Create
-                  </Link>
-                </SheetClose>
-                <Button
-                  variant="outline"
-                  className="w-[150px] sm:w-[200px] justify-between text-xs sm:text-sm"
-                  onClick={() => setOpen(true)}
-                >
-                  <Search className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" />
-                  Search...
-                  <kbd className="pointer-events-none inline-flex h-4 sm:h-5 select-none items-center gap-1 rounded border bg-muted px-1 sm:px-1.5 font-mono text-[8px] sm:text-[10px] font-medium text-muted-foreground opacity-100">
-                    <span className="text-[8px] sm:text-xs">⌘</span>K
-                  </kbd>
-                </Button>
-                <ModeToggle />
-              </div>
-            </SheetContent>
-          </Sheet>
+          <MobileNav />
         </div>
 
         <div className="hidden md:flex space-x-2 sm:space-x-4">
@@ -214,9 +153,18 @@ function Header() {
             <CommandEmpty>No results found.</CommandEmpty>
           ) : (
             <div>
-              <h4 className="text-muted-foreground">Search Results</h4>
+              <h4 className="text-muted-foreground p-2">Search Results</h4>
               {searchResults.map((result: any, index) => (
-                <p key={index}>{result.fileName}</p>
+                <div key={index} className="flex flex-col">
+                  <Link
+                    href={`/dashboard/clip/${result.id}`}
+                    replace
+                    className="p-2 hover:bg-accent cursor-pointer"
+                    onClick={() => setOpen(false)}
+                  >
+                    {result.fileName}
+                  </Link>
+                </div>
               ))}
             </div>
           )}
