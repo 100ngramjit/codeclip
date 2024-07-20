@@ -62,3 +62,35 @@ export async function ramdomClips(clerkUserId: string) {
     throw error;
   }
 }
+
+export async function searchClips(
+  searchTerm: string,
+  limit: number = 10,
+  offset: number = 0
+) {
+  try {
+    const clips = await prisma.clips.findMany({
+      where: {
+        OR: [
+          { fileName: { contains: searchTerm, mode: "insensitive" } },
+          { code: { contains: searchTerm, mode: "insensitive" } },
+          { userEmail: { contains: searchTerm, mode: "insensitive" } },
+        ],
+      },
+      take: limit,
+      skip: offset,
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    if (clips.length === 0) {
+      console.log(`No clips found matching the search term: ${searchTerm}`);
+    }
+
+    return clips;
+  } catch (error) {
+    console.error("Error searching clips:", error);
+    throw error;
+  }
+}
