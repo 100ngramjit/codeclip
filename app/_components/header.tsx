@@ -30,10 +30,10 @@ function Header() {
   return (
     <header>
       <nav className="flex justify-between items-center p-3 sm:p-6">
-        <div className="flex justify-start gap-1 sm:gap-2">
+        <Link className="flex justify-start gap-1 sm:gap-2" href="/">
           <FileCode2 className="w-4 h-4 sm:w-6 sm:h-6" />
           <span className="text-sm sm:text-base">codeclip</span>
-        </div>
+        </Link>
         <div className="hidden md:flex space-x-3 sm:space-x-6 items-center">
           <Link href="/dashboard" className="text-sm sm:text-base">
             Home
