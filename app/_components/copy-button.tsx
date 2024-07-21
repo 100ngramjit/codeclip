@@ -13,7 +13,7 @@ export function CopyButton({ text }: any) {
       className="h-6 w-6 cursor-pointer"
       onClick={() => {
         navigator.clipboard.writeText(text);
-        toast({ title: "code copied to clipboard !" });
+        toast({ title: "copied to clipboard !" });
       }}
     >
       <Copy className="w-4 h-4" />
