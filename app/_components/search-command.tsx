@@ -7,6 +7,7 @@ import {
   CommandInput,
   CommandList,
 } from "@/components/ui/command";
+import axiosInstance from "@/lib/axiosInstance";
 
 function SearchCommand({ open, setOpen }: any) {
   const [searchTerm, setSearchTerm] = useState("");
@@ -15,14 +16,10 @@ function SearchCommand({ open, setOpen }: any) {
   const debouncedSearch = useCallback(
     debounce(async (query: string) => {
       if (query) {
-        const res = await fetch("/api/search", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ searchTerm: query }),
+        const response = await axiosInstance.post("/api/search", {
+          searchTerm: query,
         });
-        const data = await res.json();
+        const data = response.data;
         data.map((ele: any) => console.log(ele));
         setSearchResults(data || []);
       } else {
