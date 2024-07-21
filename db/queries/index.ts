@@ -143,3 +143,21 @@ export async function editClip(
     throw error;
   }
 }
+
+export async function deleteClip(clipId: string) {
+  try {
+    const clip = await prisma.clips.delete({
+      where: {
+        id: clipId,
+      },
+    });
+    if (!clip) {
+      throw new Error(`Clip with ID ${clipId} not found.`);
+    }
+
+    return clip;
+  } catch (error) {
+    console.error("Error posting clip:", error);
+    throw error;
+  }
+}
