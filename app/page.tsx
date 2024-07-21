@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ChevronsRight, FileCode2 } from "lucide-react";
+import { ChevronsRight, FileCode2, RocketIcon } from "lucide-react";
 import FooterLanding from "./_components/footer-landing";
 import { FlipWords } from "./_components/flip-words";
 import Link from "next/link";
@@ -41,8 +41,8 @@ export default async function Home() {
           </p>
           <div className="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4">
             <Link href="/dashboard">
-              <Button>
-                Get Started <ChevronsRight />
+              <Button size="sm">
+                Get Started <RocketIcon className="pl-2" />
               </Button>
             </Link>
           </div>
