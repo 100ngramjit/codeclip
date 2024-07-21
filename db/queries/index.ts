@@ -94,3 +94,18 @@ export async function searchClips(
     throw error;
   }
 }
+
+export async function clipDetails(id: string) {
+  try {
+    const clips = await prisma.clips.findFirst({
+      where: {
+        id: id,
+      },
+    });
+
+    return clips;
+  } catch (error) {
+    console.error("Error posting clip:", error);
+    throw error;
+  }
+}
