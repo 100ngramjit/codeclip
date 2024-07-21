@@ -14,8 +14,6 @@ const Page: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       if (user) {
-        console.log(user);
-
         let bodyContent = JSON.stringify({
           userId: user.id,
         });
@@ -28,7 +26,6 @@ const Page: React.FC = () => {
 
         try {
           const result = await axiosInstance.request(reqOptions);
-          console.log(result.data);
           setResponse(result);
         } catch (error) {
           console.error("Error fetching data:", error);

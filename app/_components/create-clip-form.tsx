@@ -41,7 +41,6 @@ export const CreateClipForm: React.FC = () => {
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     try {
       setIsLoading(true);
-      console.log("host", process.env.HOST);
       let bodyContent = JSON.stringify({
         title: data.title,
         content: data.content,
@@ -63,7 +62,6 @@ export const CreateClipForm: React.FC = () => {
       router.refresh();
       router.push("/dashboard");
     } catch (e: any) {
-      console.log("error", e);
       toast({
         title: JSON.stringify(e),
       });

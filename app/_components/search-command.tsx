@@ -20,7 +20,6 @@ function SearchCommand({ open, setOpen }: any) {
           searchTerm: query,
         });
         const data = response.data;
-        data.map((ele: any) => console.log(ele));
         setSearchResults(data || []);
       } else {
         setSearchResults([]);

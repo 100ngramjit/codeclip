@@ -9,7 +9,6 @@ import CarousalLanding from "./_components/carousal-landing";
 
 export default async function Home() {
   const user = await currentUser();
-  console.log("user", user);
 
   return (
     <div>
