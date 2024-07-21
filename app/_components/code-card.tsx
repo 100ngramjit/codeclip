@@ -8,6 +8,18 @@ import {
 import { CopyButton } from "./copy-button";
 import { useTheme } from "next-themes";
 import MacWindow from "./mac-window";
+import { Share2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
 
 const CodeCard = ({ clip }: any) => {
   const { theme } = useTheme();
@@ -21,6 +33,39 @@ const CodeCard = ({ clip }: any) => {
           </p>
           <CopyButton text={clip.code} />
           <MacWindow title={clip.fileName} code={clip.code} />
+
+          <Drawer>
+            <DrawerTrigger asChild>
+              <Button
+                size="icon"
+                variant="ghost"
+                className="h-6 w-6 cursor-pointer"
+              >
+                <Share2 className="w-4 h-4" />
+              </Button>
+            </DrawerTrigger>
+            <DrawerContent>
+              <div className="mx-auto w-full max-w-sm">
+                <DrawerHeader>
+                  <DrawerTitle>
+                    Share Snippet Url
+                    <CopyButton
+                      text={`${process.env.NEXT_PUBLIC_HOST}/dashboard/clip/${clip.id}`}
+                    />
+                  </DrawerTitle>
+                  <DrawerDescription className="overflow-auto bg-accent">
+                    {`${process.env.NEXT_PUBLIC_HOST}/dashboard/clip/${clip.id}`}
+                  </DrawerDescription>
+                </DrawerHeader>
+
+                <DrawerFooter>
+                  <DrawerClose asChild>
+                    <Button variant="outline">Close</Button>
+                  </DrawerClose>
+                </DrawerFooter>
+              </div>
+            </DrawerContent>
+          </Drawer>
         </div>
         <p className="text-muted-foreground text-xs sm:text-sm">
           by {clip?.userEmail}
