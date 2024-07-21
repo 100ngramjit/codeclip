@@ -41,7 +41,7 @@ const CodeCard = ({ clip, isEditEnabled }: any) => {
         <div className="flex justify-start align-top gap-2">
           <Link
             href={clipURL}
-            className="text-sm sm:text-base mb-1 sm:mb-0 break-all hover:underline"
+            className="text-sm sm:text-base mb-1 sm:mb-0 break-all hover:underline text-primary"
           >
             {clip.fileName}
           </Link>
