@@ -29,15 +29,15 @@ const clips = [
     userEmail: "example@email.com",
   },
   {
-    code: "SELECT e.employee_name, d.department_name\nFROM employees e\nJOIN departments d ON e.department_id = d.id\nWHERE e.salary > (\n    SELECT AVG(salary) FROM employees\n);",
+    code: "SELECT e.employee_name, d.department_name\nFROM employees e\nJOIN departments d\n ON e.department_id = d.id\nWHERE e.salary > (\n    SELECT AVG(salary) FROM employees\n);",
     fileName: "employee_query",
     lang: "sql",
     userEmail: "example@email.com",
   },
   {
-    code: "public class BinarySearch {\n    public static int binarySearch(int[] arr, int target) {\n        int left = 0, right = arr.length - 1;\n        while (left <= right) {\n            int mid = left + (right - left) / 2;\n            if (arr[mid] == target) return mid;\n            if (arr[mid] < target) left = mid + 1;\n            else right = mid - 1;\n        }\n        return -1;\n    }\n}",
-    fileName: "binary_search",
-    lang: "java",
+    code: "def factorial(n)\n  return 1 if n <= 1\n  n * factorial(n - 1)\nend\n\n# Test the function\nputs factorial(5)  # 120",
+    fileName: "factorial",
+    lang: "python",
     userEmail: "example@email.com",
   },
 ];
