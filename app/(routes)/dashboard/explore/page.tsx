@@ -2,9 +2,9 @@
 
 import { useUser } from "@clerk/nextjs";
 import axiosInstance from "@/lib/axiosInstance";
-import HighlightedCode from "@/app/_components/highlighted-code-group";
 import { useEffect, useState } from "react";
 import SkeletonHighlightedCode from "@/app/_components/clips-skeleton";
+import HighlightedCodeList from "@/app/_components/highlighted-code-group";
 
 const Page: React.FC = () => {
   const { user } = useUser();
@@ -58,7 +58,7 @@ const Page: React.FC = () => {
       <h1 className="text-2xl md:text-4xl font-bold mb-6 text-center">
         Here are some clips from the community below
       </h1>
-      <HighlightedCode response={response} />
+      <HighlightedCodeList response={response} />
     </div>
   );
 };
