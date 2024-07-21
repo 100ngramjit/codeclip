@@ -69,11 +69,7 @@ function Header() {
         <div className="md:hidden flex gap-1 sm:gap-2">
           <div>
             <SignedOut>
-              <SignInButton>
-                <Button size="sm" className="text-xs sm:text-sm">
-                  Sign In
-                </Button>
-              </SignInButton>
+              <SignInButton />
             </SignedOut>
             <SignedIn>
               <UserButton
@@ -91,11 +87,7 @@ function Header() {
         <div className="hidden md:flex space-x-2 sm:space-x-4">
           <ModeToggle />
           <SignedOut>
-            <SignInButton>
-              <Button size="sm" className="text-xs sm:text-sm">
-                Sign In
-              </Button>
-            </SignInButton>
+            <SignInButton />
           </SignedOut>
           <SignedIn>
             <UserButton

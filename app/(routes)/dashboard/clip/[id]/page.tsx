@@ -48,7 +48,7 @@ export default function Page({ params }: { params: { id: string } }) {
   } else {
     return (
       <div className="flex flex-col items-center mt-10 px-4 ">
-        <div className="max-w-3xl">
+        <div className="w-full max-w-3xl">
           <CodeCard clip={clip} />
         </div>
       </div>

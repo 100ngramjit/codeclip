@@ -11,13 +11,13 @@ const FooterLanding = () => {
           <Mail className="h-12 w-12  mb-4" />
           <h3 className="text-xl font-semibold mb-2">Email</h3>
           <p className="text-center mb-4">Drop us an email</p>
-          <p className="">support@codeclip.com</p>
+          <p className="">100ngramjit@gmail.com</p>
         </div>
         <div className="flex flex-col items-center p-6 rounded-lg">
           <PhoneCall className="h-12 w-12  mb-4" />
           <h3 className="text-xl font-semibold mb-2">Phone</h3>
           <p className="text-center mb-4">Give us a call</p>
-          <p className="">+1-123-456-7890</p>
+          <p className="">+91-9101088439</p>
         </div>
         <div className="flex flex-col items-center p-6 rounded-lg">
           <MapPinned className="h-12 w-12  mb-4" />

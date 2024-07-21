@@ -31,7 +31,9 @@ export default async function Home() {
         <section className="space-y-6">
           <h1 className="text-4xl md:text-5xl font-bold">
             Create and
-            <FlipWords words={["Save Code", "Copy Code", "Share Code"]} />
+            <FlipWords
+              words={["Save Code", "Copy Code", "Share Code", "Download Code"]}
+            />
           </h1>
           <p className="text-muted-foreground text-lg md:text-xl">
             Join our community of developers to share, collaborate, and learn
