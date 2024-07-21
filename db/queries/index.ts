@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
-export async function publishCode(
+export async function publishClip(
   title: string,
   body: string,
   clerkUserId: string,
@@ -106,6 +106,40 @@ export async function clipDetails(id: string) {
     return clips;
   } catch (error) {
     console.error("Error posting clip:", error);
+    throw error;
+  }
+}
+
+export async function editClip(
+  clipId: string,
+  clerkUserId: string,
+  title?: string,
+  body?: string
+) {
+  try {
+    const existingClip = await prisma.clips.findUnique({
+      where: { id: clipId },
+    });
+
+    if (!existingClip) {
+      throw new Error(`Clip with ID ${clipId} not found.`);
+    }
+
+    if (existingClip.clerkUserId !== clerkUserId) {
+      throw new Error("User is not authorized to edit this clip.");
+    }
+
+    const updatedClip = await prisma.clips.update({
+      where: { id: clipId },
+      data: {
+        fileName: title || existingClip.fileName,
+        code: body || existingClip.code,
+      },
+    });
+
+    return updatedClip;
+  } catch (error) {
+    console.error("Error editing clip:", error);
     throw error;
   }
 }
