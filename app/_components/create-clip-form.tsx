@@ -60,7 +60,7 @@ export const CreateClipForm: React.FC = () => {
       });
       setIsLoading(false);
       router.refresh();
-      router.push("/dashboard");
+      router.push("/feed");
     } catch (e: any) {
       toast({
         title: JSON.stringify(e),

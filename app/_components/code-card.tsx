@@ -33,7 +33,7 @@ const CodeCard = ({ clip, isEditEnabled }: any) => {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
-  const clipURL = `${process.env.NEXT_PUBLIC_HOST}/dashboard/clip/${clip.id}`;
+  const clipURL = `${process.env.NEXT_PUBLIC_HOST}/feed/clip/${clip.id}`;
 
   return (
     <Card key={clip.id} className="p-4 sm:p-4 my-2 rounded-lg w-full">

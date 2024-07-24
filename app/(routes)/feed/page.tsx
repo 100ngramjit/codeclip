@@ -50,7 +50,7 @@ const Page: React.FC = () => {
           Hi {user?.firstName}! you don't have any published clips yet. Start
           creating
           <Link
-            href="/dashboard/create"
+            href="/feed/create"
             className="px-1 text-primary hover:underline"
           >
             here

@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ChevronsRight, FileCode2, RocketIcon } from "lucide-react";
+import { FileCode2, RocketIcon } from "lucide-react";
 import FooterLanding from "./_components/footer-landing";
 import { FlipWords } from "./_components/flip-words";
 import Link from "next/link";
@@ -40,9 +40,10 @@ export default async function Home() {
             experienced coder, there's something for everyone.
           </p>
           <div className="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4">
-            <Link href="/dashboard">
+            <Link href="/feed">
               <Button size="sm">
-                Get Started <RocketIcon className="pl-2" />
+                {user ? "Go to dashboard" : "Get Started"}
+                <RocketIcon className="pl-2" />
               </Button>
             </Link>
           </div>

@@ -35,13 +35,13 @@ function Header() {
           <span className="text-sm sm:text-base">codeclip</span>
         </Link>
         <div className="hidden md:flex space-x-3 sm:space-x-6 items-center">
-          <Link href="/dashboard" className="text-sm sm:text-base">
+          <Link href="/feed" className="text-sm sm:text-base">
             Home
           </Link>
-          <Link href="/dashboard/explore" className="text-sm sm:text-base">
+          <Link href="/feed/explore" className="text-sm sm:text-base">
             Explore
           </Link>
-          <Link href="/dashboard/create" className="text-sm sm:text-base">
+          <Link href="/feed/create" className="text-sm sm:text-base">
             Create
           </Link>
           <Button

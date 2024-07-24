@@ -27,17 +27,17 @@ const MobileNav = () => {
         </SheetHeader>
         <div className="grid gap-3 sm:gap-6 p-2">
           <SheetClose asChild>
-            <Link href="/dashboard" className="text-sm sm:text-base">
+            <Link href="/feed" className="text-sm sm:text-base">
               Home
             </Link>
           </SheetClose>
           <SheetClose asChild>
-            <Link href="/dashboard/explore" className="text-sm sm:text-base">
+            <Link href="/feed/explore" className="text-sm sm:text-base">
               Explore
             </Link>
           </SheetClose>
           <SheetClose asChild>
-            <Link href="/dashboard/create" className="text-sm sm:text-base">
+            <Link href="/feed/create" className="text-sm sm:text-base">
               Create
             </Link>
           </SheetClose>
