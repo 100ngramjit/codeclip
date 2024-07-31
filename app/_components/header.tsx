@@ -7,9 +7,11 @@ import { FileCode2, Search } from "lucide-react";
 import { ModeToggle } from "./theme-toggle";
 import MobileNav from "./mobile-nav";
 import SearchCommand from "./search-command";
+import { usePathname } from "next/navigation";
 
 function Header() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const down = (e: {
@@ -35,13 +37,28 @@ function Header() {
           <span className="text-sm sm:text-base">codeclip</span>
         </Link>
         <div className="hidden md:flex space-x-3 sm:space-x-6 items-center">
-          <Link href="/feed" className="text-sm sm:text-base">
+          <Link
+            href="/feed"
+            className={`text-sm sm:text-base ${
+              pathname === "/feed" ? "font-bold text-primary" : ""
+            }`}
+          >
             Home
           </Link>
-          <Link href="/feed/explore" className="text-sm sm:text-base">
+          <Link
+            href="/feed/explore"
+            className={`text-sm sm:text-base ${
+              pathname === "/feed/explore" ? "font-bold text-primary" : ""
+            }`}
+          >
             Explore
           </Link>
-          <Link href="/feed/create" className="text-sm sm:text-base">
+          <Link
+            href="/feed/create"
+            className={`text-sm sm:text-base ${
+              pathname === "/feed/create" ? "font-bold text-primary" : ""
+            }`}
+          >
             Create
           </Link>
           <Button

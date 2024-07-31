@@ -11,8 +11,10 @@ import {
 import { PanelRightOpen } from "lucide-react";
 import { ModeToggle } from "./theme-toggle";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const MobileNav = () => {
+  const pathname = usePathname();
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -27,17 +29,32 @@ const MobileNav = () => {
         </SheetHeader>
         <div className="grid gap-3 sm:gap-6 p-2">
           <SheetClose asChild>
-            <Link href="/feed" className="text-sm sm:text-base">
+            <Link
+              href="/feed"
+              className={`text-sm sm:text-base ${
+                pathname === "/feed" ? "font-bold text-primary" : ""
+              }`}
+            >
               Home
             </Link>
           </SheetClose>
           <SheetClose asChild>
-            <Link href="/feed/explore" className="text-sm sm:text-base">
+            <Link
+              href="/feed/explore"
+              className={`text-sm sm:text-base ${
+                pathname === "/feed/explore" ? "font-bold text-primary" : ""
+              }`}
+            >
               Explore
             </Link>
           </SheetClose>
           <SheetClose asChild>
-            <Link href="/feed/create" className="text-sm sm:text-base">
+            <Link
+              href="/feed/create"
+              className={`text-sm sm:text-base ${
+                pathname === "/feed/create" ? "font-bold text-primary" : ""
+              }`}
+            >
               Create
             </Link>
           </SheetClose>
