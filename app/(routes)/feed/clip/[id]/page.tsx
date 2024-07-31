@@ -31,7 +31,7 @@ export default function Page({ params }: { params: { id: string } }) {
 
   if (isLoading) {
     return (
-      <div className="flex flex-col items-center mt-10 px-4">
+      <div className="flex flex-col items-center mt-5 mx-auto p-4">
         <Card className="p-2 sm:p-4 my-2 rounded-lg w-full max-w-3xl">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-2 overflow-auto">
             <Skeleton className="h-4 w-1/2" />
@@ -47,8 +47,8 @@ export default function Page({ params }: { params: { id: string } }) {
     );
   } else {
     return (
-      <div className="flex flex-col items-center mt-10 px-4 ">
-        <div className="w-full max-w-3xl">
+      <div className="flex flex-col items-center mt-5 mx-auto p-4 ">
+        <div className="w-full">
           <CodeCard clip={clip} isEditEnabled={true} />
         </div>
       </div>
