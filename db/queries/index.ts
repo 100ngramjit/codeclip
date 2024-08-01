@@ -30,6 +30,11 @@ export async function publishClip(
 export async function userClips(clerkUserId: string) {
   try {
     const clips = await prisma.clips.findMany({
+      orderBy: [
+        {
+          createdAt: "desc",
+        },
+      ],
       where: {
         clerkUserId: clerkUserId,
       },
