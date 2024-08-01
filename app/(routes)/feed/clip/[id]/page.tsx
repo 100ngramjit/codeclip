@@ -32,7 +32,7 @@ export default function Page({ params }: { params: { id: string } }) {
   if (isLoading) {
     return (
       <div className="flex flex-col items-center mt-5 mx-auto p-4">
-        <Card className="p-2 sm:p-4 my-2 rounded-lg w-full max-w-3xl">
+        <Card className="p-2 sm:p-4 my-2 rounded-lg w-full">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-2 overflow-auto">
             <Skeleton className="h-4 w-1/2" />
             <Skeleton className="h-4 w-1/4 mt-1 sm:mt-0" />

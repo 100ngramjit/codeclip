@@ -40,12 +40,16 @@ const Page: React.FC = () => {
   }, [user]);
 
   if (loading) {
-    return <SkeletonHighlightedCode />;
+    return (
+      <div className="flex flex-col items-center mt-5 mx-auto p-4">
+        <SkeletonHighlightedCode />
+      </div>
+    );
   }
 
   if (!response || !response.data.length) {
     return (
-      <div className="flex flex-col items-center mt-10">
+      <div className="flex flex-col items-center mt-10 px-4">
         <p>
           Hi {user?.firstName}! you don't have any published clips yet. Start
           creating
