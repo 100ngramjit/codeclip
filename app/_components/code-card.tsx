@@ -1,17 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import { Card } from "@/components/ui/card";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import {
   nightOwl,
   googlecode,
 } from "react-syntax-highlighter/dist/esm/styles/hljs";
-import { CopyButton } from "./copy-button";
 import { useTheme } from "next-themes";
-import MacWindow from "./mac-window";
 import { Share2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { useUser } from "@clerk/nextjs";
+import { formatDistanceToNow } from "date-fns";
 import {
   Drawer,
   DrawerClose,
@@ -22,10 +21,12 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import Link from "next/link";
-import EditDialog from "./edit-dialog";
-import { useUser } from "@clerk/nextjs";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { CopyButton } from "./copy-button";
+import MacWindow from "./mac-window";
 import DeleteDialog from "./delete-dialog";
+import EditDialog from "./edit-dialog";
 
 const CodeCard = ({ clip, isEditEnabled }: any) => {
   const { theme } = useTheme();
@@ -35,6 +36,10 @@ const CodeCard = ({ clip, isEditEnabled }: any) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const clipURL = `${process.env.NEXT_PUBLIC_HOST}/feed/clip/${clip.id}`;
+
+  const formattedCreationTime = formatDistanceToNow(new Date(clip.createdAt), {
+    addSuffix: true,
+  });
 
   return (
     <Card key={clip.id} className="p-4 sm:p-4 my-4 rounded-lg w-full">
@@ -95,9 +100,12 @@ const CodeCard = ({ clip, isEditEnabled }: any) => {
             </>
           )}
         </div>
-        <p className="text-muted-foreground text-xs sm:text-sm">
-          by {clip?.userEmail}
-        </p>
+        <div className="flex flex-col md:items-end">
+          <p className="text-muted-foreground text-xs">by {clip?.userEmail}</p>
+          <p className="text-muted-foreground text-xs opacity-60">
+            {formattedCreationTime}
+          </p>
+        </div>
       </div>
       <div className="hidden md:flex w-full">
         <SyntaxHighlighter
