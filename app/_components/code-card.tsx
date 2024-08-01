@@ -32,6 +32,7 @@ const CodeCard = ({ clip, isEditEnabled }: any) => {
   const { user } = useUser();
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   const clipURL = `${process.env.NEXT_PUBLIC_HOST}/feed/clip/${clip.id}`;
 
@@ -106,7 +107,11 @@ const CodeCard = ({ clip, isEditEnabled }: any) => {
           customStyle={{
             fontSize: "0.8rem",
             width: "100%",
+            overflowX: isHovered ? "auto" : "hidden",
+            transition: "overflow-x 0.3s ease",
           }}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
         >
           {clip.code}
         </SyntaxHighlighter>
@@ -119,7 +124,11 @@ const CodeCard = ({ clip, isEditEnabled }: any) => {
           customStyle={{
             fontSize: "0.6rem",
             width: "100%",
+            overflowX: isHovered ? "auto" : "hidden",
+            transition: "overflow-x 0.3s ease",
           }}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
         >
           {clip.code}
         </SyntaxHighlighter>
