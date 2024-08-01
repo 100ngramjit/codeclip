@@ -7,7 +7,7 @@ const SkeletonHighlightedCode = () => {
       <div className="w-full max-w-3xl">
         <Skeleton className="h-10 w-full mb-6" />
         {[...Array(3)].map((_, index) => (
-          <Card key={index} className="p-2 sm:p-4 my-2 rounded-lg w-full">
+          <Card key={index} className="p-2 sm:p-4 my-2 rounded-lg w-full my-4">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-2 overflow-auto">
               <Skeleton className="h-4 w-1/2" />
               <Skeleton className="h-4 w-1/4 mt-1 sm:mt-0" />

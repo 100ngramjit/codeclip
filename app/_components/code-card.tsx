@@ -36,7 +36,7 @@ const CodeCard = ({ clip, isEditEnabled }: any) => {
   const clipURL = `${process.env.NEXT_PUBLIC_HOST}/feed/clip/${clip.id}`;
 
   return (
-    <Card key={clip.id} className="p-4 sm:p-4 my-2 rounded-lg w-full">
+    <Card key={clip.id} className="p-4 sm:p-4 my-4 rounded-lg w-full">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-2 overflow-auto">
         <div className="flex justify-start align-top gap-2">
           <Link
