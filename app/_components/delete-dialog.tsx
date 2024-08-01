@@ -81,7 +81,7 @@ const DeleteDialog = ({
             undone.
           </DialogDescription>
         </DialogHeader>
-        <DialogFooter>
+        <DialogFooter className="gap-2">
           <Button variant="outline" onClick={() => setIsOpen(false)}>
             Cancel
           </Button>
