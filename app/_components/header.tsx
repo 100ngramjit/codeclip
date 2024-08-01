@@ -31,10 +31,10 @@ function Header() {
 
   return (
     <header>
-      <nav className="flex justify-between items-center p-4 sm:p-6">
-        <Link className="flex justify-start gap-1 sm:gap-2" href="/">
-          <FileCode2 className="w-4 h-4 sm:w-6 sm:h-6" />
-          <span className="text-sm sm:text-base">codeclip</span>
+      <nav className="flex justify-between items-center p-2 sm:p-4 md:p-6">
+        <Link className="flex items-center gap-1 sm:gap-2" href="/">
+          <FileCode2 className="w-5 h-5 sm:w-6 sm:h-6" />
+          <span className="text-sm sm:text-base font-semibold">codeclip</span>
         </Link>
         <div className="hidden md:flex space-x-3 sm:space-x-6 items-center">
           <Link
