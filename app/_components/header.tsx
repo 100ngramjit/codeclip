@@ -31,7 +31,7 @@ function Header() {
 
   return (
     <header>
-      <nav className="flex justify-between items-center p-3 sm:p-6">
+      <nav className="flex justify-between items-center p-4 sm:p-6">
         <Link className="flex justify-start gap-1 sm:gap-2" href="/">
           <FileCode2 className="w-4 h-4 sm:w-6 sm:h-6" />
           <span className="text-sm sm:text-base">codeclip</span>
@@ -63,11 +63,11 @@ function Header() {
           </Link>
           <Button
             variant="outline"
-            className="w-[150px] sm:w-[200px] justify-between text-xs sm:text-sm"
+            className="w-[150px] justify-between text-xs sm:text-sm"
             onClick={() => setOpen(true)}
           >
-            <Search className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" />
-            Search...
+            <Search className="mr-1 h-3 w-3 sm:h-4 sm:w-4" />
+            Search
             <kbd className="hidden sm:inline-flex pointer-events-none h-4 sm:h-5 select-none items-center gap-1 rounded border bg-muted px-1 sm:px-1.5 font-mono text-[8px] sm:text-[10px] font-medium text-muted-foreground opacity-100">
               <span className="text-[8px] sm:text-xs">⌘</span>K
             </kbd>
@@ -76,11 +76,11 @@ function Header() {
         <div className="md:hidden flex gap-1 sm:gap-2">
           <Button
             variant="outline"
-            className="w-[100px] sm:w-[150px] justify-between text-xs sm:text-sm"
+            className="w-[90px] h-[30px] justify-between text-xs"
             onClick={() => setOpen(true)}
           >
             <Search className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" />
-            Search...
+            Search
           </Button>
         </div>
         <div className="md:hidden flex gap-1 sm:gap-2">
@@ -92,7 +92,7 @@ function Header() {
               <UserButton
                 appearance={{
                   elements: {
-                    userButtonAvatarBox: "w-6 h-6 sm:w-9 sm:h-9",
+                    userButtonAvatarBox: "w-6 h-6 sm:w-9 sm:h-9 mt-0.5",
                   },
                 }}
               />
@@ -110,7 +110,7 @@ function Header() {
             <UserButton
               appearance={{
                 elements: {
-                  userButtonAvatarBox: "w-6 h-6 sm:w-7 sm:h-7",
+                  userButtonAvatarBox: "w-7 h-7",
                 },
               }}
             />
