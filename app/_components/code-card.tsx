@@ -124,19 +124,17 @@ const CodeCard = ({ clip, isEditEnabled }: any) => {
           {clip.code}
         </SyntaxHighlighter>
       </div>
-      <div className="md:hidden w-full">
+      <div className="md:hidden w-full overflow-x-auto">
         <SyntaxHighlighter
           style={theme === "dark" ? nightOwl : googlecode}
           showLineNumbers
           wrapLines
           customStyle={{
-            fontSize: "0.6rem",
+            fontSize: "0.7rem",
             width: "100%",
-            overflowX: isHovered ? "auto" : "hidden",
-            transition: "overflow-x 0.3s ease",
+            overflowX: "auto",
+            padding: "1rem",
           }}
-          onTouchStart={() => setIsHovered(true)}
-          onTouchEnd={() => setIsHovered(false)}
         >
           {clip.code}
         </SyntaxHighlighter>
