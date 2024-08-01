@@ -135,8 +135,8 @@ const CodeCard = ({ clip, isEditEnabled }: any) => {
             overflowX: isHovered ? "auto" : "hidden",
             transition: "overflow-x 0.3s ease",
           }}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
+          onTouchStart={() => setIsHovered(true)}
+          onTouchEnd={() => setIsHovered(false)}
         >
           {clip.code}
         </SyntaxHighlighter>
