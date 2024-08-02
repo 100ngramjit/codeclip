@@ -6,6 +6,7 @@ import html2canvas from "html2canvas";
 import { Button } from "@/components/ui/button";
 import { LoaderButton } from "@/components/ui/loader-button";
 import { ImageDown, Loader2 } from "lucide-react";
+import TooltipEnclosure from "./tooltip-enclosure";
 
 const MacWindow: React.FC<{ title: string; code: string }> = ({
   title,
@@ -117,19 +118,20 @@ const MacWindow: React.FC<{ title: string; code: string }> = ({
           </div>
         </div>
       </div>
-
-      <Button
-        variant="ghost"
-        size="icon"
-        className="h-6 w-6 cursor pointer  "
-        onClick={handleDownload}
-      >
-        {isCapturing ? (
-          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-        ) : (
-          <ImageDown className="w-4 h-4" />
-        )}
-      </Button>
+      <TooltipEnclosure content="download image">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="h-6 w-6 cursor pointer  "
+          onClick={handleDownload}
+        >
+          {isCapturing ? (
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+          ) : (
+            <ImageDown className="w-4 h-4" />
+          )}
+        </Button>
+      </TooltipEnclosure>
     </>
   );
 };

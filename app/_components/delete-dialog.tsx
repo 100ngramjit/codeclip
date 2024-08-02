@@ -15,6 +15,7 @@ import { useToast } from "@/components/ui/use-toast";
 import axiosInstance from "@/lib/axiosInstance";
 import { Loader2, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import TooltipEnclosure from "./tooltip-enclosure";
 
 const DeleteDialog = ({
   clip,
@@ -67,39 +68,41 @@ const DeleteDialog = ({
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger asChild>
-        <Button
-          size="icon"
-          variant="ghost"
-          className="h-6 w-6 cursor pointer  "
-        >
-          <Trash2 className="w-4 h-4" />
-        </Button>
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle>Delete clip</DialogTitle>
-          <DialogDescription>
-            Are you sure you want to delete this clip? This action cannot be
-            undone.
-          </DialogDescription>
-        </DialogHeader>
-        <DialogFooter className="gap-2">
-          <Button variant="outline" onClick={() => setIsOpen(false)}>
-            Cancel
-          </Button>
+    <TooltipEnclosure content="delete">
+      <Dialog open={isOpen} onOpenChange={setIsOpen}>
+        <DialogTrigger asChild>
           <Button
-            onClick={handleDelete}
-            variant="destructive"
-            disabled={isLoading}
+            size="icon"
+            variant="ghost"
+            className="h-6 w-6 cursor pointer  "
           >
-            {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            Delete
+            <Trash2 className="w-4 h-4" />
           </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Delete clip</DialogTitle>
+            <DialogDescription>
+              Are you sure you want to delete this clip? This action cannot be
+              undone.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="gap-2">
+            <Button variant="outline" onClick={() => setIsOpen(false)}>
+              Cancel
+            </Button>
+            <Button
+              onClick={handleDelete}
+              variant="destructive"
+              disabled={isLoading}
+            >
+              {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+              Delete
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </TooltipEnclosure>
   );
 };
 

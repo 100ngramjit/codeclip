@@ -5,6 +5,7 @@ import { useUser } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import axiosInstance from "@/lib/axiosInstance";
+import TooltipEnclosure from "./tooltip-enclosure";
 
 const SaveButton = ({ clip }: any) => {
   const { user } = useUser();
@@ -53,21 +54,23 @@ const SaveButton = ({ clip }: any) => {
     await handleSave();
   };
   return (
-    <Button
-      size="icon"
-      variant="ghost"
-      className="h-6 w-6 cursor-pointer"
-      aria-label="save"
-      onClick={saveButtonHandler}
-    >
-      {isLoading == false && isSaved == true && (
-        <BookmarkCheck className="w-4 h-4" />
-      )}
-      {isLoading == false && isSaved == false && (
-        <BookmarkPlus className="w-4 h-4" />
-      )}
-      {isLoading == true && <Loader2 className="w-4 h-4 animate-spin" />}
-    </Button>
+    <TooltipEnclosure content={`${isSaved ? "unsave" : "save"} `}>
+      <Button
+        size="icon"
+        variant="ghost"
+        className="h-6 w-6 cursor-pointer"
+        aria-label="save"
+        onClick={saveButtonHandler}
+      >
+        {isLoading == false && isSaved == true && (
+          <BookmarkCheck className="w-4 h-4" />
+        )}
+        {isLoading == false && isSaved == false && (
+          <BookmarkPlus className="w-4 h-4" />
+        )}
+        {isLoading == true && <Loader2 className="w-4 h-4 animate-spin" />}
+      </Button>
+    </TooltipEnclosure>
   );
 };
 export default SaveButton;

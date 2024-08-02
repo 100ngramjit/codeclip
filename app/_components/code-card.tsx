@@ -27,6 +27,7 @@ import MacWindow from "./mac-window";
 import DeleteDialog from "./delete-dialog";
 import EditDialog from "./edit-dialog";
 import SaveButton from "./save-button";
+import TooltipEnclosure from "./tooltip-enclosure";
 
 const CodeCard = ({ clip, isEditEnabled, isDetailsCard = false }: any) => {
   const { theme } = useTheme();
@@ -56,38 +57,39 @@ const CodeCard = ({ clip, isEditEnabled, isDetailsCard = false }: any) => {
           <div>
             <CopyButton text={clip.code} />
             <MacWindow title={clip.fileName} code={clip.code} />
+            <TooltipEnclosure content="share">
+              <Drawer>
+                <DrawerTrigger asChild>
+                  <Button
+                    size="icon"
+                    variant="ghost"
+                    className="h-6 w-6 cursor pointer  "
+                  >
+                    <Share2 className="w-4 h-4" />
+                  </Button>
+                </DrawerTrigger>
+                <DrawerContent>
+                  <div className="mx-auto w-full max-w-xl">
+                    <DrawerHeader>
+                      <DrawerTitle className="flex justify-between">
+                        <div>Share Snippet Url</div>
 
-            <Drawer>
-              <DrawerTrigger asChild>
-                <Button
-                  size="icon"
-                  variant="ghost"
-                  className="h-6 w-6 cursor pointer  "
-                >
-                  <Share2 className="w-4 h-4" />
-                </Button>
-              </DrawerTrigger>
-              <DrawerContent>
-                <div className="mx-auto w-full max-w-xl">
-                  <DrawerHeader>
-                    <DrawerTitle className="flex justify-between">
-                      <div>Share Snippet Url</div>
+                        <CopyButton text={clipURL} />
+                      </DrawerTitle>
+                      <DrawerDescription className="overflow-auto bg-accent">
+                        {clipURL}
+                      </DrawerDescription>
+                    </DrawerHeader>
 
-                      <CopyButton text={clipURL} />
-                    </DrawerTitle>
-                    <DrawerDescription className="overflow-auto bg-accent">
-                      {clipURL}
-                    </DrawerDescription>
-                  </DrawerHeader>
-
-                  <DrawerFooter>
-                    <DrawerClose asChild>
-                      <Button variant="outline">Close</Button>
-                    </DrawerClose>
-                  </DrawerFooter>
-                </div>
-              </DrawerContent>
-            </Drawer>
+                    <DrawerFooter>
+                      <DrawerClose asChild>
+                        <Button variant="outline">Close</Button>
+                      </DrawerClose>
+                    </DrawerFooter>
+                  </div>
+                </DrawerContent>
+              </Drawer>
+            </TooltipEnclosure>
             {user?.id && isDetailsCard && <SaveButton clip={clip} />}
 
             {isEditEnabled && user?.id === clip.clerkUserId && (
