@@ -70,20 +70,38 @@ export async function userClips(clerkUserId: string) {
     throw error;
   }
 }
-export async function ramdomClips(clerkUserId: string) {
+
+export async function randomClips(clerkUserId: string) {
   try {
-    const clips = await prisma.$queryRaw`
-  SELECT * FROM "Clips"
-  ORDER BY RANDOM()
-  LIMIT 10
-`;
-    if (!clips) {
-      throw new Error(`User with ID ${clerkUserId} not found.`);
+    let clips = await prisma.clips.findMany({
+      include: {
+        saved: {
+          where: {
+            clerkUserId: clerkUserId,
+          },
+          select: {
+            id: true,
+          },
+        },
+      },
+      take: 10,
+      skip: Math.floor(Math.random() * 10),
+    });
+
+    if (clips.length === 0) {
+      console.log("No clips found.");
+      return [];
     }
 
-    return clips;
+    const clipsWithSavedStatus = clips.map((clip) => ({
+      ...clip,
+      isSaved: clip.saved.length > 0,
+      saved: undefined,
+    }));
+    console.log(clipsWithSavedStatus);
+    return clipsWithSavedStatus;
   } catch (error) {
-    console.error("Error posting clip:", error);
+    console.error("Error fetching random clips:", error);
     throw error;
   }
 }
@@ -106,9 +124,6 @@ export async function searchClips(
       skip: offset,
       orderBy: {
         createdAt: "desc",
-      },
-      include: {
-        saved: true,
       },
     });
 
