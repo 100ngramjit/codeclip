@@ -47,7 +47,7 @@ const CodeCard = ({ clip, isEditEnabled }: any) => {
         <div className="flex justify-start align-top gap-2">
           <Link
             href={clipURL}
-            className="text-sm sm:text-base mb-1 sm:mb-0 break-all hover:underline text-primary"
+            className="text-base mb-1 sm:mb-0 break-all hover:underline text-primary"
           >
             {clip.fileName}
           </Link>
@@ -65,7 +65,7 @@ const CodeCard = ({ clip, isEditEnabled }: any) => {
               </Button>
             </DrawerTrigger>
             <DrawerContent>
-              <div className="mx-auto w-full max-w-sm">
+              <div className="mx-auto w-full max-w-xl">
                 <DrawerHeader>
                   <DrawerTitle className="flex justify-between">
                     <div>Share Snippet Url</div>
@@ -102,9 +102,6 @@ const CodeCard = ({ clip, isEditEnabled }: any) => {
         </div>
         <div className="flex flex-col md:items-end">
           <p className="text-muted-foreground text-xs">by {clip?.userEmail}</p>
-          <p className="text-muted-foreground text-xs opacity-60">
-            {formattedCreationTime}
-          </p>
         </div>
       </div>
       <div className="hidden md:flex w-full">
@@ -139,6 +136,9 @@ const CodeCard = ({ clip, isEditEnabled }: any) => {
           {clip.code}
         </SyntaxHighlighter>
       </div>
+      <p className="text-muted-foreground text-xs opacity-60 py-1">
+        {formattedCreationTime}
+      </p>
     </Card>
   );
 };
