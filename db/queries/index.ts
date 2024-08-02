@@ -98,7 +98,6 @@ export async function randomClips(clerkUserId: string) {
       isSaved: clip.saved.length > 0,
       saved: undefined,
     }));
-    console.log(clipsWithSavedStatus);
     return clipsWithSavedStatus;
   } catch (error) {
     console.error("Error fetching random clips:", error);

@@ -52,7 +52,7 @@ export default function Page({ params }: { params: { id: string } }) {
     return (
       <div className="flex flex-col items-center mt-5 mx-auto p-4 ">
         <div className="w-full">
-          <CodeCard clip={clip} isEditEnabled={true} />
+          <CodeCard clip={clip} isEditEnabled={true} isDetailsCard={true} />
         </div>
       </div>
     );

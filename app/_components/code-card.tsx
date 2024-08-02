@@ -6,13 +6,7 @@ import {
   googlecode,
 } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { useTheme } from "next-themes";
-import {
-  BookmarkCheck,
-  BookmarkPlus,
-  Loader2,
-  Save,
-  Share2,
-} from "lucide-react";
+import { Share2 } from "lucide-react";
 import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
 import { formatDistanceToNow } from "date-fns";
@@ -32,19 +26,14 @@ import { CopyButton } from "./copy-button";
 import MacWindow from "./mac-window";
 import DeleteDialog from "./delete-dialog";
 import EditDialog from "./edit-dialog";
-import { useToast } from "@/components/ui/use-toast";
-import axiosInstance from "@/lib/axiosInstance";
+import SaveButton from "./save-button";
 
-const CodeCard = ({ clip, isEditEnabled }: any) => {
+const CodeCard = ({ clip, isEditEnabled, isDetailsCard = false }: any) => {
   const { theme } = useTheme();
   const { user } = useUser();
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  const [isSaved, setIsSaved] = useState(clip.isSaved);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const { toast } = useToast();
 
   const clipURL = `${process.env.NEXT_PUBLIC_HOST}/feed/clip/${clip.id}`;
 
@@ -52,116 +41,72 @@ const CodeCard = ({ clip, isEditEnabled }: any) => {
     addSuffix: true,
   });
 
-  const handleSave = async () => {
-    try {
-      setIsLoading(true);
-      const bodyContent = JSON.stringify({
-        clipId: clip.id,
-        userId: user?.id,
-      });
-
-      const reqOptions = {
-        url: "api/saved",
-        method: "POST",
-        data: bodyContent,
-      };
-
-      const response = await axiosInstance.request(reqOptions);
-
-      if (!response.data) {
-        throw new Error("Failed to delete clip");
-      }
-      setIsLoading(false);
-      toast({
-        title: "Success",
-        description: "Your clip has been deleted.",
-      });
-    } catch (error) {
-      setIsLoading(false);
-      console.error("Error deleting clip:", error);
-      toast({
-        title: "Error",
-        description: "Failed to delete the clip. Please try again.",
-        variant: "destructive",
-      });
-    }
-  };
-
-  const saveButtonHandler = () => {
-    setIsSaved(!isSaved);
-  };
-
   return (
     <Card key={clip.id} className="p-4 sm:p-4 my-4 rounded-lg w-full">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-2 overflow-auto">
-        <div className="flex justify-start align-top gap-2">
-          <Link
-            href={clipURL}
-            className="text-base mb-1 sm:mb-0 break-all hover:underline text-primary"
-          >
-            {clip.fileName}
-          </Link>
-          <CopyButton text={clip.code} />
-          <MacWindow title={clip.fileName} code={clip.code} />
+        <div className="sm:flex sm:justify-start sm:align-top gap-2">
+          <div>
+            <Link
+              href={clipURL}
+              className="text-base mb-1 sm:mb-0 break-all hover:underline text-primary"
+            >
+              {clip.fileName}
+            </Link>
+          </div>
+          <div>
+            <CopyButton text={clip.code} />
+            <MacWindow title={clip.fileName} code={clip.code} />
 
-          <Drawer>
-            <DrawerTrigger asChild>
-              <Button
-                size="icon"
-                variant="ghost"
-                className="h-6 w-6 cursor pointer  "
-              >
-                <Share2 className="w-4 h-4" />
-              </Button>
-            </DrawerTrigger>
-            <DrawerContent>
-              <div className="mx-auto w-full max-w-xl">
-                <DrawerHeader>
-                  <DrawerTitle className="flex justify-between">
-                    <div>Share Snippet Url</div>
+            <Drawer>
+              <DrawerTrigger asChild>
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  className="h-6 w-6 cursor pointer  "
+                >
+                  <Share2 className="w-4 h-4" />
+                </Button>
+              </DrawerTrigger>
+              <DrawerContent>
+                <div className="mx-auto w-full max-w-xl">
+                  <DrawerHeader>
+                    <DrawerTitle className="flex justify-between">
+                      <div>Share Snippet Url</div>
 
-                    <CopyButton text={clipURL} />
-                  </DrawerTitle>
-                  <DrawerDescription className="overflow-auto bg-accent">
-                    {clipURL}
-                  </DrawerDescription>
-                </DrawerHeader>
+                      <CopyButton text={clipURL} />
+                    </DrawerTitle>
+                    <DrawerDescription className="overflow-auto bg-accent">
+                      {clipURL}
+                    </DrawerDescription>
+                  </DrawerHeader>
 
-                <DrawerFooter>
-                  <DrawerClose asChild>
-                    <Button variant="outline">Close</Button>
-                  </DrawerClose>
-                </DrawerFooter>
-              </div>
-            </DrawerContent>
-          </Drawer>
-          <Button
-            size="icon"
-            variant="ghost"
-            className="h-6 w-6 cursor-pointer"
-            aria-label="save"
-            onClick={saveButtonHandler}
-          >
-            {isSaved == "true" && <BookmarkCheck className="w-4 h-4" />}
-            {isSaved == "false" && <BookmarkPlus className="w-4 h-4" />}
-            {isLoading == true && <Loader2 className="w-4 h-4" />}
-          </Button>
-          {isEditEnabled && user?.id === clip.clerkUserId && (
-            <>
-              <EditDialog
-                clip={clip}
-                isOpen={isEditDialogOpen}
-                setIsOpen={setIsEditDialogOpen}
-              />
-              <DeleteDialog
-                clip={clip}
-                isOpen={isDeleteDialogOpen}
-                setIsOpen={setIsDeleteDialogOpen}
-              />
-            </>
-          )}
+                  <DrawerFooter>
+                    <DrawerClose asChild>
+                      <Button variant="outline">Close</Button>
+                    </DrawerClose>
+                  </DrawerFooter>
+                </div>
+              </DrawerContent>
+            </Drawer>
+            {user?.id && isDetailsCard && <SaveButton clip={clip} />}
+
+            {isEditEnabled && user?.id === clip.clerkUserId && (
+              <>
+                <EditDialog
+                  clip={clip}
+                  isOpen={isEditDialogOpen}
+                  setIsOpen={setIsEditDialogOpen}
+                />
+                <DeleteDialog
+                  clip={clip}
+                  isOpen={isDeleteDialogOpen}
+                  setIsOpen={setIsDeleteDialogOpen}
+                />
+              </>
+            )}
+          </div>
         </div>
-        <div className="flex flex-col md:items-end">
+        <div>
           <p className="text-muted-foreground text-xs">by {clip?.userEmail}</p>
         </div>
       </div>
