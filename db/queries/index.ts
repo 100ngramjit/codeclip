@@ -30,26 +30,46 @@ export async function publishClip(
 export async function userClips(clerkUserId: string) {
   try {
     const clips = await prisma.clips.findMany({
-      orderBy: [
-        {
-          createdAt: "desc",
-        },
-      ],
       where: {
         clerkUserId: clerkUserId,
       },
+      orderBy: {
+        createdAt: "desc",
+      },
+      select: {
+        id: true,
+        createdAt: true,
+        updatedAt: true,
+        code: true,
+        fileName: true,
+        lang: true,
+        userEmail: true,
+        saved: {
+          select: {
+            id: true,
+          },
+          where: {
+            clerkUserId: clerkUserId,
+          },
+          take: 1,
+        },
+      },
     });
-    if (!clips) {
-      throw new Error(`User with ID ${clerkUserId} not found.`);
+
+    if (clips.length === 0) {
+      console.log(`No clips found for user with ID ${clerkUserId}.`);
+      return [];
     }
 
-    return clips;
+    return clips.map((clip) => ({
+      ...clip,
+      isSaved: clip.saved.length > 0,
+    }));
   } catch (error) {
-    console.error("Error posting clip:", error);
+    console.error("Error fetching user clips:", error);
     throw error;
   }
 }
-
 export async function ramdomClips(clerkUserId: string) {
   try {
     const clips = await prisma.$queryRaw`
@@ -87,6 +107,9 @@ export async function searchClips(
       orderBy: {
         createdAt: "desc",
       },
+      include: {
+        saved: true,
+      },
     });
 
     if (clips.length === 0) {
@@ -105,6 +128,9 @@ export async function clipDetails(id: string) {
     const clips = await prisma.clips.findFirst({
       where: {
         id: id,
+      },
+      include: {
+        saved: true,
       },
     });
 
@@ -158,6 +184,67 @@ export async function deleteClip(clipId: string) {
     });
     if (!clip) {
       throw new Error(`Clip with ID ${clipId} not found.`);
+    }
+
+    return clip;
+  } catch (error) {
+    console.error("Error posting clip:", error);
+    throw error;
+  }
+}
+
+export async function saveClip(clipId: string, clerkUserId: string) {
+  try {
+    const clip = await prisma.saved.create({
+      data: {
+        clerkUserId: clerkUserId,
+        clipId: clipId,
+      },
+    });
+    if (!clip) {
+      throw new Error(`Clip with ID ${clipId} not found.`);
+    }
+
+    return clip;
+  } catch (error) {
+    console.error("Error posting clip:", error);
+    throw error;
+  }
+}
+
+export async function getSavedClips(clerkUserId: string) {
+  try {
+    const savedClips = await prisma.saved.findMany({
+      where: {
+        clerkUserId: clerkUserId,
+      },
+      include: {
+        clip: true,
+      },
+    });
+
+    if (savedClips.length === 0) {
+      console.log(`No saved clips found for user with ID ${clerkUserId}.`);
+      return [];
+    }
+
+    return savedClips;
+  } catch (error) {
+    console.error("Error fetching saved clips:", error);
+    throw error;
+  }
+}
+
+export async function deleteSavedClip(id: string, clerkUserId: string) {
+  try {
+    const clip = await prisma.saved.delete({
+      where: {
+        clerkUserId: clerkUserId,
+        id: id,
+      },
+    });
+    if (!clip) {
+      throw new Error(`Clip with ID ${id} not found.`);
     }
 
     return clip;
