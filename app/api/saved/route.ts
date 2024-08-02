@@ -11,7 +11,6 @@ export async function GET(req: Request) {
   const url = new URL(req.url);
   const userId = url.searchParams.get("userid");
   const response = await getSavedClips(userId!);
-  console.log(response);
   return Response.json(response);
 }
 

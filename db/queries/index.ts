@@ -266,7 +266,9 @@ export async function getSavedClips(clerkUserId: string) {
       return [];
     }
 
-    return savedClips;
+    const clipData = savedClips.map((savedClip) => savedClip.clip);
+
+    return clipData;
   } catch (error) {
     console.error("Error fetching saved clips:", error);
     throw error;
