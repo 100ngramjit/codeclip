@@ -92,7 +92,7 @@ function Header() {
               <UserButton
                 appearance={{
                   elements: {
-                    userButtonAvatarBox: "w-6 h-6 sm:w-9 sm:h-9 mt-0.5",
+                    userButtonAvatarBox: "w-6 h-6 md:w-9 md:h-9 mt-0.5",
                   },
                 }}
               />

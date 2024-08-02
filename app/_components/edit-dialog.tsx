@@ -76,7 +76,11 @@ const EditDialog = ({
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button size="icon" variant="ghost" className="h-6 w-6 cursor-pointer">
+        <Button
+          size="icon"
+          variant="ghost"
+          className="h-6 w-6 cursor pointer  "
+        >
           <Edit2 className="w-4 h-4" />
         </Button>
       </DialogTrigger>

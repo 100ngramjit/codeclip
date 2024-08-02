@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import {
@@ -7,7 +6,13 @@ import {
   googlecode,
 } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { useTheme } from "next-themes";
-import { Share2 } from "lucide-react";
+import {
+  BookmarkCheck,
+  BookmarkPlus,
+  Loader2,
+  Save,
+  Share2,
+} from "lucide-react";
 import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
 import { formatDistanceToNow } from "date-fns";
@@ -27,6 +32,8 @@ import { CopyButton } from "./copy-button";
 import MacWindow from "./mac-window";
 import DeleteDialog from "./delete-dialog";
 import EditDialog from "./edit-dialog";
+import { useToast } from "@/components/ui/use-toast";
+import axiosInstance from "@/lib/axiosInstance";
 
 const CodeCard = ({ clip, isEditEnabled }: any) => {
   const { theme } = useTheme();
@@ -34,12 +41,55 @@ const CodeCard = ({ clip, isEditEnabled }: any) => {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [isSaved, setIsSaved] = useState(clip.isSaved);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { toast } = useToast();
 
   const clipURL = `${process.env.NEXT_PUBLIC_HOST}/feed/clip/${clip.id}`;
 
   const formattedCreationTime = formatDistanceToNow(new Date(clip.createdAt), {
     addSuffix: true,
   });
+
+  const handleSave = async () => {
+    try {
+      setIsLoading(true);
+      const bodyContent = JSON.stringify({
+        clipId: clip.id,
+        userId: user?.id,
+      });
+
+      const reqOptions = {
+        url: "api/saved",
+        method: "POST",
+        data: bodyContent,
+      };
+
+      const response = await axiosInstance.request(reqOptions);
+
+      if (!response.data) {
+        throw new Error("Failed to delete clip");
+      }
+      setIsLoading(false);
+      toast({
+        title: "Success",
+        description: "Your clip has been deleted.",
+      });
+    } catch (error) {
+      setIsLoading(false);
+      console.error("Error deleting clip:", error);
+      toast({
+        title: "Error",
+        description: "Failed to delete the clip. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const saveButtonHandler = () => {
+    setIsSaved(!isSaved);
+  };
 
   return (
     <Card key={clip.id} className="p-4 sm:p-4 my-4 rounded-lg w-full">
@@ -59,7 +109,7 @@ const CodeCard = ({ clip, isEditEnabled }: any) => {
               <Button
                 size="icon"
                 variant="ghost"
-                className="h-6 w-6 cursor-pointer"
+                className="h-6 w-6 cursor pointer  "
               >
                 <Share2 className="w-4 h-4" />
               </Button>
@@ -85,6 +135,17 @@ const CodeCard = ({ clip, isEditEnabled }: any) => {
               </div>
             </DrawerContent>
           </Drawer>
+          <Button
+            size="icon"
+            variant="ghost"
+            className="h-6 w-6 cursor-pointer"
+            aria-label="save"
+            onClick={saveButtonHandler}
+          >
+            {isSaved == "true" && <BookmarkCheck className="w-4 h-4" />}
+            {isSaved == "false" && <BookmarkPlus className="w-4 h-4" />}
+            {isLoading == true && <Loader2 className="w-4 h-4" />}
+          </Button>
           {isEditEnabled && user?.id === clip.clerkUserId && (
             <>
               <EditDialog

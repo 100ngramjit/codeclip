@@ -20,7 +20,7 @@ export function CopyButton({ text }: { text: string }) {
     <Button
       size="icon"
       variant="ghost"
-      className="h-6 w-6 cursor-pointer"
+      className="h-6 w-6 cursor pointer  "
       onClick={handleClick}
     >
       {showTick ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}

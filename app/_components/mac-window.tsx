@@ -121,7 +121,7 @@ const MacWindow: React.FC<{ title: string; code: string }> = ({
       <Button
         variant="ghost"
         size="icon"
-        className="h-6 w-6 cursor-pointer"
+        className="h-6 w-6 cursor pointer  "
         onClick={handleDownload}
       >
         {isCapturing ? (
