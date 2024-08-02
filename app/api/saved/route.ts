@@ -17,8 +17,8 @@ export async function GET(req: Request) {
 }
 
 export async function DELETE(req: Request) {
-  const { userId, savedClipId } = await req.json();
-  const response = await deleteSavedClip(savedClipId, userId);
+  const { userId, clipId } = await req.json();
+  const response = await deleteSavedClip(clipId, userId);
 
   return Response.json(response);
 }

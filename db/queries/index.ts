@@ -274,21 +274,24 @@ export async function getSavedClips(clerkUserId: string) {
   }
 }
 
-export async function deleteSavedClip(id: string, clerkUserId: string) {
+export async function deleteSavedClip(clipId: string, clerkUserId: string) {
   try {
-    const clip = await prisma.saved.delete({
+    const clip = await prisma.saved.deleteMany({
       where: {
         clerkUserId: clerkUserId,
-        id: id,
+        clipId: clipId,
       },
     });
-    if (!clip) {
-      throw new Error(`Clip with ID ${id} not found.`);
+
+    if (clip.count === 0) {
+      throw new Error(
+        `Saved clip with clipId ${clipId} not found for user ${clerkUserId}.`
+      );
     }
 
     return clip;
   } catch (error) {
-    console.error("Error posting clip:", error);
+    console.error("Error deleting saved clip:", error);
     throw error;
   }
 }
