@@ -31,15 +31,15 @@ function Header() {
 
   return (
     <header>
-      <nav className="flex justify-between items-center p-2 sm:p-4 md:p-6">
+      <nav className="flex justify-between items-center p-3">
         <Link className="flex items-center gap-1 sm:gap-2" href="/">
           <FileCode2 className="w-5 h-5 sm:w-6 sm:h-6" />
-          <span className="text-sm sm:text-base font-semibold">codeclip</span>
+          <span className="text-sm font-semibold">codeclip</span>
         </Link>
-        <div className="hidden md:flex space-x-3 sm:space-x-6 items-center">
+        <div className="hidden md:flex space-x-3 items-center">
           <Link
             href="/feed"
-            className={`text-sm sm:text-base ${
+            className={`text-sm ${
               pathname === "/feed" ? "font-bold text-primary" : ""
             }`}
           >
@@ -47,7 +47,7 @@ function Header() {
           </Link>
           <Link
             href="/feed/explore"
-            className={`text-sm sm:text-base ${
+            className={`text-sm ${
               pathname === "/feed/explore" ? "font-bold text-primary" : ""
             }`}
           >
@@ -55,15 +55,23 @@ function Header() {
           </Link>
           <Link
             href="/feed/create"
-            className={`text-sm sm:text-base ${
+            className={`text-sm ${
               pathname === "/feed/create" ? "font-bold text-primary" : ""
             }`}
           >
             Create
           </Link>
+          <Link
+            href="/feed/saved"
+            className={`text-sm ${
+              pathname === "/feed/saved" ? "font-bold text-primary" : ""
+            }`}
+          >
+            Saved
+          </Link>
           <Button
             variant="outline"
-            className="w-[150px] justify-between text-xs sm:text-sm"
+            className="w-[140px] h-[30px] justify-between text-sm"
             onClick={() => setOpen(true)}
           >
             <Search className="mr-1 h-3 w-3 sm:h-4 sm:w-4" />

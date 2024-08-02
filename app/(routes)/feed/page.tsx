@@ -49,7 +49,7 @@ const Page: React.FC = () => {
 
   if (!response || !response.data.length) {
     return (
-      <div className="flex flex-col items-center mt-10 px-4">
+      <div className="flex flex-col items-center mt-5 px-4">
         <p>
           Hi {user?.firstName}! you don't have any published clips yet. Start
           creating
@@ -65,8 +65,8 @@ const Page: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col items-center mt-10 px-4">
-      <h1 className="text-2xl md:text-4xl font-bold mb-6 text-center">
+    <div className="flex flex-col items-center mt-5 px-4">
+      <h1 className="text-2xl md:text-4xl font-bold mb-3 text-center">
         Hi {user?.firstName}! Here are your published clips below
       </h1>
       <HighlightedCodeList response={response} />

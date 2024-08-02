@@ -58,6 +58,16 @@ const MobileNav = () => {
               Create
             </Link>
           </SheetClose>
+          <SheetClose asChild>
+            <Link
+              href="/feed/saved"
+              className={`text-sm ${
+                pathname === "/feed/saved" ? "font-bold text-primary" : ""
+              }`}
+            >
+              Saved
+            </Link>
+          </SheetClose>
           <ModeToggle />
         </div>
       </SheetContent>

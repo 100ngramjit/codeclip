@@ -48,15 +48,15 @@ const Page: React.FC = () => {
 
   if (!response || !response.data.length) {
     return (
-      <div className="flex flex-col items-center mt-10">
+      <div className="flex flex-col items-center mt-5">
         Invalid session! login again or try to create a clip
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col items-center mt-10 px-4">
-      <h1 className="text-2xl md:text-4xl font-bold mb-6 text-center">
+    <div className="flex flex-col items-center mt-5 px-4">
+      <h1 className="text-2xl md:text-4xl font-bold mb-3 text-center">
         Here are some clips from the community below
       </h1>
       <HighlightedCodeList response={response} />
