@@ -7,13 +7,24 @@ datasource db {
   url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
 }
+
 model Clips {
-  id              String       @id @default(cuid())
-  createdAt       DateTime     @default(now())
-  updatedAt       DateTime     @updatedAt
-  clerkUserId     String   
-  code      String
-  fileName String
-  lang   String?
-  userEmail String      
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  clerkUserId String   
+  code        String
+  fileName    String
+  lang        String?
+  userEmail   String
+  saved       Saved[]
+}
+
+model Saved {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  clerkUserId String
+  clip        Clips    @relation(fields: [clipId], references: [id])
+  clipId      String
 }
