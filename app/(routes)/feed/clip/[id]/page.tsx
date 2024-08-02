@@ -3,9 +3,11 @@ import CodeCard from "@/app/_components/code-card";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import axiosInstance from "@/lib/axiosInstance";
+import { useUser } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 
 export default function Page({ params }: { params: { id: string } }) {
+  const { user } = useUser();
   const { id } = params;
   const [clip, setClip] = useState<any>({});
   const [isLoading, setIsLoading] = useState(true);
@@ -16,6 +18,7 @@ export default function Page({ params }: { params: { id: string } }) {
         try {
           const response = await axiosInstance.post("/api/clipdetails", {
             id,
+            userId: user?.id,
           });
           setClip(response.data);
           setIsLoading(false);

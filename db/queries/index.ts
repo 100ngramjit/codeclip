@@ -123,20 +123,44 @@ export async function searchClips(
   }
 }
 
-export async function clipDetails(id: string) {
+export async function clipDetails(id: string, clerkUserId: string) {
   try {
-    const clips = await prisma.clips.findFirst({
+    const clip = await prisma.clips.findUnique({
       where: {
         id: id,
       },
-      include: {
-        saved: true,
+      select: {
+        id: true,
+        createdAt: true,
+        updatedAt: true,
+        clerkUserId: true,
+        code: true,
+        fileName: true,
+        lang: true,
+        userEmail: true,
+        saved: {
+          select: {
+            id: true,
+          },
+          where: {
+            clerkUserId: clerkUserId,
+          },
+          take: 1,
+        },
       },
     });
 
-    return clips;
+    if (!clip) {
+      console.log(`Clip with ID ${id} not found.`);
+      return null;
+    }
+
+    return {
+      ...clip,
+      isSaved: clip.saved.length > 0,
+    };
   } catch (error) {
-    console.error("Error posting clip:", error);
+    console.error("Error fetching clip details:", error);
     throw error;
   }
 }
