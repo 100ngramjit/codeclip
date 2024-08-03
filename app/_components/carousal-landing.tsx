@@ -6,12 +6,8 @@ import {
   SliderMainItem,
 } from "@/components/ui/card-carousal";
 import AutoScroll from "embla-carousel-auto-scroll";
-import { useTheme } from "next-themes";
 import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/default-highlight";
-import {
-  nightOwl,
-  googlecode,
-} from "react-syntax-highlighter/dist/esm/styles/hljs";
+import { nightOwl } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
 const clips = [
   {
@@ -46,7 +42,6 @@ const clips = [
   },
 ];
 const CarousalLanding = () => {
-  const { theme } = useTheme();
   return (
     <Carousel
       plugins={[
@@ -74,7 +69,7 @@ const CarousalLanding = () => {
               </div>
               <div className="hidden md:flex w-full">
                 <SyntaxHighlighter
-                  style={theme === "dark" ? nightOwl : googlecode}
+                  style={nightOwl}
                   showLineNumbers
                   wrapLines
                   customStyle={{
@@ -87,7 +82,7 @@ const CarousalLanding = () => {
               </div>
               <div className="md:hidden w-full">
                 <SyntaxHighlighter
-                  style={theme === "dark" ? nightOwl : googlecode}
+                  style={nightOwl}
                   showLineNumbers
                   wrapLines
                   customStyle={{
