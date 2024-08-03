@@ -36,8 +36,7 @@ const SaveButton = ({ clip }: any) => {
       }
       setIsLoading(false);
       toast({
-        title: "Success",
-        description: `Your clip has been ${isSaved ? "unsaved" : "saved"}`,
+        description: `this clip is ${isSaved ? "unsaved" : "saved"} !`,
       });
     } catch (error) {
       setIsLoading(false);

@@ -71,7 +71,7 @@ const CodeCard = ({ clip, isEditEnabled, isDetailsCard = false }: any) => {
                 <DrawerContent>
                   <div className="mx-auto w-full max-w-xl">
                     <DrawerHeader>
-                      <DrawerTitle className="flex justify-between">
+                      <DrawerTitle className="flex justify-start gap-2">
                         <div>Share Snippet Url</div>
 
                         <CopyButton text={clipURL} />
