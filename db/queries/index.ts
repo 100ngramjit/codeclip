@@ -36,35 +36,13 @@ export async function userClips(clerkUserId: string) {
       orderBy: {
         createdAt: "desc",
       },
-      select: {
-        id: true,
-        createdAt: true,
-        updatedAt: true,
-        code: true,
-        fileName: true,
-        lang: true,
-        userEmail: true,
-        saved: {
-          select: {
-            id: true,
-          },
-          where: {
-            clerkUserId: clerkUserId,
-          },
-          take: 1,
-        },
-      },
     });
 
     if (clips.length === 0) {
       console.log(`No clips found for user with ID ${clerkUserId}.`);
       return [];
     }
-
-    return clips.map((clip) => ({
-      ...clip,
-      isSaved: clip.saved.length > 0,
-    }));
+    return clips;
   } catch (error) {
     console.error("Error fetching user clips:", error);
     throw error;
@@ -73,32 +51,19 @@ export async function userClips(clerkUserId: string) {
 
 export async function randomClips(clerkUserId: string) {
   try {
-    let clips = await prisma.clips.findMany({
-      include: {
-        saved: {
-          where: {
-            clerkUserId: clerkUserId,
-          },
-          select: {
-            id: true,
-          },
-        },
-      },
-      take: 10,
-      skip: Math.floor(Math.random() * 10),
-    });
-
-    if (clips.length === 0) {
+    const clips = await prisma.$queryRaw`
+    SELECT * FROM "Clips"
+    ORDER BY RANDOM()
+    LIMIT 10
+  `;
+    if (!clips) {
+      throw new Error(`User with ID ${clerkUserId} not found.`);
+    }
+    if (!clips) {
       console.log("No clips found.");
       return [];
     }
-
-    const clipsWithSavedStatus = clips.map((clip) => ({
-      ...clip,
-      isSaved: clip.saved.length > 0,
-      saved: undefined,
-    }));
-    return clipsWithSavedStatus;
+    return clips;
   } catch (error) {
     console.error("Error fetching random clips:", error);
     throw error;
@@ -258,6 +223,9 @@ export async function getSavedClips(clerkUserId: string) {
       },
       include: {
         clip: true,
+      },
+      orderBy: {
+        createdAt: "desc",
       },
     });
 
