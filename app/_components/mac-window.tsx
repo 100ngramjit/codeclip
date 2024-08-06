@@ -4,8 +4,7 @@ import SyntaxHighlighter from "react-syntax-highlighter";
 import { nightOwl } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import html2canvas from "html2canvas";
 import { Button } from "@/components/ui/button";
-import { LoaderButton } from "@/components/ui/loader-button";
-import { ImageDown, Loader2 } from "lucide-react";
+import { Check, ImageDown } from "lucide-react";
 import TooltipEnclosure from "./tooltip-enclosure";
 
 const MacWindow: React.FC<{ title: string; code: string }> = ({
@@ -34,7 +33,7 @@ const MacWindow: React.FC<{ title: string; code: string }> = ({
     } catch (error) {
       console.error("Error capturing content:", error);
     } finally {
-      setIsCapturing(false);
+      setTimeout(() => setIsCapturing(false), 3000);
     }
   }, [title, isCapturing]);
 
@@ -126,7 +125,7 @@ const MacWindow: React.FC<{ title: string; code: string }> = ({
           onClick={handleDownload}
         >
           {isCapturing ? (
-            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            <Check className="w-4 h-4" />
           ) : (
             <ImageDown className="w-4 h-4" />
           )}
