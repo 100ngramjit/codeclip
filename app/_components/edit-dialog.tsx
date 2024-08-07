@@ -1,6 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
+import { Input } from "@/components/ui/input";
+import { useToast } from "@/components/ui/use-toast";
+import axiosInstance from "@/lib/axiosInstance";
+import CodeMirror from "@uiw/react-codemirror";
+import { javascript } from "@codemirror/lang-javascript";
+import { vscodeDark, vscodeLight } from "@uiw/codemirror-theme-vscode";
+import { useTheme } from "next-themes";
+
 import {
   Dialog,
   DialogContent,
@@ -11,11 +19,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { useToast } from "@/components/ui/use-toast";
-import axiosInstance from "@/lib/axiosInstance";
 import { Edit2, Loader2 } from "lucide-react";
 import TooltipEnclosure from "./tooltip-enclosure";
 
@@ -32,6 +36,8 @@ const EditDialog = ({
   const [editedCode, setEditedCode] = useState(clip.code);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+  const { theme } = useTheme();
+
   const handleEdit = async () => {
     try {
       setIsLoading(true);
@@ -54,7 +60,7 @@ const EditDialog = ({
         throw new Error("Failed to edit clip");
       }
 
-      const updatedClip = await response.data;
+      // const updatedClip = await response.data;
       setIsLoading(false);
       setIsOpen(false);
 
@@ -81,12 +87,12 @@ const EditDialog = ({
           <Button
             size="icon"
             variant="ghost"
-            className="h-6 w-6 cursor pointer  "
+            className="h-6 w-6 cursor-pointer"
           >
             <Edit2 className="w-4 h-4" />
           </Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent className="max-h-[90vh] max-w-[90vw]">
           <DialogHeader>
             <DialogTitle>Edit clip</DialogTitle>
             <DialogDescription>
@@ -94,27 +100,30 @@ const EditDialog = ({
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="title" className="text-right">
+            <div className="grid grid-cols-6 items-center gap-3">
+              <Label htmlFor="title" className="text-left sm:text-center">
                 Title
               </Label>
               <Input
                 id="title"
                 value={editedTitle}
                 onChange={(e) => setEditedTitle(e.target.value)}
-                className="col-span-3"
+                className="col-span-5"
               />
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="code" className="text-right">
+            <div className="grid grid-cols-6 items-center gap-3">
+              <Label htmlFor="code" className="text-left sm:text-center">
                 Code
               </Label>
-              <Textarea
-                id="code"
-                value={editedCode}
-                onChange={(e) => setEditedCode(e.target.value)}
-                className="col-span-3"
-              />
+              <div className="col-span-5 overflow-y-auto max-h-[50vh]">
+                <CodeMirror
+                  value={editedCode}
+                  height="100%"
+                  extensions={[javascript({ jsx: true })]}
+                  theme={theme === "dark" ? vscodeDark : vscodeLight}
+                  onChange={(value) => setEditedCode(value)}
+                />
+              </div>
             </div>
           </div>
           <DialogFooter>
