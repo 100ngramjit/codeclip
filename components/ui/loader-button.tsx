@@ -14,7 +14,7 @@ export const LoaderButton = React.forwardRef<
 >(({ isLoading, icon: Icon, children }, ref) => {
   if (isLoading) {
     return (
-      <Button ref={ref} disabled={isLoading} className="w-full">
+      <Button ref={ref} disabled={isLoading}>
         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
         {children}
       </Button>
@@ -22,7 +22,7 @@ export const LoaderButton = React.forwardRef<
   }
 
   return (
-    <Button ref={ref} disabled={isLoading} className="w-full">
+    <Button ref={ref} disabled={isLoading}>
       {Icon ? (
         <>
           <Icon size={18} className="mr-3" />

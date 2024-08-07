@@ -5,10 +5,8 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
 import axiosInstance from "@/lib/axiosInstance";
 import CodeMirror from "@uiw/react-codemirror";
-import { javascript } from "@codemirror/lang-javascript";
 import { vscodeDark, vscodeLight } from "@uiw/codemirror-theme-vscode";
 import { useTheme } from "next-themes";
-
 import {
   Dialog,
   DialogContent,
@@ -59,8 +57,6 @@ const EditDialog = ({
       if (!response.data) {
         throw new Error("Failed to edit clip");
       }
-
-      // const updatedClip = await response.data;
       setIsLoading(false);
       setIsOpen(false);
 
@@ -119,7 +115,6 @@ const EditDialog = ({
                 <CodeMirror
                   value={editedCode}
                   height="100%"
-                  extensions={[javascript({ jsx: true })]}
                   theme={theme === "dark" ? vscodeDark : vscodeLight}
                   onChange={(value) => setEditedCode(value)}
                 />

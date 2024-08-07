@@ -125,7 +125,7 @@ const CodeCard = ({
           showLineNumbers
           wrapLines
           customStyle={{
-            fontSize: "0.8rem",
+            fontSize: `${isDetailsCard ? "1.2rem" : "0.8rem"}`,
             width: "100%",
             overflowX: isHovered ? "auto" : "hidden",
             transition: "overflow-x 0.3s ease",

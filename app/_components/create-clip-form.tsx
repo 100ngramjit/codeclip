@@ -11,10 +11,8 @@ import { useRouter } from "next/navigation";
 import axiosInstance from "@/lib/axiosInstance";
 import { LoaderButton } from "@/components/ui/loader-button";
 import CodeMirror from "@uiw/react-codemirror";
-import { javascript } from "@codemirror/lang-javascript";
-import { vscodeDark, vscodeLight } from "@uiw/codemirror-theme-vscode";
-
 import { useTheme } from "next-themes";
+import { vscodeDark, vscodeLight } from "@uiw/codemirror-theme-vscode";
 
 const schema = z.object({
   title: z
@@ -80,7 +78,7 @@ export const CreateClipForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-md">
+    <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-[75vw]">
       <div className="mb-4">
         <Input
           placeholder="Clip Title"
@@ -103,7 +101,6 @@ export const CreateClipForm: React.FC = () => {
               <CodeMirror
                 value={field.value}
                 height="100%"
-                extensions={[javascript({ jsx: true })]}
                 theme={theme === "dark" ? vscodeDark : vscodeLight}
                 onChange={(value) => field.onChange(value)}
               />
@@ -114,9 +111,11 @@ export const CreateClipForm: React.FC = () => {
           <p className="text-red-500 text-sm mt-1">{errors.content.message}</p>
         )}
       </div>
-      <LoaderButton type="submit" isLoading={isLoading}>
-        Publish Clip
-      </LoaderButton>
+      <div className="flex justify-end">
+        <LoaderButton type="submit" isLoading={isLoading}>
+          Publish Clip
+        </LoaderButton>
+      </div>
     </form>
   );
 };
