@@ -29,7 +29,12 @@ import EditDialog from "./edit-dialog";
 import SaveButton from "./save-button";
 import TooltipEnclosure from "./tooltip-enclosure";
 
-const CodeCard = ({ clip, isEditEnabled, isDetailsCard = false }: any) => {
+const CodeCard = ({
+  clip,
+  isEditEnabled,
+  isDetailsCard = false,
+  showTitle = true,
+}: any) => {
   const { theme } = useTheme();
   const { user } = useUser();
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
@@ -47,12 +52,14 @@ const CodeCard = ({ clip, isEditEnabled, isDetailsCard = false }: any) => {
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-2 overflow-auto">
         <div className="sm:flex sm:justify-start sm:align-top gap-2">
           <div>
-            <Link
-              href={clipURL}
-              className="text-base mb-1 sm:mb-0 break-all hover:underline text-primary"
-            >
-              {clip.fileName}
-            </Link>
+            {showTitle && (
+              <Link
+                href={clipURL}
+                className="text-base mb-1 sm:mb-0 break-all hover:underline text-primary"
+              >
+                {clip.fileName}
+              </Link>
+            )}
           </div>
           <div>
             <CopyButton text={clip.code} />

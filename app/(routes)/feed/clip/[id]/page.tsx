@@ -51,8 +51,16 @@ export default function Page({ params }: { params: { id: string } }) {
   } else {
     return (
       <div className="flex flex-col items-center mt-5 mx-auto p-4 ">
+        <h1 className="text-2xl md:text-4xl font-bold mb-3 text-center text-primary cursor-pointer">
+          {clip.fileName}
+        </h1>
         <div className="w-full">
-          <CodeCard clip={clip} isEditEnabled={true} isDetailsCard={true} />
+          <CodeCard
+            clip={clip}
+            isEditEnabled={true}
+            isDetailsCard={true}
+            showTitle={false}
+          />
         </div>
       </div>
     );
