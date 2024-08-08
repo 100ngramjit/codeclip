@@ -8,7 +8,7 @@ import { Toaster } from "@/components/ui/toaster";
 const lato = Lato({ subsets: ["latin"], weight: "700" });
 
 export const metadata: Metadata = {
-  title: "CodeClip",
+  title: "codeclip",
   description: "Code Clipper app",
 };
 
