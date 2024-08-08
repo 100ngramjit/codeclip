@@ -13,11 +13,16 @@ const Page: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchSavedClips = async () => {
+    const fetchData = async () => {
       if (user) {
+        let bodyContent = JSON.stringify({
+          userId: user.id,
+        });
+
         let reqOptions = {
-          url: `/api/saved?userid=${user.id}`,
-          method: "GET",
+          url: "/api/userclips",
+          method: "POST",
+          data: bodyContent,
         };
 
         try {
@@ -31,7 +36,7 @@ const Page: React.FC = () => {
       }
     };
 
-    fetchSavedClips();
+    fetchData();
   }, [user]);
 
   if (loading) {
@@ -46,10 +51,10 @@ const Page: React.FC = () => {
     return (
       <div className="flex flex-col items-center mt-5 px-4">
         <p>
-          Hi {user?.firstName}! you don't have any saved clips yet. Start
-          exploring
+          Hi {user?.firstName}! you don't have any published clips yet. Start
+          creating
           <Link
-            href="/feed/explore"
+            href="/dashboard/create"
             className="px-1 text-primary hover:underline"
           >
             here
@@ -62,7 +67,7 @@ const Page: React.FC = () => {
   return (
     <div className="flex flex-col items-center mt-5 px-4">
       <h1 className="text-2xl md:text-4xl font-bold mb-3 text-center">
-        Hi {user?.firstName}! Here are your saved clips below
+        Hi {user?.firstName}! Here are your published clips below
       </h1>
       <HighlightedCodeList response={response} />
     </div>

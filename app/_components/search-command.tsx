@@ -50,7 +50,7 @@ function SearchCommand({ open, setOpen }: any) {
             {searchResults.map((result: any, index) => (
               <div key={index} className="flex flex-col">
                 <Link
-                  href={`/feed/clip/${result.id}`}
+                  href={`/dashboard/clip/${result.id}`}
                   replace
                   className="p-2 hover:bg-accent cursor-pointer"
                   onClick={() => setOpen(false)}

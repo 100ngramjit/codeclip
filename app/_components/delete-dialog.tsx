@@ -55,7 +55,7 @@ const DeleteDialog = ({
         description: "Your clip has been deleted.",
       });
       router.refresh();
-      router.push("/feed");
+      router.push("/dashboard");
     } catch (error) {
       setIsLoading(false);
       console.error("Error deleting clip:", error);

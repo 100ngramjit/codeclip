@@ -40,7 +40,7 @@ export default async function Home() {
             experienced coder, there's something for everyone.
           </p>
           <div className="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4">
-            <Link href="/feed">
+            <Link href="/dashboard">
               <Button size="sm">
                 {user ? "Go to dashboard" : "Get Started"}
                 <RocketIcon className="pl-2" />

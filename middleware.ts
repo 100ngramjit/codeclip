@@ -3,8 +3,8 @@ import { NextResponse } from "next/server";
 
 export default clerkMiddleware((auth, req) => {
   const url = new URL(req.url);
-  const isClipRoute = url.pathname.startsWith("/feed/clip/");
-  const isDashboardRoute = url.pathname.startsWith("/feed");
+  const isClipRoute = url.pathname.startsWith("/dashboard/clip/");
+  const isDashboardRoute = url.pathname.startsWith("/dashboard");
 
   if (!auth().userId && isDashboardRoute && !isClipRoute) {
     return auth().redirectToSignIn();

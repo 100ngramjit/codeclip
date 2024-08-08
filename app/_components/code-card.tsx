@@ -41,7 +41,7 @@ const CodeCard = ({
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
-  const clipURL = `${process.env.NEXT_PUBLIC_HOST}/feed/clip/${clip.id}`;
+  const clipURL = `${process.env.NEXT_PUBLIC_HOST}/dashboard/clip/${clip.id}`;
 
   const formattedCreationTime = formatDistanceToNow(new Date(clip.createdAt), {
     addSuffix: true,
@@ -142,7 +142,7 @@ const CodeCard = ({
           showLineNumbers
           wrapLines
           customStyle={{
-            fontSize: "0.7rem",
+            fontSize: "0.6rem",
             width: "100%",
             overflowX: "auto",
             padding: "1rem",

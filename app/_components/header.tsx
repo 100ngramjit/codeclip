@@ -34,37 +34,37 @@ function Header() {
       <nav className="flex justify-between items-center p-3">
         <Link className="flex items-center gap-1 sm:gap-2" href="/">
           <FileCode2 className="w-5 h-5 sm:w-6 sm:h-6" />
-          <span className="text-sm font-semibold">codeclip</span>
+          <span className="text-md font-bold">codeclip</span>
         </Link>
         <div className="hidden md:flex space-x-3 items-center">
           <Link
-            href="/feed"
+            href="/dashboard"
             className={`text-sm ${
-              pathname === "/feed" ? "font-bold text-primary" : ""
+              pathname === "/dashboard" ? "font-bold text-primary" : ""
             }`}
           >
             Home
           </Link>
           <Link
-            href="/feed/explore"
+            href="/dashboard/explore"
             className={`text-sm ${
-              pathname === "/feed/explore" ? "font-bold text-primary" : ""
+              pathname === "/dashboard/explore" ? "font-bold text-primary" : ""
             }`}
           >
             Explore
           </Link>
           <Link
-            href="/feed/create"
+            href="/dashboard/create"
             className={`text-sm ${
-              pathname === "/feed/create" ? "font-bold text-primary" : ""
+              pathname === "/dashboard/create" ? "font-bold text-primary" : ""
             }`}
           >
             Create
           </Link>
           <Link
-            href="/feed/saved"
+            href="/dashboard/saved"
             className={`text-sm ${
-              pathname === "/feed/saved" ? "font-bold text-primary" : ""
+              pathname === "/dashboard/saved" ? "font-bold text-primary" : ""
             }`}
           >
             Saved

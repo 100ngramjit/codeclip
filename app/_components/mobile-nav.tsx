@@ -30,9 +30,9 @@ const MobileNav = () => {
         <div className="grid gap-3 sm:gap-6 p-2">
           <SheetClose asChild>
             <Link
-              href="/feed"
+              href="/dashboard"
               className={`text-sm sm:text-base ${
-                pathname === "/feed" ? "font-bold text-primary" : ""
+                pathname === "/dashboard" ? "font-bold text-primary" : ""
               }`}
             >
               Home
@@ -40,9 +40,11 @@ const MobileNav = () => {
           </SheetClose>
           <SheetClose asChild>
             <Link
-              href="/feed/explore"
+              href="/dashboard/explore"
               className={`text-sm sm:text-base ${
-                pathname === "/feed/explore" ? "font-bold text-primary" : ""
+                pathname === "/dashboard/explore"
+                  ? "font-bold text-primary"
+                  : ""
               }`}
             >
               Explore
@@ -50,9 +52,9 @@ const MobileNav = () => {
           </SheetClose>
           <SheetClose asChild>
             <Link
-              href="/feed/create"
+              href="/dashboard/create"
               className={`text-sm sm:text-base ${
-                pathname === "/feed/create" ? "font-bold text-primary" : ""
+                pathname === "/dashboard/create" ? "font-bold text-primary" : ""
               }`}
             >
               Create
@@ -60,9 +62,9 @@ const MobileNav = () => {
           </SheetClose>
           <SheetClose asChild>
             <Link
-              href="/feed/saved"
+              href="/dashboard/saved"
               className={`text-sm ${
-                pathname === "/feed/saved" ? "font-bold text-primary" : ""
+                pathname === "/dashboard/saved" ? "font-bold text-primary" : ""
               }`}
             >
               Saved
