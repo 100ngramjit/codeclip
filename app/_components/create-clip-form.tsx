@@ -91,8 +91,9 @@ export const CreateClipForm: React.FC = () => {
       </div>
       <div className="mb-4">
         <div
-          className="resize overflow-auto border border-gray-300 rounded"
-          style={{ minHeight: "200px", maxHeight: "600px" }}
+          className={`resize max-h-[600px] min-h-[200px] overflow-auto text-sm md:text-base border border-gray-300 ${
+            theme === "dark" ? "bg-[#2b2b2b]" : "bg-[#f0f0f0]"
+          } rounded`}
         >
           <Controller
             name="content"
