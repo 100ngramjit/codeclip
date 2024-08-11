@@ -52,17 +52,17 @@ export async function userClips(clerkUserId: string) {
 export async function randomClips(clerkUserId: string) {
   try {
     const clips = await prisma.$queryRaw`
-    SELECT * FROM "Clips"
-    ORDER BY RANDOM()
-    LIMIT 10
-  `;
-    if (!clips) {
-      throw new Error(`User with ID ${clerkUserId} not found.`);
-    }
+      SELECT * FROM "Clips"
+      WHERE "clerkUserId" != ${clerkUserId}
+      ORDER BY RANDOM()
+      LIMIT 10
+    `;
+
     if (!clips) {
       console.log("No clips found.");
       return [];
     }
+
     return clips;
   } catch (error) {
     console.error("Error fetching random clips:", error);
