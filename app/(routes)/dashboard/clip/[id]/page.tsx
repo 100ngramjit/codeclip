@@ -35,6 +35,7 @@ export default function Page({ params }: { params: { id: string } }) {
   if (isLoading) {
     return (
       <div className="flex flex-col items-center mt-5 mx-auto p-4">
+        <Skeleton className="h-12 w-1/2 mb-3" />
         <Card className="p-2 sm:p-4 my-2 rounded-lg w-full">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-2 overflow-auto">
             <Skeleton className="h-4 w-1/2" />
