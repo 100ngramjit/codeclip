@@ -28,6 +28,7 @@ import DeleteDialog from "./delete-dialog";
 import EditDialog from "./edit-dialog";
 import SaveButton from "./save-button";
 import TooltipEnclosure from "./tooltip-enclosure";
+import { Badge } from "@/components/ui/badge";
 
 const CodeCard = ({
   clip,
@@ -61,6 +62,7 @@ const CodeCard = ({
               </Link>
             )}
           </div>
+          {clip.lang && <Badge variant="secondary">{clip.lang}</Badge>}
           <div>
             <CopyButton text={clip.code} />
             <MacWindow title={clip.fileName} code={clip.code} />
@@ -122,6 +124,7 @@ const CodeCard = ({
       <div className="hidden md:flex w-full">
         <SyntaxHighlighter
           style={theme === "dark" ? nightOwl : googlecode}
+          language={clip.lang}
           showLineNumbers
           wrapLines
           customStyle={{
@@ -138,6 +141,7 @@ const CodeCard = ({
       </div>
       <div className="md:hidden w-full overflow-x-auto">
         <SyntaxHighlighter
+          language={clip.lang}
           style={theme === "dark" ? nightOwl : googlecode}
           showLineNumbers
           wrapLines
