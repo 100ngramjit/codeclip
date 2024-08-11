@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
 import axiosInstance from "@/lib/axiosInstance";
@@ -33,8 +33,13 @@ const EditDialog = ({
   const [editedTitle, setEditedTitle] = useState(clip.fileName);
   const [editedCode, setEditedCode] = useState(clip.code);
   const [isLoading, setIsLoading] = useState(false);
+  const [isChanged, setIsChanged] = useState(false);
   const { toast } = useToast();
   const { theme } = useTheme();
+
+  useEffect(() => {
+    setIsChanged(editedTitle !== clip.fileName || editedCode !== clip.code);
+  }, [editedTitle, editedCode, clip.fileName, clip.code]);
 
   const handleEdit = async () => {
     try {
@@ -122,7 +127,7 @@ const EditDialog = ({
             </div>
           </div>
           <DialogFooter>
-            <Button onClick={handleEdit} disabled={isLoading}>
+            <Button onClick={handleEdit} disabled={isLoading || !isChanged}>
               {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               Save changes
             </Button>
