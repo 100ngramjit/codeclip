@@ -1,4 +1,6 @@
+import { mapLanguage } from "@/lib/langDetector";
 import { PrismaClient } from "@prisma/client";
+import flourite from "flourite";
 
 const prisma = new PrismaClient();
 export async function publishClip(
@@ -8,16 +10,20 @@ export async function publishClip(
   userEmail: string
 ) {
   try {
+    const detectedLanguage = flourite(body);
+
     const clip = await prisma.clips.create({
       data: {
         fileName: title,
         code: body,
         clerkUserId: clerkUserId,
         userEmail: userEmail,
+        lang: mapLanguage(detectedLanguage.language),
       },
     });
+
     if (!clip) {
-      throw new Error(`User with ID ${clerkUserId} not found.`);
+      throw new Error(`Failed to create clip for user with ID ${clerkUserId}.`);
     }
 
     return clip;
