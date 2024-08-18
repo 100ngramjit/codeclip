@@ -29,6 +29,7 @@ import EditDialog from "./edit-dialog";
 import SaveButton from "./save-button";
 import TooltipEnclosure from "./tooltip-enclosure";
 import { Badge } from "@/components/ui/badge";
+import { reverseMapLanguage } from "@/lib/langDetector";
 
 const CodeCard = ({
   clip,
@@ -62,7 +63,9 @@ const CodeCard = ({
               </Link>
             )}
           </div>
-          {clip.lang && <Badge variant="secondary">{clip.lang}</Badge>}
+          {clip.lang && (
+            <Badge variant="secondary">{reverseMapLanguage(clip.lang)}</Badge>
+          )}
           <div>
             <CopyButton text={clip.code} />
             <MacWindow title={clip.fileName} code={clip.code} />
