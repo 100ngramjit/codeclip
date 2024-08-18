@@ -11,8 +11,8 @@ export function ModeToggle() {
         onClick={() => setTheme(theme === "light" ? "dark" : "light")}
         className="cursor-pointer"
       >
-        <Sun className="h-7 w-7 dark:hidden" />
-        <MoonStar className="hidden h-7 w-7 dark:block" />
+        <Sun className="h-5 w-5 sm:h-7 sm:w-7 dark:hidden" />
+        <MoonStar className="hidden h-5 w-5 sm:h-7 sm:w-7 dark:block" />
         <span className="sr-only">Toggle theme</span>
       </div>
     </TooltipEnclosure>
