@@ -68,7 +68,11 @@ const CodeCard = ({
           )}
           <div>
             <CopyButton text={clip.code} />
-            <MacWindow title={clip.fileName} code={clip.code} />
+            <MacWindow
+              title={clip.fileName}
+              code={clip.code}
+              lang={clip.lang}
+            />
             <TooltipEnclosure content="share">
               <Drawer>
                 <DrawerTrigger asChild>
