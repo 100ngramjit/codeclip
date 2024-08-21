@@ -28,10 +28,15 @@ export default async function Home() {
       </header>
       <main className="text-center p-10">
         <section className="space-y-6">
-          <h1 className="text-4xl md:text-5xl font-bold">
-            Create and
+          <h1 className="text-4xl md:text-5xl font-bold text-center">
+            Create code clips &
             <FlipWords
-              words={["Save Code", "Copy Code", "Share Code", "Download Code"]}
+              words={[
+                "steal and save anyone's clips",
+                "share clips with the world",
+                "download any clip as an image",
+                "explore clips from the whole community",
+              ]}
             />
           </h1>
           <p className="text-muted-foreground text-lg md:text-xl">
