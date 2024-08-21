@@ -72,6 +72,7 @@ const CodeCard = ({
               title={clip.fileName}
               code={clip.code}
               lang={clip.lang}
+              userEmail={clip?.userEmail}
             />
             <TooltipEnclosure content="share">
               <Drawer>

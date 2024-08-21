@@ -11,11 +11,12 @@ import { Check, ImageDown } from "lucide-react";
 import TooltipEnclosure from "./tooltip-enclosure";
 import { useTheme } from "next-themes";
 
-const MacWindow: React.FC<{ title: string; code: string; lang: string }> = ({
-  title,
-  code,
-  lang,
-}) => {
+const MacWindow: React.FC<{
+  title: string;
+  code: string;
+  lang: string;
+  userEmail: string;
+}> = ({ title, code, lang, userEmail }) => {
   const [isCapturing, setIsCapturing] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
 
@@ -68,12 +69,14 @@ const MacWindow: React.FC<{ title: string; code: string; lang: string }> = ({
         <div className="overflow-hidden shadow-sm">
           <div className="dark:bg-slate-800 flex items-center justify-between bg-gray-100 p-2">
             <div className="flex items-center gap-2">
-              <div className="w-4 h-4 bg-red-500 rounded-full" />
-              <div className="w-4 h-4 bg-yellow-400 rounded-full" />
-              <div className="w-4 h-4 bg-green-400 rounded-full" />
+              <div className="w-3 h-3 bg-red-500 rounded-full" />
+              <div className="w-3 h-3 bg-yellow-400 rounded-full" />
+              <div className="w-3 h-3 bg-green-400 rounded-full" />
             </div>
             <div className="text-sm pb-2">{title}</div>
-            <div className="w-6" />
+            <div className="text-xs text-muted-foreground pb-2">
+              by {userEmail}
+            </div>
           </div>
           <div className="p-4 bg-gradient-to-r from-blue-300 via-purple-500 to-pink-600">
             <SyntaxHighlighter
@@ -81,7 +84,7 @@ const MacWindow: React.FC<{ title: string; code: string; lang: string }> = ({
               language={lang}
               showLineNumbers
               wrapLines={false}
-              customStyle={{ fontSize: "12px", margin: 0 }}
+              customStyle={{ fontSize: "12px", minWidth: "65vw", margin: 0 }}
             >
               {code}
             </SyntaxHighlighter>
