@@ -51,7 +51,7 @@ const MacWindow: React.FC<{
     if (!hiddenContainerRef.current) return;
 
     const canvas = await html2canvas(hiddenContainerRef.current, {
-      scale: 0.4,
+      scale: 0.6,
       logging: false,
       useCORS: true,
       allowTaint: true,
@@ -84,7 +84,7 @@ const MacWindow: React.FC<{
               language={lang}
               showLineNumbers
               wrapLines={false}
-              customStyle={{ fontSize: "12px", minWidth: "65vw", margin: 0 }}
+              customStyle={{ fontSize: "12px", minWidth: "768px", margin: 0 }}
             >
               {code}
             </SyntaxHighlighter>
