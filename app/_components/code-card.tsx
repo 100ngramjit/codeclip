@@ -57,14 +57,16 @@ const CodeCard = ({
             {showTitle && (
               <Link
                 href={clipURL}
-                className="text-base mb-1 sm:mb-0 break-all hover:underline text-primary"
+                className="text-md mb-1 sm:mb-0 break-all hover:underline text-primary"
               >
                 {clip.fileName}
               </Link>
             )}
           </div>
           {clip.lang && (
-            <Badge variant="secondary">{reverseMapLanguage(clip.lang)}</Badge>
+            <Badge variant="secondary" className="text-xs ">
+              {reverseMapLanguage(clip.lang)}
+            </Badge>
           )}
           <div>
             <CopyButton text={clip.code} />
