@@ -30,7 +30,7 @@ const MacWindow: React.FC<{
     setIsCapturing(true);
     try {
       const canvas = await html2canvas(hiddenContainerRef.current, {
-        scale: 1,
+        scale: 1.2,
         logging: false,
         useCORS: true,
         allowTaint: true,
@@ -51,7 +51,7 @@ const MacWindow: React.FC<{
     if (!hiddenContainerRef.current) return;
 
     const canvas = await html2canvas(hiddenContainerRef.current, {
-      scale: 0.6,
+      scale: 0.5,
       logging: false,
       useCORS: true,
       allowTaint: true,
@@ -84,7 +84,11 @@ const MacWindow: React.FC<{
               language={lang}
               showLineNumbers
               wrapLines={false}
-              customStyle={{ fontSize: "12px", minWidth: "768px", margin: 0 }}
+              customStyle={{
+                fontSize: "12px",
+                minWidth: "768px",
+                padding: "1rem",
+              }}
             >
               {code}
             </SyntaxHighlighter>
