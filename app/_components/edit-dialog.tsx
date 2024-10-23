@@ -75,7 +75,7 @@ const EditDialog = ({
       console.error("Error editing clip:", error);
       toast({
         title: "Error",
-        description: "Failed to update the clip. Please try again.",
+        description: "Failed to update the changes. Please try again.",
         variant: "destructive",
       });
     }
