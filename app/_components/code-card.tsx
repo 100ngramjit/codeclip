@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import SyntaxHighlighter from "react-syntax-highlighter";
+import { QRCodeSVG } from "qrcode.react";
 import {
   nightOwl,
   googlecode,
@@ -90,13 +91,23 @@ const CodeCard = ({
                 <DrawerContent>
                   <div className="mx-auto w-full max-w-xl">
                     <DrawerHeader>
-                      <DrawerTitle className="flex justify-start gap-2">
+                      <DrawerTitle className="flex justify-center gap-2">
                         <div>Share Snippet Url</div>
 
                         <CopyButton text={clipURL} />
                       </DrawerTitle>
-                      <DrawerDescription className="overflow-auto bg-accent">
-                        {clipURL}
+                      <DrawerDescription className="overflow-auto">
+                        <div className="flex justify-center rounded-lg mb-4 w-full mx-auto">
+                          <QRCodeSVG
+                            value={clipURL}
+                            width="65%"
+                            height="65%"
+                            level={"H"}
+                            bgColor={theme === "light" ? "#e5fffb" : "#061311"}
+                            fgColor={theme === "light" ? "#000000" : "#ffffff"}
+                          />
+                        </div>
+                        <div className="bg-accent">{clipURL}</div>
                       </DrawerDescription>
                     </DrawerHeader>
 
