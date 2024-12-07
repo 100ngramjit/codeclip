@@ -15,7 +15,6 @@ import {
   Drawer,
   DrawerClose,
   DrawerContent,
-  DrawerDescription,
   DrawerFooter,
   DrawerHeader,
   DrawerTitle,
@@ -96,7 +95,7 @@ const CodeCard = ({
 
                         <CopyButton text={clipURL} />
                       </DrawerTitle>
-                      <DrawerDescription className="overflow-auto">
+                      <div className="overflow-auto">
                         <div className="flex justify-center rounded-lg mb-4 w-full mx-auto">
                           <QRCodeSVG
                             value={clipURL}
@@ -107,8 +106,10 @@ const CodeCard = ({
                             fgColor={theme === "light" ? "#000000" : "#ffffff"}
                           />
                         </div>
-                        <div className="bg-accent">{clipURL}</div>
-                      </DrawerDescription>
+                        <div className="bg-accent text-muted-foreground">
+                          {clipURL}
+                        </div>
+                      </div>
                     </DrawerHeader>
 
                     <DrawerFooter>
