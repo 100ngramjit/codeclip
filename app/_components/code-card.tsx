@@ -91,9 +91,14 @@ const CodeCard = ({
                   <div className="mx-auto w-full max-w-xl">
                     <DrawerHeader>
                       <DrawerTitle className="flex justify-center gap-2">
-                        <div>Share Snippet Url</div>
+                        <div className="text-xl md:text-2xl">
+                          Share Snippet URL
+                        </div>
 
-                        <CopyButton text={clipURL} />
+                        <CopyButton
+                          text={clipURL}
+                          className="w-6 h-6 md:h-8 md:w-8 my-auto"
+                        />
                       </DrawerTitle>
                       <div className="overflow-auto">
                         <div className="flex justify-center rounded-lg mb-4 w-full mx-auto">

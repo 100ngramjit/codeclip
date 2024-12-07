@@ -6,7 +6,12 @@ import { useToast } from "@/components/ui/use-toast";
 import { Copy, Check } from "lucide-react";
 import TooltipEnclosure from "./tooltip-enclosure";
 
-export function CopyButton({ text }: { text: string }) {
+interface CopyButtonProps {
+  text: string;
+  className?: string;
+}
+
+export function CopyButton({ text, className }: CopyButtonProps) {
   const { toast } = useToast();
   const [showTick, setShowTick] = useState(false);
 
@@ -22,13 +27,13 @@ export function CopyButton({ text }: { text: string }) {
       <Button
         size="icon"
         variant="ghost"
-        className="h-6 w-6 cursor pointer  "
+        className="h-6 w-6 cursor-pointer"
         onClick={handleClick}
       >
         {showTick ? (
-          <Check className="w-4 h-4" />
+          <Check className={`h-4 w-4 ${className}`} />
         ) : (
-          <Copy className="w-4 h-4" />
+          <Copy className={`h-4 w-4 ${className}`} />
         )}
       </Button>
     </TooltipEnclosure>
