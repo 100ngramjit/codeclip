@@ -4,7 +4,7 @@ const FooterLanding = () => {
   return (
     <div className="flex flex-col items-center py-12">
       <h2 className="text-2xl font-semibold mb-8 text-center">
-        Have a question or dashboardback? Reach out to us!
+        Have a question or feedback? Reach out to us!
       </h2>
       <div className="flex flex-wrap justify-center gap-8">
         <div className="flex flex-col items-center p-6 rounded-lg">
