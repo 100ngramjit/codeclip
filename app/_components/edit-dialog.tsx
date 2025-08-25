@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
@@ -18,7 +17,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { Edit2, Loader2 } from "lucide-react";
+import { Edit2, Loader2, Sparkles } from "lucide-react";
 import TooltipEnclosure from "./tooltip-enclosure";
 
 const EditDialog = ({
@@ -33,6 +32,7 @@ const EditDialog = ({
   const [editedTitle, setEditedTitle] = useState(clip.fileName);
   const [editedCode, setEditedCode] = useState(clip.code);
   const [isLoading, setIsLoading] = useState(false);
+  const [aiLoading, setAiLoading] = useState(false);
   const [isChanged, setIsChanged] = useState(false);
   const { toast } = useToast();
   const { theme } = useTheme();
@@ -56,19 +56,13 @@ const EditDialog = ({
         method: "PUT",
         data: bodyContent,
       };
-
       const response = await axiosInstance.request(reqOptions);
 
-      if (!response.data) {
-        throw new Error("Failed to edit clip");
-      }
+      if (!response.data) throw new Error("Failed to edit clip");
+
       setIsLoading(false);
       setIsOpen(false);
-
-      toast({
-        title: "Success",
-        description: "Your clip has been updated.",
-      });
+      toast({ title: "Success", description: "Your clip has been updated." });
       window.location.reload();
     } catch (error) {
       setIsLoading(false);
@@ -78,6 +72,37 @@ const EditDialog = ({
         description: "Failed to update the changes. Please try again.",
         variant: "destructive",
       });
+    }
+  };
+
+  // --- NEW FUNCTION: AI Code Improvement ---
+  const handleImproveWithAI = async () => {
+    try {
+      setAiLoading(true);
+
+      // Call your AI API (using axiosInstance for example)
+      const response = await axiosInstance.post("api/improveclip", {
+        content: editedCode,
+      });
+
+      if (!response.data?.improvedCode) {
+        throw new Error("No improved code returned");
+      }
+
+      setEditedCode(response.data.improvedCode);
+      toast({
+        title: "AI Improved ✨",
+        description: "The code has been enhanced by AI.",
+      });
+    } catch (error) {
+      console.error("Error improving code:", error);
+      toast({
+        title: "AI Error",
+        description: "Could not improve the code. Try again later.",
+        variant: "destructive",
+      });
+    } finally {
+      setAiLoading(false);
     }
   };
 
@@ -97,9 +122,10 @@ const EditDialog = ({
           <DialogHeader>
             <DialogTitle>Edit clip</DialogTitle>
             <DialogDescription>
-              Make changes to your clip here. Click save when you're done.
+              Make changes to your clip, or let AI improve it for you.
             </DialogDescription>
           </DialogHeader>
+
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-6 items-center gap-3">
               <Label htmlFor="title" className="text-left sm:text-center">
@@ -112,6 +138,7 @@ const EditDialog = ({
                 className="col-span-5"
               />
             </div>
+
             <div className="grid grid-cols-6 items-center gap-3">
               <Label htmlFor="code" className="text-left sm:text-center">
                 Code
@@ -126,7 +153,25 @@ const EditDialog = ({
               </div>
             </div>
           </div>
-          <DialogFooter>
+
+          <DialogFooter className="flex gap-2">
+            {/* AI Button */}
+            <Button
+              type="button"
+              variant="secondary"
+              onClick={handleImproveWithAI}
+              disabled // disabled for now untill we get credits
+              // disabled={aiLoading}
+            >
+              {aiLoading ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : (
+                <Sparkles className="mr-2 h-4 w-4" />
+              )}
+              Improve with AI (coming soon)
+            </Button>
+
+            {/* Save Button */}
             <Button onClick={handleEdit} disabled={isLoading || !isChanged}>
               {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               Save changes

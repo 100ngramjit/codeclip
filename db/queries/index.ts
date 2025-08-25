@@ -3,6 +3,7 @@ import { PrismaClient } from "@prisma/client";
 import flourite from "flourite";
 
 const prisma = new PrismaClient();
+
 export async function publishClip(
   title: string,
   body: string,
@@ -26,7 +27,8 @@ export async function publishClip(
       throw new Error(`Failed to create clip for user with ID ${clerkUserId}.`);
     }
 
-    return clip;
+    const { clerkUserId: _clerkUserId, ...filteredClip } = clip;
+    return filteredClip;
   } catch (error) {
     console.error("Error posting clip:", error);
     throw error;
@@ -48,7 +50,8 @@ export async function userClips(clerkUserId: string) {
       console.log(`No clips found for user with ID ${clerkUserId}.`);
       return [];
     }
-    return clips;
+
+    return clips.map(({ clerkUserId: _clerkUserId, ...clip }) => clip);
   } catch (error) {
     console.error("Error fetching user clips:", error);
     throw error;
@@ -69,7 +72,9 @@ export async function randomClips(clerkUserId: string) {
       return [];
     }
 
-    return clips;
+    return (clips as any[]).map(
+      ({ clerkUserId: _clerkUserId, ...clip }) => clip
+    );
   } catch (error) {
     console.error("Error fetching random clips:", error);
     throw error;
@@ -101,7 +106,7 @@ export async function searchClips(
       console.log(`No clips found matching the search term: ${searchTerm}`);
     }
 
-    return clips;
+    return clips.map(({ clerkUserId: _clerkUserId, ...clip }) => clip);
   } catch (error) {
     console.error("Error searching clips:", error);
     throw error;
@@ -140,8 +145,9 @@ export async function clipDetails(id: string, clerkUserId: string) {
       return null;
     }
 
+    const { clerkUserId: _clerkUserId, ...filteredClip } = clip;
     return {
-      ...clip,
+      ...filteredClip,
       isSaved: clip.saved.length > 0,
     };
   } catch (error) {
@@ -177,7 +183,8 @@ export async function editClip(
       },
     });
 
-    return updatedClip;
+    const { clerkUserId: _clerkUserId, ...filteredClip } = updatedClip;
+    return filteredClip;
   } catch (error) {
     console.error("Error editing clip:", error);
     throw error;
@@ -191,11 +198,13 @@ export async function deleteClip(clipId: string) {
         id: clipId,
       },
     });
+
     if (!clip) {
       throw new Error(`Clip with ID ${clipId} not found.`);
     }
 
-    return clip;
+    const { clerkUserId: _clerkUserId, ...filteredClip } = clip;
+    return filteredClip;
   } catch (error) {
     console.error("Error posting clip:", error);
     throw error;
@@ -210,6 +219,7 @@ export async function saveClip(clipId: string, clerkUserId: string) {
         clipId: clipId,
       },
     });
+
     if (!clip) {
       throw new Error(`Clip with ID ${clipId} not found.`);
     }
@@ -240,8 +250,10 @@ export async function getSavedClips(clerkUserId: string) {
       return [];
     }
 
-    const clipData = savedClips.map((savedClip) => savedClip.clip);
-
+    const clipData = savedClips.map((savedClip) => {
+      const { clerkUserId: _clerkUserId, ...clip } = savedClip.clip;
+      return clip;
+    });
     return clipData;
   } catch (error) {
     console.error("Error fetching saved clips:", error);

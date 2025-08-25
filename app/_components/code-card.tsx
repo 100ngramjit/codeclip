@@ -128,20 +128,21 @@ const CodeCard = ({
             </TooltipEnclosure>
             {user?.id && isDetailsCard && <SaveButton clip={clip} />}
 
-            {isEditEnabled && user?.id === clip.clerkUserId && (
-              <>
-                <EditDialog
-                  clip={clip}
-                  isOpen={isEditDialogOpen}
-                  setIsOpen={setIsEditDialogOpen}
-                />
-                <DeleteDialog
-                  clip={clip}
-                  isOpen={isDeleteDialogOpen}
-                  setIsOpen={setIsDeleteDialogOpen}
-                />
-              </>
-            )}
+            {isEditEnabled &&
+              user?.primaryEmailAddress?.emailAddress === clip.userEmail && (
+                <>
+                  <EditDialog
+                    clip={clip}
+                    isOpen={isEditDialogOpen}
+                    setIsOpen={setIsEditDialogOpen}
+                  />
+                  <DeleteDialog
+                    clip={clip}
+                    isOpen={isDeleteDialogOpen}
+                    setIsOpen={setIsDeleteDialogOpen}
+                  />
+                </>
+              )}
           </div>
         </div>
         <div>
