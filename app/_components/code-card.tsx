@@ -146,9 +146,13 @@ const CodeCard = ({
                   />
                 </>
               )}
-            <CodeReviewDialog clip={clip} />
-            <DocumentationDialog clip={clip} />
-            <CodeAnalysisDialog clip={clip} />
+            {isDetailsCard && (
+              <>
+                <CodeReviewDialog clip={clip} />
+                <DocumentationDialog clip={clip} />
+                <CodeAnalysisDialog clip={clip} />
+              </>
+            )}
           </div>
         </div>
         <div>
