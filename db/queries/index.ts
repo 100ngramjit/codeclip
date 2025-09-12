@@ -145,9 +145,9 @@ export async function clipDetails(id: string, clerkUserId: string) {
       return null;
     }
 
-    const { clerkUserId: _clerkUserId, ...filteredClip } = clip;
+    // const { clerkUserId: _clerkUserId, ...filteredClip } = clip;
     return {
-      ...filteredClip,
+      ...clip,
       isSaved: clip.saved.length > 0,
     };
   } catch (error) {

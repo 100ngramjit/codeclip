@@ -160,7 +160,7 @@ const EditDialog = ({
               type="button"
               variant="secondary"
               onClick={handleImproveWithAI}
-              disabled // disabled for now untill we get credits
+              // disabled // disabled for now untill we get credits
               // disabled={aiLoading}
             >
               {aiLoading ? (
@@ -168,7 +168,8 @@ const EditDialog = ({
               ) : (
                 <Sparkles className="mr-2 h-4 w-4" />
               )}
-              Improve with AI (coming soon)
+              Improve with AI
+              {/* (coming soon) */}
             </Button>
 
             {/* Save Button */}

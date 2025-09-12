@@ -30,6 +30,9 @@ import SaveButton from "./save-button";
 import TooltipEnclosure from "./tooltip-enclosure";
 import { Badge } from "@/components/ui/badge";
 import { reverseMapLanguage } from "@/lib/langDetector";
+import CodeReviewDialog from "./code-review-dialog";
+import DocumentationDialog from "./code-documentation-dialog";
+import CodeAnalysisDialog from "./code-analysis-dialog";
 
 const CodeCard = ({
   clip,
@@ -143,6 +146,9 @@ const CodeCard = ({
                   />
                 </>
               )}
+            <CodeReviewDialog clip={clip} />
+            <DocumentationDialog clip={clip} />
+            <CodeAnalysisDialog clip={clip} />
           </div>
         </div>
         <div>

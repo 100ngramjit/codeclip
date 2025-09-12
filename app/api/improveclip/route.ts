@@ -2,7 +2,8 @@ import { NextRequest } from "next/server";
 import OpenAI from "openai";
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: process.env.PERPLEXITY_API_KEY,
+  baseURL: "https://api.perplexity.ai", // Add this line!
 });
 
 export async function POST(req: NextRequest) {
@@ -21,14 +22,14 @@ export async function POST(req: NextRequest) {
 
     const prompt = `
 You are an expert developer. Improve the following code by refactoring, optimizing, and enhancing readability and performance, but preserve its functionality.
-Return ONLY the improved code, no explanations.
+Return ONLY the improved code content , no explanations and no language identifiers with backticks.
 
 CODE:
 ${content}
 `;
 
     const chatResponse = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
+      model: "sonar",
       messages: [
         { role: "system", content: "You are a senior code assistant." },
         { role: "user", content: prompt },
