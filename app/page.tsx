@@ -25,9 +25,7 @@ import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/default-highlig
 import { nightOwl } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
 export default async function Home() {
-  // For static export, you may need to manage user state on the client
   const user = await currentUser();
-  // For simplicity in client components:
 
   const aiReviewCode = `
 function calculateTotal(items) {
@@ -57,7 +55,7 @@ const calculateTotal = (items = []) => {
         <nav className="flex justify-between items-center p-6">
           <div className="flex justify-start gap-2">
             <FileCode2 className="w-10 h-10" />
-            <span className="text-3xl">codeclip</span>
+            <span className="text-3xl font-black">codeclip</span>
           </div>
           <SignedOut>
             <SignInButton />
@@ -68,17 +66,12 @@ const calculateTotal = (items = []) => {
         </nav>
       </header>
 
-      <main className="text-center p-10">
+      <main className="text-center p-5">
         {/* --- Hero Section --- */}
         <section className="relative overflow-hidden py-20 md:py-32">
-          <div className="absolute inset-0 bg-grid-small-black/[0.2] dark:bg-grid-small-white/[0.2] pointer-events-none" />
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <div className="w-[40rem] h-[40rem] bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-full blur-3xl opacity-30" />
-          </div>
-
           <div className="relative z-10 max-w-5xl mx-auto px-4">
             <div className="space-y-8">
-              <h1 className="text-5xl md:text-7xl font-bold">
+              <h1 className="text-5xl md:text-7xl font-black">
                 Create code &{" "}
                 <FlipWords
                   words={[
@@ -90,14 +83,14 @@ const calculateTotal = (items = []) => {
                   ]}
                 />
               </h1>
-              <p className="text-muted-foreground text-md md:text-xl max-w-3xl mx-auto leading-relaxed">
+              <p className="text-muted-foreground text-md md:text-xl max-w-3xl mx-auto leading-relaxed font-bold">
                 The world's most advanced code sharing platform powered by AI.
                 Get instant code reviews, smart improvements, and automatic
                 documentation while collaborating with developers worldwide.
               </p>
               <div className="flex flex-col sm:flex-row justify-center items-center gap-4 pt-4">
                 <Link href="/dashboard">
-                  <Button className="px-8 py-4 text-md font-semibold bg-gradient-to-r from-lime-600 to-green-900 hover:from-green-900 hover:to-lime-600 transform hover:scale-105 transition duration-300 ease-in-out shadow-lg">
+                  <Button className="px-8 py-4 text-md font-black bg-lime-400 hover:bg-lime-500 text-black border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all duration-150">
                     {user ? "Go to dashboard" : "Get Started"}
                     <RocketIcon className="ml-2 w-5 h-5" />
                   </Button>
@@ -105,71 +98,70 @@ const calculateTotal = (items = []) => {
               </div>
             </div>
           </div>
-          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent pointer-events-none"></div>
         </section>
         {/* --- End Hero Section --- */}
 
         {/* --- AI-Enhanced Feature Section --- */}
         <section className="py-20">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <h2 className="text-3xl md:text-4xl font-black mb-4">
               AI-Powered Code Intelligence
             </h2>
-            <p className="text-muted-foreground text-lg mb-12">
+            <p className="text-muted-foreground text-lg mb-12 font-bold">
               Advanced AI features that make your code better, faster, and more
               secure
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {/* Consistent AI Feature Cards */}
+              {/* Neobrutalism Feature Cards */}
               {[
                 {
                   icon: <Brain className="w-8 h-8 text-white" />,
-                  bg: "from-blue-500 to-purple-600",
+                  bg: "bg-blue-500",
                   title: "AI Code Review",
                   desc: "Get instant feedback on code quality, security vulnerabilities, and best practices with our AI-powered review system.",
                 },
                 {
                   icon: <Sparkles className="w-8 h-8 text-white" />,
-                  bg: "from-green-500 to-teal-600",
+                  bg: "bg-green-500",
                   title: "Smart Improvements",
                   desc: "Receive contextual suggestions for performance optimization, code refactoring, and modern best practices.",
                 },
                 {
                   icon: <FileText className="w-8 h-8 text-white" />,
-                  bg: "from-orange-500 to-red-600",
+                  bg: "bg-orange-500",
                   title: "Auto Documentation",
                   desc: "Generate comprehensive documentation, comments, and explanations automatically using advanced AI models.",
                 },
                 {
                   icon: <Search className="w-8 h-8 text-white" />,
-                  bg: "from-indigo-500 to-blue-600",
+                  bg: "bg-indigo-500",
                   title: "Deep Code Analysis",
                   desc: "Comprehensive static and dynamic analysis to identify bugs, performance bottlenecks, and security issues.",
                 },
                 {
                   icon: <Code className="w-8 h-8 text-white" />,
-                  bg: "from-purple-500 to-pink-600",
+                  bg: "bg-purple-500",
                   title: "Language Agnostic",
                   desc: "Support for Python, JavaScript, TypeScript, Go, Rust, and 20+ programming languages with intelligent analysis.",
                 },
                 {
                   icon: <Zap className="w-8 h-8 text-white" />,
-                  bg: "from-yellow-500 to-orange-600",
+                  bg: "bg-yellow-500",
                   title: "Real-time Feedback",
                   desc: "Get instant suggestions as you type, with continuous learning from community feedback and best practices.",
                 },
               ].map((card, i) => (
                 <div
                   key={i}
-                  className={`border border-slate-950 dark:border-white rounded-2xl p-8 text-center group hover:shadow-2xl hover:border-blue-400/50 transition-all duration-300 transform hover:-translate-y-1`}
+                  className="border-4 border-black dark:border-white bg-white dark:bg-slate-900 p-8 text-center shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)] hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[12px_12px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[-4px] hover:translate-y-[-4px] transition-all duration-150"
                 >
                   <div
-                    className={`w-16 h-16 rounded-full bg-gradient-to-r ${card.bg} flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300`}
+                    className={`w-16 h-16 ${card.bg} border-4 border-black dark:border-white flex items-center justify-center mx-auto mb-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]`}
                   >
                     {card.icon}
                   </div>
-                  <h3 className="text-2xl font-bold mb-4">{card.title}</h3>
-                  <p className="text-muted-foreground">{card.desc}</p>
+                  <h3 className="text-2xl font-black mb-4">{card.title}</h3>
+                  <p className="text-muted-foreground font-bold">{card.desc}</p>
                 </div>
               ))}
             </div>
@@ -178,9 +170,9 @@ const calculateTotal = (items = []) => {
         {/* --- End AI Feature Section --- */}
 
         {/* --- AI Code Review Example Section --- */}
-        <section className="py-20">
+        <section className="py-20 border-b-4 border-black dark:border-white">
           <div className="max-w-6xl mx-auto px-4">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-10">
+            <h2 className="text-3xl md:text-4xl font-black text-center mb-10">
               Powered by Advanced AI Models
             </h2>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -209,21 +201,21 @@ const calculateTotal = (items = []) => {
                 ].map((item, i) => (
                   <div key={i} className="flex items-start space-x-4">
                     <div
-                      className={`w-8 h-8 rounded-full ${item.color} flex items-center justify-center flex-shrink-0`}
+                      className={`w-8 h-8 ${item.color} border-4 border-black dark:border-white flex items-center justify-center flex-shrink-0 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]`}
                     >
                       <Check className="w-4 h-4 text-white" />
                     </div>
                     <div>
-                      <h3 className="text-xl font-semibold mb-2">
-                        {item.title}
-                      </h3>
-                      <p className="text-muted-foreground">{item.desc}</p>
+                      <h3 className="text-xl font-black mb-2">{item.title}</h3>
+                      <p className="text-muted-foreground font-bold">
+                        {item.desc}
+                      </p>
                     </div>
                   </div>
                 ))}
               </div>
-              <div className="bg-white dark:bg-slate-800 rounded-xl p-4 md:p-6 shadow-lg border border-slate-200 dark:border-slate-700 text-left">
-                <div className="text-sm text-muted-foreground mb-2 flex items-center gap-2">
+              <div className="bg-white dark:bg-slate-800 p-4 md:p-6 border-4 border-black dark:border-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)] text-left">
+                <div className="text-sm text-muted-foreground mb-2 flex items-center gap-2 font-bold">
                   <Brain className="w-4 h-4" />
                   AI Review Example
                 </div>
@@ -233,7 +225,8 @@ const calculateTotal = (items = []) => {
                   wrapLines
                   customStyle={{
                     fontSize: "0.85rem",
-                    borderRadius: "12px",
+                    borderRadius: "0px",
+                    border: "3px solid black",
                   }}
                 >
                   {aiReviewCode}
@@ -245,40 +238,45 @@ const calculateTotal = (items = []) => {
         {/* --- End AI Example Section --- */}
 
         {/* --- AI Stats Section --- */}
-        <section className="py-20">
+        <section className="py-20 ">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-black text-center mb-12">
               Trusted by Developers Worldwide
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
               {[
                 {
                   icon: <Shield className="w-8 h-8 text-white" />,
-                  bg: "from-blue-500 to-purple-600",
+                  bg: "bg-blue-500",
                   value: "99.9%",
                   label: "Security Issues Detected",
                 },
                 {
                   icon: <Clock className="w-8 h-8 text-white" />,
-                  bg: "from-green-500 to-teal-600",
+                  bg: "bg-green-500",
                   value: "2.3x",
                   label: "Faster Code Reviews",
                 },
                 {
                   icon: <Target className="w-8 h-8 text-white" />,
-                  bg: "from-orange-500 to-red-600",
+                  bg: "bg-orange-500",
                   value: "95%",
                   label: "Code Quality Improvement",
                 },
               ].map((stat, i) => (
-                <div key={i} className="p-6">
+                <div
+                  key={i}
+                  className="p-6 bg-white dark:bg-slate-900 border-4 border-black dark:border-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)]"
+                >
                   <div
-                    className={`w-16 h-16 rounded-full bg-gradient-to-r ${stat.bg} flex items-center justify-center mx-auto mb-4`}
+                    className={`w-16 h-16 ${stat.bg} border-4 border-black dark:border-white flex items-center justify-center mx-auto mb-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]`}
                   >
                     {stat.icon}
                   </div>
-                  <div className="text-3xl font-bold mb-2">{stat.value}</div>
-                  <div className="text-muted-foreground">{stat.label}</div>
+                  <div className="text-3xl font-black mb-2">{stat.value}</div>
+                  <div className="text-muted-foreground font-bold">
+                    {stat.label}
+                  </div>
                 </div>
               ))}
             </div>
@@ -288,40 +286,40 @@ const calculateTotal = (items = []) => {
         {/* --- Enhanced Community Features --- */}
         <section className="py-20">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <h2 className="text-3xl md:text-4xl font-black mb-4">
               Everything you need to share code
             </h2>
-            <p className="text-muted-foreground text-lg mb-12">
+            <p className="text-muted-foreground text-lg mb-12 font-bold">
               Powerful features designed for developers, by developers
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="border border-slate-950 dark:border-white rounded-2xl p-8 text-center group hover:shadow-lg transition-all duration-300">
-                <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Zap className="w-16 h-16 text-slate-950 dark:text-white group-hover:text-yellow-500 transition-colors duration-300" />
+              <div className="border-4 border-black dark:border-white bg-white dark:bg-slate-900 p-8 text-center shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)] hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[12px_12px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[-4px] hover:translate-y-[-4px] transition-all duration-150">
+                <div className="w-16 h-16 bg-yellow-400 border-4 border-black dark:border-white flex items-center justify-center mx-auto mb-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]">
+                  <Zap className="w-10 h-10 text-black" />
                 </div>
-                <h3 className="text-2xl font-bold mb-4">Lightning Fast</h3>
-                <p className="text-muted-foreground">
+                <h3 className="text-2xl font-black mb-4">Lightning Fast</h3>
+                <p className="text-muted-foreground font-bold">
                   Share your code snippets instantly with syntax highlighting
                   and beautiful formatting powered by AI.
                 </p>
               </div>
-              <div className="border border-slate-950 dark:border-white rounded-2xl p-8 text-center group hover:shadow-lg transition-all duration-300">
-                <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Globe className="w-16 h-16 text-slate-950 dark:text-white group-hover:text-blue-500 transition-colors duration-300" />
+              <div className="border-4 border-black dark:border-white bg-white dark:bg-slate-900 p-8 text-center shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)] hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[12px_12px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[-4px] hover:translate-y-[-4px] transition-all duration-150">
+                <div className="w-16 h-16 bg-blue-400 border-4 border-black dark:border-white flex items-center justify-center mx-auto mb-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]">
+                  <Globe className="w-10 h-10 text-black" />
                 </div>
-                <h3 className="text-2xl font-bold mb-4">Multi-Language</h3>
-                <p className="text-muted-foreground">
+                <h3 className="text-2xl font-black mb-4">Multi-Language</h3>
+                <p className="text-muted-foreground font-bold">
                   Support for all programming languages with intelligent syntax
                   highlighting and AI-powered analysis.
                 </p>
               </div>
-              <div className="border border-slate-950 dark:border-white rounded-2xl p-8 text-center group hover:shadow-lg transition-all duration-300">
-                <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Users className="w-16 h-16 text-slate-950 dark:text-white group-hover:text-green-500 transition-colors duration-300" />
+              <div className="border-4 border-black dark:border-white bg-white dark:bg-slate-900 p-8 text-center shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)] hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[12px_12px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[-4px] hover:translate-y-[-4px] transition-all duration-150">
+                <div className="w-16 h-16 bg-green-400 border-4 border-black dark:border-white flex items-center justify-center mx-auto mb-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]">
+                  <Users className="w-10 h-10 text-black" />
                 </div>
-                <h3 className="text-2xl font-bold mb-4">Community Driven</h3>
-                <p className="text-muted-foreground">
+                <h3 className="text-2xl font-black mb-4">Community Driven</h3>
+                <p className="text-muted-foreground font-bold">
                   Discover, fork, and collaborate on code snippets with
                   developers worldwide, enhanced by AI insights.
                 </p>
