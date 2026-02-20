@@ -57,3 +57,13 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Force Source Code Pro on all code/syntax highlighter elements */
+pre,
+code,
+pre *,
+code *,
+.hljs,
+.hljs * {
+  font-family: var(--font-source-code-pro), monospace !important;
+}

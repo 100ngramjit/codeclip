@@ -73,8 +73,12 @@ const CarousalLanding = () => {
                   showLineNumbers
                   wrapLines
                   customStyle={{
+                    fontFamily: "'Source Code Pro', monospace",
                     fontSize: "0.8rem",
                     width: "100%",
+                  }}
+                  codeTagProps={{
+                    style: { fontFamily: "'Source Code Pro', monospace" },
                   }}
                 >
                   {clip.code}
@@ -86,8 +90,12 @@ const CarousalLanding = () => {
                   showLineNumbers
                   wrapLines
                   customStyle={{
+                    fontFamily: "'Source Code Pro', monospace",
                     fontSize: "0.6rem",
                     width: "100%",
+                  }}
+                  codeTagProps={{
+                    style: { fontFamily: "'Source Code Pro', monospace" },
                   }}
                 >
                   {clip.code}

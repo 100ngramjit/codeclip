@@ -54,24 +54,28 @@ const CodeCard = ({
 
   return (
     <Card key={clip.id} className="p-4 sm:p-4 my-4 rounded-lg w-full">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-2 overflow-auto">
-        <div className="sm:flex sm:justify-start sm:align-top gap-2">
-          <div>
+      <div className="mb-2">
+        {/* Row 1: Title + Badge */}
+        {(showTitle || clip.lang) && (
+          <div className="flex flex-wrap md:flex-nowrap items-center gap-2 mb-1 md:overflow-hidden">
             {showTitle && (
               <Link
                 href={clipURL}
-                className="text-md mb-1 sm:mb-0 break-all hover:underline text-primary"
+                className="md:text-md text-sm break-words md:truncate hover:underline text-primary min-w-0 md:flex-1"
               >
                 {clip.fileName}
               </Link>
             )}
+            {clip.lang && (
+              <Badge variant="secondary" className="text-xs flex-shrink-0">
+                {reverseMapLanguage(clip.lang)}
+              </Badge>
+            )}
           </div>
-          {clip.lang && (
-            <Badge variant="secondary" className="text-xs ">
-              {reverseMapLanguage(clip.lang)}
-            </Badge>
-          )}
-          <div>
+        )}
+        {/* Row 2: Buttons + Email (always on the same line) */}
+        <div className="flex flex-wrap md:flex-nowrap justify-between items-center">
+          <div className="inline-flex items-center flex-shrink-0">
             <CopyButton text={clip.code} />
             <MacWindow
               title={clip.fileName}
@@ -154,9 +158,9 @@ const CodeCard = ({
               </>
             )}
           </div>
-        </div>
-        <div>
-          <p className="text-muted-foreground text-xs">by {clip?.userEmail}</p>
+          <p className="text-muted-foreground text-xs whitespace-nowrap ml-2">
+            by {clip?.userEmail}
+          </p>
         </div>
       </div>
       <div className="hidden md:flex w-full">
@@ -166,10 +170,14 @@ const CodeCard = ({
           showLineNumbers
           wrapLines
           customStyle={{
+            fontFamily: "'Source Code Pro', monospace",
             fontSize: `${isDetailsCard ? "1.2rem" : "0.8rem"}`,
             width: "100%",
             overflowX: isHovered ? "auto" : "hidden",
             transition: "overflow-x 0.3s ease",
+          }}
+          codeTagProps={{
+            style: { fontFamily: "'Source Code Pro', monospace" },
           }}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
@@ -184,10 +192,14 @@ const CodeCard = ({
           showLineNumbers
           wrapLines
           customStyle={{
+            fontFamily: "'Source Code Pro', monospace",
             fontSize: "0.6rem",
             width: "100%",
             overflowX: "auto",
             padding: "1rem",
+          }}
+          codeTagProps={{
+            style: { fontFamily: "'Source Code Pro', monospace" },
           }}
         >
           {clip.code}

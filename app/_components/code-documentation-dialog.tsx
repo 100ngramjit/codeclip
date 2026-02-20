@@ -281,7 +281,7 @@ const DocumentationDialog = ({ clip }: { clip: any }) => {
                       onClick={() =>
                         handleDownload(
                           getDocumentationContent(),
-                          `${clip.fileName}_docs${getFileExtension()}`
+                          `${clip.fileName}_docs${getFileExtension()}`,
                         )
                       }
                     >
@@ -299,11 +299,12 @@ const DocumentationDialog = ({ clip }: { clip: any }) => {
                       selectedFormat === "markdown"
                         ? "markdown"
                         : selectedFormat === "api"
-                        ? "json"
-                        : "javascript"
+                          ? "json"
+                          : "javascript"
                     }
                     style={theme === "dark" ? nightOwl : googlecode}
                     customStyle={{
+                      fontFamily: "'Source Code Pro', monospace",
                       margin: 0,
                       padding: "1rem",
                       background: "transparent",
@@ -313,6 +314,9 @@ const DocumentationDialog = ({ clip }: { clip: any }) => {
                       whiteSpace: "pre-wrap",
                     }}
                     wrapLongLines
+                    codeTagProps={{
+                      style: { fontFamily: "'Source Code Pro', monospace" },
+                    }}
                   >
                     {getDocumentationContent()}
                   </SyntaxHighlighter>
@@ -371,9 +375,15 @@ const DocumentationDialog = ({ clip }: { clip: any }) => {
                                 language="javascript"
                                 style={theme === "dark" ? nightOwl : googlecode}
                                 customStyle={{
+                                  fontFamily: "'Source Code Pro', monospace",
                                   fontSize: "0.75rem",
                                   padding: "0.5rem",
                                   margin: 0,
+                                }}
+                                codeTagProps={{
+                                  style: {
+                                    fontFamily: "'Source Code Pro', monospace",
+                                  },
                                 }}
                               >
                                 {func.example}

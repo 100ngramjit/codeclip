@@ -224,9 +224,13 @@ const calculateTotal = (items = []) => {
                   showLineNumbers
                   wrapLines
                   customStyle={{
+                    fontFamily: "'Source Code Pro', monospace",
                     fontSize: "0.85rem",
                     borderRadius: "0px",
                     border: "3px solid black",
+                  }}
+                  codeTagProps={{
+                    style: { fontFamily: "'Source Code Pro', monospace" },
                   }}
                 >
                   {aiReviewCode}

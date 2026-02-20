@@ -85,9 +85,13 @@ const MacWindow: React.FC<{
               showLineNumbers
               wrapLines={false}
               customStyle={{
+                fontFamily: "'Source Code Pro', monospace",
                 fontSize: "12px",
                 minWidth: "768px",
                 padding: "1rem",
+              }}
+              codeTagProps={{
+                style: { fontFamily: "'Source Code Pro', monospace" },
               }}
             >
               {code}

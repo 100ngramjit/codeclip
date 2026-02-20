@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
-import { Lato } from "next/font/google";
+import { Source_Code_Pro } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "@/components/ui/toaster";
 
-const lato = Lato({ subsets: ["latin"], weight: "700" });
+const sourceCodePro = Source_Code_Pro({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-source-code-pro",
+});
 
 export const metadata: Metadata = {
   title: "codeclip",
@@ -22,7 +26,9 @@ export default function RootLayout({
       publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
     >
       <html lang="en" suppressHydrationWarning={true}>
-        <body className={lato.className}>
+        <body
+          className={`${sourceCodePro.className} ${sourceCodePro.variable}`}
+        >
           <ThemeProvider
             attribute="class"
             defaultTheme="dark"
