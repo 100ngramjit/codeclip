@@ -171,13 +171,15 @@ const CodeAnalysisDialog = ({ clip }: { clip: any }) => {
             <BarChart3 className="w-4 h-4" />
           </Button>
         </DialogTrigger>
-        <DialogContent className="max-h-[90vh] max-w-[90vw] w-full">
+        <DialogContent className="max-h-[90vh] w-full max-w-[95vw] sm:max-w-[90vw] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle className="flex items-center gap-2">
-              <BarChart3 className="w-5 h-5" />
-              Complexity Analysis - {clip.fileName}
+            <DialogTitle className="flex items-center gap-2 text-sm sm:text-lg">
+              <BarChart3 className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
+              <span className="truncate">
+                Complexity Analysis - {clip.fileName}
+              </span>
             </DialogTitle>
-            <DialogDescription>
+            <DialogDescription className="text-xs sm:text-sm">
               Deep code analysis including complexity, quality, performance, and
               security
             </DialogDescription>
@@ -211,20 +213,45 @@ const CodeAnalysisDialog = ({ clip }: { clip: any }) => {
             </div>
           ) : (
             <Tabs defaultValue="overview" className="w-full">
-              <TabsList className="grid w-full grid-cols-5">
-                <TabsTrigger value="overview">Overview</TabsTrigger>
-                <TabsTrigger value="complexity">Complexity</TabsTrigger>
-                <TabsTrigger value="quality">Quality</TabsTrigger>
-                <TabsTrigger value="performance">Performance</TabsTrigger>
-                <TabsTrigger value="security">Security</TabsTrigger>
+              <TabsList className="flex w-full overflow-x-auto no-scrollbar">
+                <TabsTrigger
+                  value="overview"
+                  className="shrink-0 sm:flex-1 text-xs sm:text-sm px-3 whitespace-nowrap"
+                >
+                  Overview
+                </TabsTrigger>
+                <TabsTrigger
+                  value="complexity"
+                  className="shrink-0 sm:flex-1 text-xs sm:text-sm px-3 whitespace-nowrap"
+                >
+                  Complexity
+                </TabsTrigger>
+                <TabsTrigger
+                  value="quality"
+                  className="shrink-0 sm:flex-1 text-xs sm:text-sm px-3 whitespace-nowrap"
+                >
+                  Quality
+                </TabsTrigger>
+                <TabsTrigger
+                  value="performance"
+                  className="shrink-0 sm:flex-1 text-xs sm:text-sm px-3 whitespace-nowrap"
+                >
+                  Performance
+                </TabsTrigger>
+                <TabsTrigger
+                  value="security"
+                  className="shrink-0 sm:flex-1 text-xs sm:text-sm px-3 whitespace-nowrap"
+                >
+                  Security
+                </TabsTrigger>
               </TabsList>
 
               <TabsContent value="overview" className="space-y-4">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  <Card className="p-4 text-center">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-4">
+                  <Card className="p-2 sm:p-4 text-center">
                     <div
-                      className={`text-3xl font-bold ${getGradeColor(
-                        analysis.overall.grade
+                      className={`text-xl sm:text-3xl font-bold ${getGradeColor(
+                        analysis.overall.grade,
                       )}`}
                     >
                       {analysis.overall.grade}
@@ -233,24 +260,24 @@ const CodeAnalysisDialog = ({ clip }: { clip: any }) => {
                       Overall Grade
                     </div>
                   </Card>
-                  <Card className="p-4 text-center">
-                    <div className="text-2xl font-bold">
+                  <Card className="p-2 sm:p-4 text-center">
+                    <div className="text-lg sm:text-2xl font-bold">
                       {analysis.overall.score}%
                     </div>
                     <div className="text-sm text-muted-foreground">
                       Quality Score
                     </div>
                   </Card>
-                  <Card className="p-4 text-center">
-                    <div className="text-2xl font-bold text-blue-500">
+                  <Card className="p-2 sm:p-4 text-center">
+                    <div className="text-lg sm:text-2xl font-bold text-blue-500">
                       {analysis.overall.maintainabilityIndex}
                     </div>
                     <div className="text-sm text-muted-foreground">
                       Maintainability
                     </div>
                   </Card>
-                  <Card className="p-4 text-center">
-                    <div className="text-2xl font-bold text-purple-500">
+                  <Card className="p-2 sm:p-4 text-center">
+                    <div className="text-lg sm:text-2xl font-bold text-purple-500">
                       {analysis.metrics.linesOfCode}
                     </div>
                     <div className="text-sm text-muted-foreground">
@@ -259,8 +286,8 @@ const CodeAnalysisDialog = ({ clip }: { clip: any }) => {
                   </Card>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <Card className="p-2 m-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-4">
+                  <Card className="p-2 m-1 sm:m-4">
                     <h3 className="font-semibold mb-3 flex items-center gap-2">
                       <TrendingUp className="w-4 h-4 text-green-500" />
                       Code Health
@@ -301,7 +328,7 @@ const CodeAnalysisDialog = ({ clip }: { clip: any }) => {
                     </div>
                   </Card>
 
-                  <Card className="p-2 m-4">
+                  <Card className="p-2 m-1 sm:m-4">
                     <h3 className="font-semibold mb-3">Key Metrics</h3>
                     <div className="space-y-2 text-sm">
                       <div className="flex justify-between">
@@ -334,8 +361,8 @@ const CodeAnalysisDialog = ({ clip }: { clip: any }) => {
               </TabsContent>
 
               <TabsContent value="complexity">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                  <Card className="p-2 m-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-4 mb-4">
+                  <Card className="p-2 m-1 sm:m-4">
                     <h3 className="font-semibold mb-3">
                       Cyclomatic Complexity
                     </h3>
@@ -362,7 +389,7 @@ const CodeAnalysisDialog = ({ clip }: { clip: any }) => {
                     </div>
                   </Card>
 
-                  <Card className="p-2 m-4">
+                  <Card className="p-2 m-1 sm:m-4">
                     <h3 className="font-semibold mb-3">Cognitive Complexity</h3>
                     <div className="text-center">
                       <div
@@ -388,11 +415,11 @@ const CodeAnalysisDialog = ({ clip }: { clip: any }) => {
                   </Card>
                 </div>
 
-                <Card className="p-2 m-4">
+                <Card className="p-2 m-1 sm:m-4">
                   <h3 className="font-semibold mb-3">Halstead Metrics</h3>
-                  <div className="grid grid-cols-3 gap-4 text-center">
+                  <div className="grid grid-cols-3 gap-2 sm:gap-4 text-center">
                     <div>
-                      <div className="text-2xl font-bold text-blue-500">
+                      <div className="text-lg sm:text-2xl font-bold text-blue-500">
                         {analysis.complexity.halstead.difficulty.toFixed(2)}
                       </div>
                       <div className="text-sm text-muted-foreground">
@@ -400,7 +427,7 @@ const CodeAnalysisDialog = ({ clip }: { clip: any }) => {
                       </div>
                     </div>
                     <div>
-                      <div className="text-2xl font-bold text-purple-500">
+                      <div className="text-lg sm:text-2xl font-bold text-purple-500">
                         {analysis.complexity.halstead.effort.toFixed(0)}
                       </div>
                       <div className="text-sm text-muted-foreground">
@@ -408,7 +435,7 @@ const CodeAnalysisDialog = ({ clip }: { clip: any }) => {
                       </div>
                     </div>
                     <div>
-                      <div className="text-2xl font-bold text-green-500">
+                      <div className="text-lg sm:text-2xl font-bold text-green-500">
                         {analysis.complexity.halstead.volume.toFixed(0)}
                       </div>
                       <div className="text-sm text-muted-foreground">
@@ -420,9 +447,9 @@ const CodeAnalysisDialog = ({ clip }: { clip: any }) => {
               </TabsContent>
 
               <TabsContent value="quality">
-                <ScrollArea className="h-[400px]">
-                  <div className="space-y-4">
-                    <Card className="p-2 m-4">
+                <ScrollArea className="h-[50vh] sm:h-[400px]">
+                  <div className="space-y-2 sm:space-y-4">
+                    <Card className="p-2 m-1 sm:m-4">
                       <h3 className="font-semibold mb-3 flex items-center gap-2">
                         <AlertCircle className="w-4 h-4 text-yellow-500" />
                         Code Smells ({analysis.quality.codeSmells.length})
@@ -441,7 +468,7 @@ const CodeAnalysisDialog = ({ clip }: { clip: any }) => {
                               key={index}
                               className="border-l-2 border-yellow-200 pl-4"
                             >
-                              <div className="flex items-center gap-2 mb-1">
+                              <div className="flex flex-wrap items-center gap-1 sm:gap-2 mb-1">
                                 <Badge variant="secondary">{smell.type}</Badge>
                                 <Badge
                                   variant="outline"
@@ -466,7 +493,7 @@ const CodeAnalysisDialog = ({ clip }: { clip: any }) => {
                     </Card>
 
                     {analysis.quality.duplications.length > 0 && (
-                      <Card className="p-2 m-4">
+                      <Card className="p-2 m-1 sm:m-4">
                         <h3 className="font-semibold mb-3 flex items-center gap-2">
                           <TrendingDown className="w-4 h-4 text-red-500" />
                           Code Duplications (
@@ -499,9 +526,9 @@ const CodeAnalysisDialog = ({ clip }: { clip: any }) => {
               </TabsContent>
 
               <TabsContent value="performance">
-                <ScrollArea className="h-[400px]">
-                  <div className="space-y-4">
-                    <Card className="p-2 m-4">
+                <ScrollArea className="h-[50vh] sm:h-[400px]">
+                  <div className="space-y-2 sm:space-y-4">
+                    <Card className="p-2 m-1 sm:m-4">
                       <h3 className="font-semibold mb-3 flex items-center gap-2">
                         <TrendingDown className="w-4 h-4 text-orange-500" />
                         Performance Issues (
@@ -540,7 +567,7 @@ const CodeAnalysisDialog = ({ clip }: { clip: any }) => {
                                   {issue.suggestion}
                                 </p>
                               </div>
-                            )
+                            ),
                           )}
                         </div>
                       )}
@@ -548,7 +575,7 @@ const CodeAnalysisDialog = ({ clip }: { clip: any }) => {
 
                     {analysis.performance.optimizationOpportunities.length >
                       0 && (
-                      <Card className="p-2 m-4">
+                      <Card className="p-2 m-1 sm:m-4">
                         <h3 className="font-semibold mb-3 flex items-center gap-2">
                           <TrendingUp className="w-4 h-4 text-green-500" />
                           Optimization Opportunities
@@ -563,7 +590,7 @@ const CodeAnalysisDialog = ({ clip }: { clip: any }) => {
                                 <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5" />
                                 <p className="text-sm">{opportunity}</p>
                               </div>
-                            )
+                            ),
                           )}
                         </div>
                       </Card>
@@ -573,8 +600,8 @@ const CodeAnalysisDialog = ({ clip }: { clip: any }) => {
               </TabsContent>
 
               <TabsContent value="security">
-                <div className="space-y-4">
-                  <Card className="p-2 m-4">
+                <div className="space-y-2 sm:space-y-4">
+                  <Card className="p-2 m-1 sm:m-4">
                     <div className="flex items-center justify-between mb-4">
                       <h3 className="font-semibold flex items-center gap-2">
                         <AlertCircle className="w-4 h-4 text-red-500" />
@@ -586,8 +613,8 @@ const CodeAnalysisDialog = ({ clip }: { clip: any }) => {
                             analysis.security.riskScore > 70
                               ? "text-red-500"
                               : analysis.security.riskScore > 40
-                              ? "text-yellow-500"
-                              : "text-green-500"
+                                ? "text-yellow-500"
+                                : "text-green-500"
                           }`}
                         >
                           {analysis.security.riskScore}/100
@@ -603,10 +630,10 @@ const CodeAnalysisDialog = ({ clip }: { clip: any }) => {
                     />
                   </Card>
 
-                  <ScrollArea className="h-[300px]">
+                  <ScrollArea className="h-[40vh] sm:h-[300px]">
                     <div className="space-y-3">
                       {analysis.security.vulnerabilities.length === 0 ? (
-                        <Card className="p-2 m-4 text-center">
+                        <Card className="p-2 m-1 sm:m-4 text-center">
                           <CheckCircle2 className="w-8 h-8 text-green-500 mx-auto mb-2" />
                           <p className="text-sm text-muted-foreground">
                             No security vulnerabilities detected!
@@ -614,7 +641,7 @@ const CodeAnalysisDialog = ({ clip }: { clip: any }) => {
                         </Card>
                       ) : (
                         analysis.security.vulnerabilities.map((vuln, index) => (
-                          <Card key={index} className="p-2 m-4">
+                          <Card key={index} className="p-2 m-1 sm:m-4">
                             <div className="flex items-center gap-2 mb-2">
                               <Badge variant="secondary">{vuln.type}</Badge>
                               <Badge
@@ -622,8 +649,8 @@ const CodeAnalysisDialog = ({ clip }: { clip: any }) => {
                                   vuln.severity === "high"
                                     ? "destructive"
                                     : vuln.severity === "medium"
-                                    ? "secondary"
-                                    : "outline"
+                                      ? "secondary"
+                                      : "outline"
                                 }
                               >
                                 {vuln.severity.toUpperCase()}

@@ -1,10 +1,14 @@
 import { NextRequest } from "next/server";
 import OpenAI from "openai";
+import { extractCode } from "../_utils/extractJson";
 
 const openai = new OpenAI({
-  apiKey: process.env.PERPLEXITY_API_KEY,
-  baseURL: "https://api.perplexity.ai", // Add this line!
+  apiKey: process.env.OPENROUTER_API_KEY,
+  baseURL: "https://openrouter.ai/api/v1",
+  timeout: 300_000, // 5 minutes — free-tier models can be slow
 });
+
+export const maxDuration = 300; // seconds
 
 export async function POST(req: NextRequest) {
   try {
@@ -16,7 +20,7 @@ export async function POST(req: NextRequest) {
         {
           status: 400,
           headers: { "Content-Type": "application/json" },
-        }
+        },
       );
     }
 
@@ -29,7 +33,7 @@ ${content}
 `;
 
     const chatResponse = await openai.chat.completions.create({
-      model: "sonar",
+      model: "z-ai/glm-4.5-air:free",
       messages: [
         { role: "system", content: "You are a senior code assistant." },
         { role: "user", content: prompt },
@@ -38,7 +42,7 @@ ${content}
       temperature: 0.3,
     });
 
-    const improvedCode = chatResponse.choices[0]?.message.content ?? "";
+    const improvedCode = extractCode(chatResponse.choices[0]?.message.content);
 
     return new Response(JSON.stringify({ improvedCode }), {
       status: 200,

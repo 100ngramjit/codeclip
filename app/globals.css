@@ -58,6 +58,15 @@
   }
 }
 
+/* Hide scrollbar but keep scroll functionality */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 /* Force Source Code Pro on all code/syntax highlighter elements */
 pre,
 code,
