@@ -5,10 +5,10 @@ import { extractJson } from "../_utils/extractJson";
 const openai = new OpenAI({
   apiKey: process.env.OPENROUTER_API_KEY,
   baseURL: "https://openrouter.ai/api/v1",
-  timeout: 300_000, // 5 minutes — free-tier models can be slow
+  timeout: 60_000, // 1 minute
 });
 
-export const maxDuration = 300; // seconds
+export const maxDuration = 60; // seconds
 
 export async function POST(req: NextRequest) {
   try {
@@ -47,7 +47,7 @@ ${content}
 `;
 
     const response = await openai.chat.completions.create({
-      model: "z-ai/glm-4.5-air:free",
+      model: process.env.OPENROUTER_MODEL || "z-ai/glm-4.5-air:free",
       messages: [
         {
           role: "system",
