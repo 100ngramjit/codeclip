@@ -10,13 +10,15 @@ import { Button } from "@/components/ui/button";
 import { Check, ImageDown } from "lucide-react";
 import TooltipEnclosure from "./tooltip-enclosure";
 import { useTheme } from "next-themes";
+import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 
 const MacWindow: React.FC<{
   title: string;
   code: string;
   lang: string;
   userEmail: string;
-}> = ({ title, code, lang, userEmail }) => {
+  isMenuItem?: boolean;
+}> = ({ title, code, lang, userEmail, isMenuItem = false }) => {
   const [isCapturing, setIsCapturing] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
 
@@ -99,28 +101,46 @@ const MacWindow: React.FC<{
           </div>
         </div>
       </div>
-      <TooltipEnclosure
-        content={
-          <>
-            Image download preview
-            <img src={previewImage} alt="Code Preview" />
-          </>
-        }
-      >
-        <Button
-          variant="ghost"
-          size="icon"
-          className="h-6 w-6 cursor pointer"
+      {isMenuItem ? (
+        <DropdownMenuItem
           onMouseEnter={generatePreviewImage}
-          onClick={handleDownload}
+          onSelect={(e) => {
+            e.preventDefault();
+            handleDownload();
+          }}
+          className="cursor-pointer"
         >
           {isCapturing ? (
-            <Check className="w-4 h-4" />
+            <Check className="w-4 h-4 mr-2" />
           ) : (
-            <ImageDown className="w-4 h-4" />
+            <ImageDown className="w-4 h-4 mr-2" />
           )}
-        </Button>
-      </TooltipEnclosure>
+          Download Image
+        </DropdownMenuItem>
+      ) : (
+        <TooltipEnclosure
+          content={
+            <>
+              Image download preview
+              <img src={previewImage} alt="Code Preview" />
+            </>
+          }
+        >
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-6 w-6 cursor-pointer"
+            onMouseEnter={generatePreviewImage}
+            onClick={handleDownload}
+          >
+            {isCapturing ? (
+              <Check className="w-4 h-4" />
+            ) : (
+              <ImageDown className="w-4 h-4" />
+            )}
+          </Button>
+        </TooltipEnclosure>
+      )}
     </>
   );
 };

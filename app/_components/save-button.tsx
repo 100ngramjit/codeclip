@@ -6,11 +6,14 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import axiosInstance from "@/lib/axiosInstance";
 import TooltipEnclosure from "./tooltip-enclosure";
+import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
+import { useRouter } from "next/navigation";
 
-const SaveButton = ({ clip }: any) => {
+const SaveButton = ({ clip, isMenuItem = false }: any) => {
   const { user } = useUser();
   const [isSaved, setIsSaved] = useState(clip.isSaved);
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const { toast } = useToast();
 
@@ -32,12 +35,13 @@ const SaveButton = ({ clip }: any) => {
       setIsSaved(!isSaved);
 
       if (!response.data) {
-        throw new Error("Failed to delete clip");
+        throw new Error("Failed to update saved status");
       }
       setIsLoading(false);
       toast({
-        description: `this clip is ${isSaved ? "unsaved" : "saved"} !`,
+        description: `This clip is ${!isSaved ? "saved" : "unsaved"}!`,
       });
+      router.refresh();
     } catch (error) {
       setIsLoading(false);
       console.error("Error deleting clip:", error);
@@ -52,7 +56,24 @@ const SaveButton = ({ clip }: any) => {
   const saveButtonHandler = async () => {
     await handleSave();
   };
-  return (
+  return isMenuItem ? (
+    <DropdownMenuItem
+      onSelect={(e) => {
+        e.preventDefault();
+        saveButtonHandler();
+      }}
+      className="cursor-pointer"
+    >
+      {isLoading ? (
+        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+      ) : isSaved ? (
+        <BookmarkCheck className="w-4 h-4 mr-2" />
+      ) : (
+        <BookmarkPlus className="w-4 h-4 mr-2" />
+      )}
+      {isSaved ? "Unsave" : "Save"}
+    </DropdownMenuItem>
+  ) : (
     <TooltipEnclosure content={`${isSaved ? "unsave" : "save"} `}>
       <Button
         size="icon"

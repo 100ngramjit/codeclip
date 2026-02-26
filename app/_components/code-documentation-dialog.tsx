@@ -31,6 +31,7 @@ import axiosInstance from "@/lib/axiosInstance";
 import { useToast } from "@/components/ui/use-toast";
 import TooltipEnclosure from "./tooltip-enclosure";
 import { CopyButton } from "./copy-button";
+import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 
 interface DocumentationResult {
   overview: string;
@@ -65,7 +66,13 @@ interface DocumentationResult {
 
 type DocumentationFormat = "jsdoc" | "markdown" | "api" | "interactive";
 
-const DocumentationDialog = ({ clip }: { clip: any }) => {
+const DocumentationDialog = ({
+  clip,
+  isMenuItem = false,
+}: {
+  clip: any;
+  isMenuItem?: boolean;
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [documentation, setDocumentation] =
@@ -158,16 +165,31 @@ const DocumentationDialog = ({ clip }: { clip: any }) => {
   };
 
   return (
-    <TooltipEnclosure content="generate documentation">
+    <>
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger asChild>
-          <Button
-            size="icon"
-            variant="ghost"
-            className="h-6 w-6 cursor-pointer"
-          >
-            <FileText className="w-4 h-4" />
-          </Button>
+          {isMenuItem ? (
+            <DropdownMenuItem
+              onSelect={(e) => {
+                e.preventDefault();
+                setIsOpen(true);
+              }}
+              className="cursor-pointer"
+            >
+              <FileText className="w-4 h-4 mr-2" />
+              Documentation
+            </DropdownMenuItem>
+          ) : (
+            <TooltipEnclosure content="generate documentation">
+              <Button
+                size="icon"
+                variant="ghost"
+                className="h-6 w-6 cursor-pointer"
+              >
+                <FileText className="w-4 h-4" />
+              </Button>
+            </TooltipEnclosure>
+          )}
         </DialogTrigger>
         <DialogContent className="max-h-[90vh] max-w-[90vw] w-full">
           <DialogHeader>
@@ -417,7 +439,7 @@ const DocumentationDialog = ({ clip }: { clip: any }) => {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </TooltipEnclosure>
+    </>
   );
 };
 

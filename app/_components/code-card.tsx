@@ -6,7 +6,13 @@ import {
   googlecode,
 } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { useTheme } from "next-themes";
-import { Share2, Download } from "lucide-react";
+import { Share2, Download, MoreVertical, Sparkles } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+  DropdownMenuItem,
+} from "@/components/ui/dropdown-menu";
 import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
 import { formatDistanceToNow } from "date-fns";
@@ -97,58 +103,81 @@ const CodeCard = ({
         )}
         {/* Row 2: Buttons + Email (always on the same line) */}
         <div className="flex flex-wrap md:flex-nowrap justify-between items-center">
-          <div className="inline-flex items-center flex-shrink-0">
+          <div className="inline-flex items-center flex-shrink-0 gap-1">
             <CopyButton text={clip.code} />
-            <MacWindow
-              title={clip.fileName}
-              code={clip.code}
-              lang={clip.lang}
-              userEmail={clip?.userEmail}
-            />
             <TooltipEnclosure content="share">
               <Button
                 size="icon"
                 variant="ghost"
-                className="h-6 w-6 cursor pointer  "
+                className="h-6 w-6 cursor-pointer"
                 onClick={handleShare}
               >
                 <Share2 className="w-4 h-4" />
               </Button>
             </TooltipEnclosure>
-            <TooltipEnclosure content="export to markdown">
-              <Button
-                size="icon"
-                variant="ghost"
-                className="h-6 w-6 cursor pointer  "
-                onClick={handleExportMarkdown}
-              >
-                <Download className="w-4 h-4" />
-              </Button>
-            </TooltipEnclosure>
-            {user?.id && isDetailsCard && <SaveButton clip={clip} />}
 
-            {isEditEnabled &&
-              user?.primaryEmailAddress?.emailAddress === clip.userEmail && (
-                <>
-                  <EditDialog
-                    clip={clip}
-                    isOpen={isEditDialogOpen}
-                    setIsOpen={setIsEditDialogOpen}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="icon" className="h-6 w-6">
+                  <MoreVertical className="w-4 h-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                side="right"
+                align="start"
+                className="w-60 p-2"
+              >
+                <div className="flex flex-col gap-1">
+                  {user?.id && isDetailsCard && (
+                    <SaveButton clip={clip} isMenuItem={true} />
+                  )}
+                  <MacWindow
+                    title={clip.fileName}
+                    code={clip.code}
+                    lang={clip.lang}
+                    userEmail={clip?.userEmail}
+                    isMenuItem={true}
                   />
-                  <DeleteDialog
-                    clip={clip}
-                    isOpen={isDeleteDialogOpen}
-                    setIsOpen={setIsDeleteDialogOpen}
-                  />
-                </>
-              )}
-            {isDetailsCard && (
-              <>
-                <CodeReviewDialog clip={clip} />
-                <DocumentationDialog clip={clip} />
-                <CodeAnalysisDialog clip={clip} />
-              </>
-            )}
+                  {isEditEnabled &&
+                    user?.primaryEmailAddress?.emailAddress ===
+                      clip.userEmail && (
+                      <EditDialog
+                        clip={clip}
+                        isOpen={isEditDialogOpen}
+                        setIsOpen={setIsEditDialogOpen}
+                        isMenuItem={true}
+                      />
+                    )}
+                  <DropdownMenuItem
+                    onClick={handleExportMarkdown}
+                    className="cursor-pointer"
+                  >
+                    <Download className="mr-2 h-4 w-4" />
+                    <span>Download Markdown</span>
+                  </DropdownMenuItem>
+                  {isEditEnabled &&
+                    user?.primaryEmailAddress?.emailAddress ===
+                      clip.userEmail && (
+                      <DeleteDialog
+                        clip={clip}
+                        isOpen={isDeleteDialogOpen}
+                        setIsOpen={setIsDeleteDialogOpen}
+                        isMenuItem={true}
+                      />
+                    )}
+                  {isDetailsCard && (
+                    <div className="flex flex-col gap-1 border-t pt-2 mt-1">
+                      <span className="text-[10px] uppercase text-muted-foreground font-semibold flex items-center gap-1 px-1">
+                        <Sparkles className="w-3 h-3" /> AI Tools
+                      </span>
+                      <CodeReviewDialog clip={clip} isMenuItem={true} />
+                      <DocumentationDialog clip={clip} isMenuItem={true} />
+                      <CodeAnalysisDialog clip={clip} isMenuItem={true} />
+                    </div>
+                  )}
+                </div>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
           <p className="text-muted-foreground text-xs whitespace-nowrap ml-2">
             by {clip?.userEmail}

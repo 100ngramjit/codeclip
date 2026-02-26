@@ -27,6 +27,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import axiosInstance from "@/lib/axiosInstance";
 import { useToast } from "@/components/ui/use-toast";
 import TooltipEnclosure from "./tooltip-enclosure";
+import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 
 interface AnalysisResult {
   overall: {
@@ -85,7 +86,13 @@ interface AnalysisResult {
   };
 }
 
-const CodeAnalysisDialog = ({ clip }: { clip: any }) => {
+const CodeAnalysisDialog = ({
+  clip,
+  isMenuItem = false,
+}: {
+  clip: any;
+  isMenuItem?: boolean;
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [analysis, setAnalysis] = useState<AnalysisResult | null>(null);
@@ -160,16 +167,31 @@ const CodeAnalysisDialog = ({ clip }: { clip: any }) => {
   };
 
   return (
-    <TooltipEnclosure content="complexity analysis">
+    <>
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger asChild>
-          <Button
-            size="icon"
-            variant="ghost"
-            className="h-6 w-6 cursor-pointer"
-          >
-            <BarChart3 className="w-4 h-4" />
-          </Button>
+          {isMenuItem ? (
+            <DropdownMenuItem
+              onSelect={(e) => {
+                e.preventDefault();
+                setIsOpen(true);
+              }}
+              className="cursor-pointer"
+            >
+              <BarChart3 className="w-4 h-4 mr-2" />
+              Analysis
+            </DropdownMenuItem>
+          ) : (
+            <TooltipEnclosure content="complexity analysis">
+              <Button
+                size="icon"
+                variant="ghost"
+                className="h-6 w-6 cursor-pointer"
+              >
+                <BarChart3 className="w-4 h-4" />
+              </Button>
+            </TooltipEnclosure>
+          )}
         </DialogTrigger>
         <DialogContent className="max-h-[90vh] w-full max-w-[95vw] sm:max-w-[90vw] overflow-y-auto">
           <DialogHeader>
@@ -687,7 +709,7 @@ const CodeAnalysisDialog = ({ clip }: { clip: any }) => {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </TooltipEnclosure>
+    </>
   );
 };
 

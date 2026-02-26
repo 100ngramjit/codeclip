@@ -19,15 +19,18 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Edit2, Loader2, Sparkles } from "lucide-react";
 import TooltipEnclosure from "./tooltip-enclosure";
+import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 
 const EditDialog = ({
   clip,
   isOpen,
   setIsOpen,
+  isMenuItem = false,
 }: {
   clip: any;
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
+  isMenuItem?: boolean;
 }) => {
   const [editedTitle, setEditedTitle] = useState(clip.fileName);
   const [editedCode, setEditedCode] = useState(clip.code);
@@ -107,16 +110,31 @@ const EditDialog = ({
   };
 
   return (
-    <TooltipEnclosure content="edit">
+    <>
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger asChild>
-          <Button
-            size="icon"
-            variant="ghost"
-            className="h-6 w-6 cursor-pointer"
-          >
-            <Edit2 className="w-4 h-4" />
-          </Button>
+          {isMenuItem ? (
+            <DropdownMenuItem
+              onSelect={(e) => {
+                e.preventDefault();
+                setIsOpen(true);
+              }}
+              className="cursor-pointer"
+            >
+              <Edit2 className="w-4 h-4 mr-2" />
+              Edit
+            </DropdownMenuItem>
+          ) : (
+            <TooltipEnclosure content="edit">
+              <Button
+                size="icon"
+                variant="ghost"
+                className="h-6 w-6 cursor-pointer"
+              >
+                <Edit2 className="w-4 h-4" />
+              </Button>
+            </TooltipEnclosure>
+          )}
         </DialogTrigger>
         <DialogContent className="max-h-[90vh] max-w-[90vw]">
           <DialogHeader>
@@ -180,7 +198,7 @@ const EditDialog = ({
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </TooltipEnclosure>
+    </>
   );
 };
 

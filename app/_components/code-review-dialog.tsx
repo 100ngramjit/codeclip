@@ -26,6 +26,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import axiosInstance from "@/lib/axiosInstance";
 import { useToast } from "@/components/ui/use-toast";
 import TooltipEnclosure from "./tooltip-enclosure";
+import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 
 interface ReviewIssue {
   type: "error" | "warning" | "info" | "suggestion";
@@ -51,11 +52,17 @@ interface CodeReviewResult {
   };
 }
 
-const CodeReviewDialog = ({ clip }: { clip: any }) => {
+const CodeReviewDialog = ({
+  clip,
+  isMenuItem = false,
+}: {
+  clip: any;
+  isMenuItem?: boolean;
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [reviewResult, setReviewResult] = useState<CodeReviewResult | null>(
-    null
+    null,
   );
   const { toast } = useToast();
 
@@ -124,16 +131,31 @@ const CodeReviewDialog = ({ clip }: { clip: any }) => {
   };
 
   return (
-    <TooltipEnclosure content="code review">
+    <>
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger asChild>
-          <Button
-            size="icon"
-            variant="ghost"
-            className="h-6 w-6 cursor-pointer"
-          >
-            <Eye className="w-4 h-4" />
-          </Button>
+          {isMenuItem ? (
+            <DropdownMenuItem
+              onSelect={(e) => {
+                e.preventDefault();
+                setIsOpen(true);
+              }}
+              className="cursor-pointer"
+            >
+              <Eye className="w-4 h-4 mr-2" />
+              Code Review
+            </DropdownMenuItem>
+          ) : (
+            <TooltipEnclosure content="code review">
+              <Button
+                size="icon"
+                variant="ghost"
+                className="h-6 w-6 cursor-pointer"
+              >
+                <Eye className="w-4 h-4" />
+              </Button>
+            </TooltipEnclosure>
+          )}
         </DialogTrigger>
         <DialogContent className="max-h-[90vh] max-w-[90vw] w-full">
           <DialogHeader>
@@ -188,7 +210,7 @@ const CodeReviewDialog = ({ clip }: { clip: any }) => {
                   <Card className="p-4 text-center">
                     <div
                       className={`text-2xl font-bold ${getScoreColor(
-                        reviewResult.score
+                        reviewResult.score,
                       )}`}
                     >
                       {reviewResult.score}%
@@ -390,7 +412,7 @@ const CodeReviewDialog = ({ clip }: { clip: any }) => {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </TooltipEnclosure>
+    </>
   );
 };
 

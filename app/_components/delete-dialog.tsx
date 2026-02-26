@@ -16,15 +16,18 @@ import axiosInstance from "@/lib/axiosInstance";
 import { Loader2, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import TooltipEnclosure from "./tooltip-enclosure";
+import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 
 const DeleteDialog = ({
   clip,
   isOpen,
   setIsOpen,
+  isMenuItem = false,
 }: {
   clip: any;
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
+  isMenuItem?: boolean;
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
@@ -68,16 +71,31 @@ const DeleteDialog = ({
   };
 
   return (
-    <TooltipEnclosure content="delete">
+    <>
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger asChild>
-          <Button
-            size="icon"
-            variant="ghost"
-            className="h-6 w-6 cursor pointer  "
-          >
-            <Trash2 className="w-4 h-4" />
-          </Button>
+          {isMenuItem ? (
+            <DropdownMenuItem
+              onSelect={(e) => {
+                e.preventDefault();
+                setIsOpen(true);
+              }}
+              className="cursor-pointer text-destructive focus:text-destructive"
+            >
+              <Trash2 className="w-4 h-4 mr-2" />
+              Delete
+            </DropdownMenuItem>
+          ) : (
+            <TooltipEnclosure content="delete">
+              <Button
+                size="icon"
+                variant="ghost"
+                className="h-6 w-6 cursor-pointer"
+              >
+                <Trash2 className="w-4 h-4" />
+              </Button>
+            </TooltipEnclosure>
+          )}
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
@@ -102,7 +120,7 @@ const DeleteDialog = ({
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </TooltipEnclosure>
+    </>
   );
 };
 
