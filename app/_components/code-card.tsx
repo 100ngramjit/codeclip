@@ -1,25 +1,15 @@
 "use client";
 import { useState } from "react";
 import SyntaxHighlighter from "react-syntax-highlighter";
-import { QRCodeSVG } from "qrcode.react";
 import {
   nightOwl,
   googlecode,
 } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { useTheme } from "next-themes";
-import { Share2 } from "lucide-react";
+import { Share2, Download } from "lucide-react";
 import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
 import { formatDistanceToNow } from "date-fns";
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { CopyButton } from "./copy-button";
@@ -51,6 +41,38 @@ const CodeCard = ({
   const formattedCreationTime = formatDistanceToNow(new Date(clip.createdAt), {
     addSuffix: true,
   });
+
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: clip.fileName,
+          url: clipURL,
+        });
+      } catch (error) {
+        console.error("Error sharing:", error);
+      }
+    } else {
+      console.log("Web Share API is not supported in this browser.");
+    }
+  };
+
+  const handleExportMarkdown = () => {
+    const lang = clip.lang || "";
+    const author = clip?.userEmail || "Anonymous";
+    const createdAt = new Date(clip.createdAt).toLocaleString();
+
+    const mdContent = `# ${clip.fileName || "Snippet"}\n\n> By ${author} on ${createdAt}\n\n\`\`\`${lang}\n${clip.code}\n\`\`\`\n\n> View online: ${clipURL}`;
+    const blob = new Blob([mdContent], { type: "text/markdown;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `${clip.fileName || "snippet"}.md`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
 
   return (
     <Card key={clip.id} className="p-4 sm:p-4 my-4 rounded-lg w-full">
@@ -84,54 +106,24 @@ const CodeCard = ({
               userEmail={clip?.userEmail}
             />
             <TooltipEnclosure content="share">
-              <Drawer>
-                <DrawerTrigger asChild>
-                  <Button
-                    size="icon"
-                    variant="ghost"
-                    className="h-6 w-6 cursor pointer  "
-                  >
-                    <Share2 className="w-4 h-4" />
-                  </Button>
-                </DrawerTrigger>
-                <DrawerContent>
-                  <div className="mx-auto w-full max-w-xl">
-                    <DrawerHeader>
-                      <DrawerTitle className="flex justify-center gap-2">
-                        <div className="text-xl md:text-2xl">
-                          Share Snippet URL
-                        </div>
-
-                        <CopyButton
-                          text={clipURL}
-                          className="w-6 h-6 md:h-8 md:w-8 my-auto"
-                        />
-                      </DrawerTitle>
-                      <div className="overflow-auto">
-                        <div className="flex justify-center rounded-lg mb-4 w-full mx-auto">
-                          <QRCodeSVG
-                            value={clipURL}
-                            width="65%"
-                            height="65%"
-                            level={"H"}
-                            bgColor={theme === "light" ? "#e5fffb" : "#061311"}
-                            fgColor={theme === "light" ? "#000000" : "#ffffff"}
-                          />
-                        </div>
-                        <div className="bg-accent text-muted-foreground">
-                          {clipURL}
-                        </div>
-                      </div>
-                    </DrawerHeader>
-
-                    <DrawerFooter>
-                      <DrawerClose asChild>
-                        <Button variant="outline">Close</Button>
-                      </DrawerClose>
-                    </DrawerFooter>
-                  </div>
-                </DrawerContent>
-              </Drawer>
+              <Button
+                size="icon"
+                variant="ghost"
+                className="h-6 w-6 cursor pointer  "
+                onClick={handleShare}
+              >
+                <Share2 className="w-4 h-4" />
+              </Button>
+            </TooltipEnclosure>
+            <TooltipEnclosure content="export to markdown">
+              <Button
+                size="icon"
+                variant="ghost"
+                className="h-6 w-6 cursor pointer  "
+                onClick={handleExportMarkdown}
+              >
+                <Download className="w-4 h-4" />
+              </Button>
             </TooltipEnclosure>
             {user?.id && isDetailsCard && <SaveButton clip={clip} />}
 
