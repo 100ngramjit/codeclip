@@ -1,13 +1,15 @@
 import { clerkMiddleware } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
-export default clerkMiddleware((auth, req) => {
+export default clerkMiddleware(async (auth, req) => {
   const url = new URL(req.url);
   const isClipRoute = url.pathname.startsWith("/dashboard/clip/");
   const isDashboardRoute = url.pathname.startsWith("/dashboard");
 
-  if (!auth().userId && isDashboardRoute && !isClipRoute) {
-    return auth().redirectToSignIn();
+  const { userId, redirectToSignIn } = await auth();
+
+  if (!userId && isDashboardRoute && !isClipRoute) {
+    return redirectToSignIn();
   }
 
   return NextResponse.next();
