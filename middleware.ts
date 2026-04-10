@@ -2,6 +2,9 @@ import { clerkMiddleware } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
 export default clerkMiddleware(async (auth, req) => {
+  const earlyUrl = new URL(req.url);
+  if (earlyUrl.pathname === '/') return;
+
   const url = new URL(req.url);
   const isClipRoute = url.pathname.startsWith("/dashboard/clip/");
   const isDashboardRoute = url.pathname.startsWith("/dashboard");
