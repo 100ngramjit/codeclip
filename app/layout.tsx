@@ -7,9 +7,11 @@ import { Toaster } from "@/components/ui/toaster";
 
 const sourceCodePro = Source_Code_Pro({
   subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-source-code-pro",
+  weight: ["400", "500", "600", "700", "800", "900"],
+  variable: "--font-sans",
 });
+
+
 
 export const metadata: Metadata = {
   title: "codeclip",

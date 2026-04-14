@@ -69,7 +69,7 @@ const MacWindow: React.FC<{
         className="absolute left-[-9999px] top-[-9999px] max-w-max max-h-max"
       >
         <div className="overflow-hidden shadow-sm">
-          <div className="dark:bg-slate-800 flex items-center justify-between bg-gray-100 p-2">
+          <div className="dark:bg-black flex items-center justify-between bg-gray-100 p-2">
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 bg-red-500 rounded-full" />
               <div className="w-3 h-3 bg-yellow-400 rounded-full" />

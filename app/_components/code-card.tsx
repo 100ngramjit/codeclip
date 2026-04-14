@@ -2,7 +2,7 @@
 import { useState } from "react";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import {
-  nightOwl,
+  irBlack,
   googlecode,
 } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { useTheme } from "next-themes";
@@ -186,7 +186,7 @@ const CodeCard = ({
       </div>
       <div className="hidden md:flex w-full">
         <SyntaxHighlighter
-          style={theme === "dark" ? nightOwl : googlecode}
+          style={theme === "dark" ? irBlack : googlecode}
           language={clip.lang}
           showLineNumbers
           wrapLines
@@ -209,12 +209,12 @@ const CodeCard = ({
       <div className="md:hidden w-full overflow-x-auto">
         <SyntaxHighlighter
           language={clip.lang}
-          style={theme === "dark" ? nightOwl : googlecode}
+          style={theme === "dark" ? irBlack : googlecode}
           showLineNumbers
           wrapLines
           customStyle={{
             fontFamily: "'Source Code Pro', monospace",
-            fontSize: "0.6rem",
+            fontSize: "0.8rem",
             width: "100%",
             overflowX: "auto",
             padding: "1rem",
