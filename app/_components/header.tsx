@@ -11,7 +11,16 @@ import { usePathname } from "next/navigation";
 
 function Header() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     const down = (e: {
@@ -30,8 +39,12 @@ function Header() {
   }, []);
 
   return (
-    <header>
-      <nav className="flex justify-between items-center p-3">
+    <header
+      className={`sticky top-0 z-50 w-full transition-all duration-300 ${
+        scrolled ? "border-b border-border/40 backdrop-blur-lg py-1" : "py-4"
+      }`}
+    >
+      <nav className="flex h-10 max-w-7xl mx-auto justify-between items-center px-4 sm:px-6">
         <Link className="flex items-center gap-1 sm:gap-2" href="/">
           <FileCode2 className="w-5 h-5 sm:w-6 sm:h-6" />
           <span className="text-md font-bold">codeclip</span>
