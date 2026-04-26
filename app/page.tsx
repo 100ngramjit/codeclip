@@ -75,9 +75,9 @@ clip.score; // 94 / 100`;
         className="pointer-events-none fixed inset-0 z-0"
         style={{
           backgroundImage: [
-            "radial-gradient(ellipse 80% 55% at 50% -5%, hsla(247, 43%, 72%, 0.35) 0%, transparent 70%)",
-            "radial-gradient(ellipse 55% 45% at 85% 85%, hsla(247, 40%, 40%, 0.25) 0%, transparent 60%)",
-            "radial-gradient(ellipse 40% 40% at 10% 70%, hsla(247, 43%, 72%, 0.18) 0%, transparent 60%)",
+            "radial-gradient(ellipse 80% 55% at 50% -5%, hsla(21, 80%, 75%, 0.35) 0%, transparent 70%)",
+            "radial-gradient(ellipse 55% 45% at 85% 85%, hsla(21, 80%, 35%, 0.25) 0%, transparent 60%)",
+            "radial-gradient(ellipse 40% 40% at 10% 70%, hsla(21, 80%, 75%, 0.18) 0%, transparent 60%)",
             "linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px)",
             "linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px)",
           ].join(", "),
@@ -106,8 +106,8 @@ clip.score; // 94 / 100`;
                 <div
                   className="w-8 h-8 rounded-lg flex items-center justify-center"
                   style={{
-                    background: "hsl(247, 43%, 72%)",
-                    boxShadow: "0 0 14px hsla(247, 43%, 72%, 0.55)",
+                    background: "hsl(21, 80%, 75%)",
+                    boxShadow: "0 0 14px hsla(21, 80%, 75%, 0.55)",
                   }}
                 >
                   <FileCode2 className="w-4 h-4 text-black" />
@@ -125,9 +125,9 @@ clip.score; // 94 / 100`;
                       size="sm"
                       className="font-bold rounded-xl px-5 border-0"
                       style={{
-                        background: "hsl(247, 43%, 72%)",
+                        background: "hsl(21, 80%, 75%)",
                         color: "#000",
-                        boxShadow: "0 0 18px hsla(247, 43%, 72%, 0.45)",
+                        boxShadow: "0 0 18px hsla(21, 80%, 75%, 0.45)",
                       }}
                     >
                       Get started
@@ -140,9 +140,9 @@ clip.score; // 94 / 100`;
                       size="sm"
                       className="font-bold rounded-xl px-5 border-0"
                       style={{
-                        background: "hsl(247, 43%, 72%)",
+                        background: "hsl(21, 80%, 75%)",
                         color: "#000",
-                        boxShadow: "0 0 18px hsla(247, 43%, 72%, 0.45)",
+                        boxShadow: "0 0 18px hsla(21, 80%, 75%, 0.45)",
                       }}
                     >
                       Dashboard
@@ -169,7 +169,7 @@ clip.score; // 94 / 100`;
                   segmentStyle={
                     {
                       backgroundImage:
-                        "linear-gradient(135deg, hsl(247, 45%, 80%) 0%, hsl(286, 45%, 60%) 100%)",
+                        "linear-gradient(135deg, hsl(21, 80%, 80%) 0%, hsl(35, 90%, 70%) 100%)",
                       WebkitBackgroundClip: "text",
                       WebkitTextFillColor: "transparent",
                       backgroundClip: "text",
@@ -198,10 +198,10 @@ clip.score; // 94 / 100`;
                   <Button
                     className="w-full h-[60px] px-10 font-bold rounded-2xl border-0 transition-all duration-300 hover:-translate-y-0.5"
                     style={{
-                      background: "hsl(247, 43%, 72%)",
+                      background: "hsl(21, 80%, 75%)",
                       color: "#000",
                       fontSize: "1.05rem",
-                      boxShadow: "0 0 28px hsla(247, 43%, 72%, 0.42)",
+                      boxShadow: "0 0 28px hsla(21, 80%, 75%, 0.42)",
                     }}
                   >
                     {user ? "Open Dashboard" : "Start for free"}
@@ -234,7 +234,7 @@ clip.score; // 94 / 100`;
                   width: 440,
                   height: 440,
                   background:
-                    "radial-gradient(circle, oklch(0.7166 0.1561 247.1092) 0%, oklch(0.3974 0.0871 247.23) 55%, transparent 80%)",
+                    "radial-gradient(circle, oklch(0.7166 0.1561 45) 0%, oklch(0.3974 0.0871 45) 55%, transparent 80%)",
                   top: "50%",
                   left: "50%",
                   transform: "translate(-50%, -50%)",
